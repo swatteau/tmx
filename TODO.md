@@ -1,177 +1,177 @@
 # TODO
 
-## <map>
+## map
 
-- [x]     version
-- [x]     orientation
-- [x]     renderorder
-- [x]     width
-- [x]     height
-- [x]     tilewidth
-- [x]     tileheight
-- [ ]     hexsidelength
-- [ ]     staggeraxis
-- [ ]     staggerindex
-- [ ]     backgroundcolor
-- [ ]     nextobjectid
-- [x]     <properties>
-- [x]     <tileset>
-- [x]     <layer>
-- [x]     <objectgroup>
-- [x]     <imagelayer>
+- [x] version
+- [x] orientation
+- [x] renderorder
+- [x] width
+- [x] height
+- [x] tilewidth
+- [x] tileheight
+- [ ] hexsidelength
+- [ ] staggeraxis
+- [ ] staggerindex
+- [ ] backgroundcolor
+- [ ] nextobjectid
+- [x] properties
+- [x] tileset
+- [x] layer
+- [x] objectgroup
+- [x] imagelayer
 
-## <tileset>
+## tileset
 
-- [x]     firstgid
-- [x]     source
-- [x]     name
-- [x]     tilewidth
-- [x]     tileheight
-- [ ]     spacing
-- [ ]     margin
-- [x]     tilecount
-- [ ]     columns
-- [x]     <tileoffset>
-- [x]     <properties>
-- [x]     <image>
-- [x]     <terraintypes>
-- [ ]     <tile>
+- [x] firstgid
+- [x] source
+- [x] name
+- [x] tilewidth
+- [x] tileheight
+- [ ] spacing
+- [ ] margin
+- [x] tilecount
+- [ ] columns
+- [x] tileoffset
+- [x] properties
+- [x] image
+- [x] terraintypes
+- [ ] tile
 
-## <tileoffet>
+## tileoffet
 
-- [x]     x
-- [x]     y
+- [x] x
+- [x] y
 
-## <image>
+## image
 
-- [ ]     format
-- [ ]     id*
-- [x]     source
-- [ ]     trans
-- [x]     width
-- [x]     height
-- [ ]     <data>
+- [ ] format
+- [ ] id*
+- [x] source
+- [ ] trans
+- [x] width
+- [x] height
+- [ ] data
 
-## <terraintypes>
+## terraintypes
 
-- [x]     <terrain>
+- [x] terrain
 
-## <terrain>
+## terrain
 
-- [x]     name
-- [x]     tile
-- [x]     <properties>
+- [x] name
+- [x] tile
+- [x] properties
 
-## <tileset.tile>
+## tileset.tile
 
-- [ ]     id
-- [ ]     terrain
-- [ ]     probability
-- [ ]     <properties>
-- [ ]     <image>
-- [ ]     <objectgroup>
-- [ ]     <animation>
+- [ ] id
+- [ ] terrain
+- [ ] probability
+- [ ] properties
+- [ ] image
+- [ ] objectgroup
+- [ ] animation
 
-## <animation>
+## animation
 
-- [ ]     <frame>
+- [ ] frame
 
-## <frame>
+## frame
 
-- [ ]     tileid
-- [ ]     duration
+- [ ] tileid
+- [ ] duration
 
-## <layer>
+## layer
 
-- [x]     name
-- [ ]     x*
-- [ ]     y*
-- [ ]     width*
-- [ ]     height*
-- [x]     opacity
-- [x]     visible
-- [x]     offsetx
-- [x]     offsety
-- [x]     <properties>
-- [ ]     <data>
+- [x] name
+- [ ] x*
+- [ ] y*
+- [ ] width*
+- [ ] height*
+- [x] opacity
+- [x] visible
+- [x] offsetx
+- [x] offsety
+- [x] properties
+- [ ] data
 
-## <data>
+## data
 
-- [ ]    encoding
-- [ ]    compression
-- [ ]    <tile>
+- [ ] encoding
+- [ ] compression
+- [ ] tile
 
-## <tile>
+## tile
 
-- [ ]     gid
+- [ ] gid
 
-## <objectgroup>
+## objectgroup
 
-- [x]     name
-- [ ]     color
-- [ ]     x
-- [ ]     y
-- [ ]     width
-- [ ]     height
-- [x]     opacity
-- [x]     visible
-- [x]     offsetx
-- [x]     offsety
-- [x]     draworder
-- [x]     <properties>
-- [ ]     <object>
+- [x] name
+- [ ] color
+- [ ] x
+- [ ] y
+- [ ] width
+- [ ] height
+- [x] opacity
+- [x] visible
+- [x] offsetx
+- [x] offsety
+- [x] draworder
+- [x] properties
+- [ ] object
 
-## <object>
+## object
 
-- [ ]     id
-- [ ]     name
-- [ ]     type
-- [ ]     x*
-- [ ]     y*
-- [ ]     width*
-- [ ]     height*
-- [ ]     rotation
-- [ ]     gid
-- [ ]     visible
-- [ ]     <properties>
-- [ ]     <ellipse>
-- [ ]     <polygon>
-- [ ]     <polyline>
-- [ ]     <image>*
+- [ ] id
+- [ ] name
+- [ ] type
+- [ ] x*
+- [ ] y*
+- [ ] width*
+- [ ] height*
+- [ ] rotation
+- [ ] gid
+- [ ] visible
+- [ ] properties
+- [ ] ellipse
+- [ ] polygon
+- [ ] polyline
+- [ ] image*
 
-## <ellipse>
+## ellipse
 
 - [ ]
 
-## <polygon>
+## polygon
 
-- [ ]     points
+- [ ] points
 
-## <polyline>
+## polyline
 
-- [ ]     points
+- [ ] points
 
-## <imagelayer>
+## imagelayer
 
-- [x]     name
-- [x]     offsetx
-- [x]     offsety
-- [ ]     x*
-- [ ]     y*
-- [ ]     width*
-- [ ]     height*
-- [x]     opacity
-- [x]     visible
-- [x]     <properties>
-- [x]     <image>
+- [x] name
+- [x] offsetx
+- [x] offsety
+- [ ] x*
+- [ ] y*
+- [ ] width*
+- [ ] height*
+- [x] opacity
+- [x] visible
+- [x] properties
+- [x] image
 
-## <properties>
+## properties
 
-- [x]     property
+- [x] property
 
-## <property>
+## property
 
-- [x]     name
-- [x]     type
-- [x]     value
+- [x] name
+- [x] type
+- [x] value
 
