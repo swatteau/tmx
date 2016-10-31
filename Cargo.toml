@@ -1,0 +1,10 @@
+[package]
+name = "tmx"
+version = "0.1.0"
+authors = ["Sébastien Watteau <swatteau@gmail.com>"]
+
+[dependencies]
+xml-rs = "~0.3.4"
+
+[dev-dependencies]
+assert_matches = "~1.0"
