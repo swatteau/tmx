@@ -1,30 +1,28 @@
-#![allow(non_snake_case)]
-
 extern crate tmx;
 
 #[macro_use]
 extern crate assert_matches;
 
 #[test]
-fn Map_NonExistentFile_ReturnsIoError() {
+fn when_reading_nonexistent_map_file_expect_io_error() {
     let result = tmx::Map::open("non_existent_file.tmx");
     assert_matches!(result, Err(tmx::Error::Io(..)));
 }
 
 #[test]
-fn Map_ValidXmlFile_ReturnsMap() {
+fn after_reading_valid_tmx_file_expect_valid_map() {
     let result = tmx::Map::open("data/empty_map.tmx");
     assert_matches!(result, Ok(tmx::Map {..}));
 }
 
 #[test]
-fn Tileset_NonExistentFile_ReturnsIoError() {
+fn when_reading_nonexistent_tileset_file_expect_io_error() {
     let result = tmx::Tileset::open("non_existent_file.tsx");
     assert_matches!(result, Err(tmx::Error::Io(..)));
 }
 
 #[test]
-fn Tileset_ValidXmlFile_ReturnsTileset() {
+fn after_reading_valid_tsx_file_expect_valid_tileset() {
     let result = tmx::Tileset::open("data/simple_tileset.tsx");
     assert_matches!(result, Ok(tmx::Tileset {..}));
     let tileset = result.unwrap();
