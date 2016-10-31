@@ -1,6 +1,8 @@
 use super::*;
 use std::str::FromStr;
 
+use ::error::Error;
+
 #[test]
 fn after_reading_valid_xml_expect_map_to_have_version() {
     let map = get_simple_valid_map();
