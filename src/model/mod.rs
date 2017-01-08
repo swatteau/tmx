@@ -661,6 +661,8 @@ pub struct ObjectGroup {
     name: String,
     x: i32,
     y: i32,
+    width: u32,
+    height: u32,
     opacity: Opacity,
     visibility: bool,
     offset_x: i32,
@@ -696,6 +698,14 @@ impl ObjectGroup {
 
     pub fn properties(&self) -> Properties {
         self.properties.iter()
+    }
+
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
     }
 
     pub fn x(&self) -> i32 {
@@ -734,6 +744,14 @@ impl ObjectGroup {
         self.properties = properties;
     }
 
+    fn set_width(&mut self, width: u32) {
+        self.width = width;
+    }
+
+    fn set_height(&mut self, height: u32) {
+        self.height = height;
+    }
+
     fn set_x(&mut self, x: i32) {
         self.x = x;
     }
@@ -749,6 +767,8 @@ impl Default for ObjectGroup {
             name: String::default(),
             x: 0,
             y: 0,
+            width: 0,
+            height: 0,
             opacity: 1.0,
             visibility: true,
             offset_x: 0,

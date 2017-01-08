@@ -111,8 +111,8 @@
 - [ ] color
 - [x] x
 - [x] y
-- [ ] width
-- [ ] height
+- [x] width
+- [x] height
 - [x] opacity
 - [x] visible
 - [x] offsetx

@@ -613,6 +613,14 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 let y = try!(read_num::<i32>(value));
                 object_group.set_y(y);
             }
+            "width" => {
+                let width = try!(read_num::<u32>(value));
+                object_group.set_width(width);
+            }
+            "height" => {
+                let height = try!(read_num::<u32>(value));
+                object_group.set_height(height);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }
