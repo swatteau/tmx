@@ -15,6 +15,7 @@ extern crate xml;
 #[cfg(test)]
 #[macro_use] extern crate assert_matches;
 
+mod color;
 mod error;
 mod model;
 

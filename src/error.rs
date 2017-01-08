@@ -10,6 +10,7 @@ pub enum Error {
     BadRenderOrder(String),
     BadDrawOrder(String),
     UnknownAttribute(String),
+    InvalidColor(String),
     InvalidNumber(String),
     Io(io::Error),
 }
@@ -39,6 +40,7 @@ impl fmt::Display for Error {
                        value)
             }
             Error::UnknownAttribute(ref attr) => write!(f, "Unknown attribute: `{}`", attr),
+            Error::InvalidColor(ref color) => write!(f, "Invalid color: `{}`", color),
             Error::InvalidNumber(ref num) => write!(f, "Invalid number: `{}`", num),
             Error::Io(ref err) => write!(f, "I/O error: {}", err),
         }
@@ -54,6 +56,7 @@ impl error::Error for Error {
             Error::BadRenderOrder(..) => "Bad renderorder value",
             Error::BadDrawOrder(..) => "Bad draworder value",
             Error::UnknownAttribute(..) => "Unknown attribute",
+            Error::InvalidColor(..) => "Invalid color",
             Error::InvalidNumber(..) => "Invalid number",
             Error::Io(ref err) => err.description(),
         }
