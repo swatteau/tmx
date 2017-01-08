@@ -219,7 +219,7 @@ impl Default for PropertyType {
 }
 
 #[derive(Debug, Default)]
-pub struct PropertySet(Vec<Property>);
+struct PropertySet(Vec<Property>);
 
 impl PropertySet {
     pub fn new() -> PropertySet {
@@ -880,7 +880,7 @@ impl Terrain {
 }
 
 #[derive(Debug, Default)]
-pub struct TerrainSet(Vec<Terrain>);
+struct TerrainSet(Vec<Terrain>);
 
 impl TerrainSet {
     pub fn iter(&self) -> TerrainTypes {
