@@ -123,7 +123,7 @@ fn after_reading_xml_with_layers_expect_map_to_be_iterable_over_layers() {
 #[test]
 fn after_reading_xml_with_image_layers_expect_map_to_be_iterable_over_image_layers() {
     let map = get_map_with_image_layers();
-    assert_eq!(6, map.image_layers().count());
+    assert_eq!(7, map.image_layers().count());
 
     let mut layers = map.image_layers();
     let layer1 = layers.next().unwrap();
@@ -148,6 +148,10 @@ fn after_reading_xml_with_image_layers_expect_map_to_be_iterable_over_image_laye
 
     let layer6 = layers.next().unwrap();
     assert!(layer6.image().is_some());
+
+    let layer7 = layers.next().unwrap();
+    assert_eq!(1, layer7.x());
+    assert_eq!(2, layer7.y());
 }
 
 #[test]
@@ -396,6 +400,8 @@ fn get_map_with_image_layers() -> Map {
             <image source="some_file.png"
                     width="1024"
                     height="768"/>
+        </imagelayer>
+        <imagelayer x="1" y="2">
         </imagelayer>
     </map>"#).unwrap()
 }

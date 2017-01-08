@@ -564,6 +564,8 @@ impl<'a> Iterator for Layers<'a> {
 #[derive(Debug)]
 pub struct ImageLayer {
     name: String,
+    x: i32,
+    y: i32,
     opacity: Opacity,
     visibility: bool,
     offset_x: i32,
@@ -576,6 +578,8 @@ impl Default for ImageLayer {
     fn default() -> ImageLayer {
         ImageLayer {
             name: String::default(),
+            x: 0,
+            y: 0,
             opacity: 1.0,
             visibility: true,
             offset_x: 0,
@@ -615,6 +619,14 @@ impl ImageLayer {
         self.properties.iter()
     }
 
+    pub fn x(&self) -> i32 {
+        self.x
+    }
+
+    pub fn y(&self) -> i32 {
+        self.y
+    }
+
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
     }
@@ -641,6 +653,14 @@ impl ImageLayer {
 
     fn set_properties(&mut self, properties: PropertySet) {
         self.properties = properties;
+    }
+
+    fn set_x(&mut self, x: i32) {
+        self.x = x;
+    }
+
+    fn set_y(&mut self, y: i32) {
+        self.y = y;
     }
 }
 

@@ -156,8 +156,8 @@
 - [x] name
 - [x] offsetx
 - [x] offsety
-- [ ] x*
-- [ ] y*
+- [x] x*
+- [x] y*
 - [ ] width*
 - [ ] height*
 - [x] opacity
