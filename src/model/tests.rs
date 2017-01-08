@@ -113,6 +113,8 @@ fn after_reading_xml_with_layers_expect_map_to_be_iterable_over_layers() {
     assert_eq!(2, layer4.offset_y());
     assert_eq!(3, layer4.x());
     assert_eq!(4, layer4.y());
+    assert_eq!(5, layer4.width());
+    assert_eq!(6, layer4.height());
 
     let layer5 = layers.next().unwrap();
     assert_eq!(1, layer5.properties().count());
@@ -362,7 +364,7 @@ fn get_map_with_layers() -> Map {
         <layer name="layer1_name"/>
         <layer name="layer2_name" opacity="0"/>
         <layer name="layer3_name" visibility="0"/>
-        <layer name="layer4_name" offsetx="1" offsety="2" x="3" y="4"/>
+        <layer name="layer4_name" offsetx="1" offsety="2" x="3" y="4" width="5" height="6"/>
         <layer>
             <properties>
                 <property name="some_name" value="some_value"/>

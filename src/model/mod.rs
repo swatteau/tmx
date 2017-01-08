@@ -443,6 +443,8 @@ pub struct Layer {
     name: String,
     x: i32,
     y: i32,
+    width: u32,
+    height: u32,
     opacity: Opacity,
     visibility: bool,
     offset_x: i32,
@@ -456,6 +458,8 @@ impl Default for Layer {
             name: String::default(),
             x: 0,
             y: 0,
+            width: 0,
+            height: 0,
             opacity: 1.0,
             visibility: true,
             offset_x: 0,
@@ -498,6 +502,14 @@ impl Layer {
         self.y
     }
 
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
     }
@@ -528,6 +540,14 @@ impl Layer {
 
     fn set_y(&mut self, y: i32) {
         self.y = y;
+    }
+
+    fn set_width(&mut self, width: u32) {
+        self.width = width;
+    }
+
+    fn set_height(&mut self, height: u32) {
+        self.height = height;
     }
 }
 
