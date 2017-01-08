@@ -204,6 +204,12 @@ fn after_reading_valid_xml_expect_tileset_to_have_tile_count() {
 }
 
 #[test]
+fn after_reading_valid_xml_expect_tileset_to_have_columns() {
+    let tileset = get_simple_valid_tileset();
+    assert_eq!(24, tileset.columns());
+}
+
+#[test]
 fn after_reading_valid_xml_with_image_element_expect_tileset_to_have_image() {
     let tileset = Tileset::from_str(
         r#"<tileset>
@@ -338,7 +344,8 @@ fn get_simple_valid_tileset() -> Tileset {
                 tilewidth="32"
                 tileheight="16"
                 spacing="4"
-                tilecount="100">
+                tilecount="100"
+                columns="24">
     </tileset>"#).unwrap()
 }
 

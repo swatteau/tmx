@@ -30,7 +30,7 @@
 - [x] spacing
 - [ ] margin
 - [x] tilecount
-- [ ] columns
+- [x] columns
 - [x] tileoffset
 - [x] properties
 - [x] image

@@ -284,6 +284,7 @@ pub struct Tileset {
     tile_height: u32,
     spacing: u32,
     tile_count: u32,
+    columns: u32,
     image: Option<Image>,
     tile_offset: Option<TileOffset>,
     properties: PropertySet,
@@ -319,6 +320,10 @@ impl Tileset {
 
     pub fn tile_count(&self) -> u32 {
         self.tile_count
+    }
+
+    pub fn columns(&self) -> u32 {
+        self.columns
     }
 
     pub fn image(&self) -> Option<&Image> {
@@ -359,6 +364,10 @@ impl Tileset {
 
     fn set_tile_count(&mut self, tile_count: u32) {
         self.tile_count = tile_count;
+    }
+
+    fn set_columns(&mut self, columns: u32) {
+        self.columns = columns;
     }
 
     fn set_image(&mut self, image: Image) {

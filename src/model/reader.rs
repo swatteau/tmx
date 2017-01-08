@@ -278,6 +278,10 @@ impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
                 let tile_count = try!(read_num(value));
                 tileset.set_tile_count(tile_count);
             }
+            "columns" => {
+                let columns = try!(read_num(value));
+                tileset.set_columns(columns);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }
