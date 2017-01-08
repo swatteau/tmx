@@ -348,6 +348,14 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
                 let offset_y = try!(read_num::<i32>(value));
                 layer.set_offset_y(offset_y);
             }
+            "x" => {
+                let x = try!(read_num(value));
+                layer.set_x(x);
+            }
+            "y" => {
+                let y = try!(read_num(value));
+                layer.set_y(y);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }
