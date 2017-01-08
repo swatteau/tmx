@@ -74,11 +74,11 @@
 
 ## animation
 
-- [ ] frame
+- [x] frame
 
 ## frame
 
-- [ ] tileid
+- [x] tileid
 - [ ] duration
 
 ## layer

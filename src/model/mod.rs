@@ -849,7 +849,19 @@ impl Animation {
 }
 
 #[derive(Debug, Default)]
-pub struct Frame;
+pub struct Frame {
+    tile_id: u32,
+}
+
+impl Frame {
+    pub fn tile_id(&self) -> u32 {
+        self.tile_id
+    }
+
+    fn set_tile_id(&mut self, tile_id: u32) {
+        self.tile_id = tile_id;
+    }
+}
 
 #[cfg(test)]
 mod tests;

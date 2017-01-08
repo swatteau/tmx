@@ -310,7 +310,7 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
         </tile>
         <tile>
             <animation>
-                <frame/>
+                <frame tileid="123"/>
             </animation>
         </tile>
     </tileset>"#).unwrap();
@@ -330,7 +330,8 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
     assert!(tile4.animation().is_some());
     let animation = tile4.animation().unwrap();
     assert!(animation.frame().is_some());
-
+    let frame = animation.frame().unwrap();
+    assert_eq!(123, frame.tile_id());
 }
 
 fn get_simple_valid_map() -> Map {

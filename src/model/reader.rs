@@ -622,4 +622,16 @@ impl<R: Read> ElementReader<Animation> for TmxReader<R> {
 }
 
 impl<R: Read> ElementReader<Frame> for TmxReader<R> {
+    fn read_attributes(&mut self, frame: &mut Frame, name: &str, value: &str) -> ::Result<()> {
+        match name {
+            "tileid" => {
+                let tile_id = try!(read_num(value));
+                frame.set_tile_id(tile_id);
+            }
+            _ => {
+                return Err(Error::UnknownAttribute(name.to_string()));
+            }
+        };
+        Ok(())
+    }
 }
