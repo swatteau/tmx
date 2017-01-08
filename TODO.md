@@ -109,8 +109,8 @@
 
 - [x] name
 - [ ] color
-- [ ] x
-- [ ] y
+- [x] x
+- [x] y
 - [ ] width
 - [ ] height
 - [x] opacity

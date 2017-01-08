@@ -605,6 +605,14 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 let draw_order = try!(DrawOrder::from_str(value));
                 object_group.set_draw_order(draw_order);
             }
+            "x" => {
+                let x = try!(read_num::<i32>(value));
+                object_group.set_x(x);
+            }
+            "y" => {
+                let y = try!(read_num::<i32>(value));
+                object_group.set_y(y);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }

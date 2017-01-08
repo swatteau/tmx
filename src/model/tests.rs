@@ -162,6 +162,8 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
     assert!(group1.is_visible());
     assert_eq!(0, group1.offset_x());
     assert_eq!(0, group1.offset_y());
+    assert_eq!(0, group1.x());
+    assert_eq!(0, group1.y());
     assert_eq!(DrawOrder::TopDown, group1.draw_order());
     assert_eq!(1, group1.properties().count());
 
@@ -170,6 +172,8 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
     assert!(!group2.is_visible());
     assert_eq!(1, group2.offset_x());
     assert_eq!(2, group2.offset_y());
+    assert_eq!(3, group2.x());
+    assert_eq!(4, group2.y());
     assert_eq!(DrawOrder::Index, group2.draw_order());
 }
 
@@ -411,7 +415,7 @@ fn get_map_with_objectgroups() -> Map {
                 <property/>
             </properties>
         </objectgroup>
-        <objectgroup opacity="0" visibility="0" offsetx="1" offsety="2" draworder="index">
+        <objectgroup opacity="0" visibility="0" offsetx="1" offsety="2" x="3" y="4" draworder="index">
         </objectgroup>
     </map>"#).unwrap()
 }
