@@ -331,7 +331,7 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
                 layer.set_name(value);
             }
             "opacity" => {
-                let opacity = try!(read_num::<Opacity>(value));
+                let opacity = try!(read_num(value));
                 layer.set_opacity(opacity);
             }
             "visibility" => {
@@ -341,11 +341,11 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
                 }
             }
             "offsetx" => {
-                let offset_x = try!(read_num::<i32>(value));
+                let offset_x = try!(read_num(value));
                 layer.set_offset_x(offset_x);
             }
             "offsety" => {
-                let offset_y = try!(read_num::<i32>(value));
+                let offset_y = try!(read_num(value));
                 layer.set_offset_y(offset_y);
             }
             "x" => {
@@ -390,7 +390,7 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
                 image_layer.set_name(value);
             }
             "opacity" => {
-                let opacity = try!(read_num::<Opacity>(value));
+                let opacity = try!(read_num(value));
                 image_layer.set_opacity(opacity);
             }
             "visibility" => {
@@ -400,11 +400,11 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
                 }
             }
             "offsetx" => {
-                let offset_x = try!(read_num::<i32>(value));
+                let offset_x = try!(read_num(value));
                 image_layer.set_offset_x(offset_x);
             }
             "offsety" => {
-                let offset_y = try!(read_num::<i32>(value));
+                let offset_y = try!(read_num(value));
                 image_layer.set_offset_y(offset_y);
             }
             _ => {
@@ -456,11 +456,11 @@ impl<R: Read> ElementReader<TileOffset> for TmxReader<R> {
     fn read_attributes(&mut self, tile_offset: &mut TileOffset, name: &str, value: &str) -> ::Result<()> {
         match name {
             "x" => {
-                let x = try!(read_num::<i32>(value));
+                let x = try!(read_num(value));
                 tile_offset.set_x(x);
             }
             "y" => {
-                let y = try!(read_num::<i32>(value));
+                let y = try!(read_num(value));
                 tile_offset.set_y(y);
             }
             _ => {
@@ -584,7 +584,7 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 object_group.set_name(value);
             }
             "opacity" => {
-                let opacity = try!(read_num::<Opacity>(value));
+                let opacity = try!(read_num(value));
                 object_group.set_opacity(opacity);
             }
             "visibility" => {
@@ -594,11 +594,11 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 }
             }
             "offsetx" => {
-                let offset_x = try!(read_num::<i32>(value));
+                let offset_x = try!(read_num(value));
                 object_group.set_offset_x(offset_x);
             }
             "offsety" => {
-                let offset_y = try!(read_num::<i32>(value));
+                let offset_y = try!(read_num(value));
                 object_group.set_offset_y(offset_y);
             }
             "draworder" => {
@@ -606,19 +606,19 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 object_group.set_draw_order(draw_order);
             }
             "x" => {
-                let x = try!(read_num::<i32>(value));
+                let x = try!(read_num(value));
                 object_group.set_x(x);
             }
             "y" => {
-                let y = try!(read_num::<i32>(value));
+                let y = try!(read_num(value));
                 object_group.set_y(y);
             }
             "width" => {
-                let width = try!(read_num::<u32>(value));
+                let width = try!(read_num(value));
                 object_group.set_width(width);
             }
             "height" => {
-                let height = try!(read_num::<u32>(value));
+                let height = try!(read_num(value));
                 object_group.set_height(height);
             }
             _ => {
