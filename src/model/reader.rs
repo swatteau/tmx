@@ -521,6 +521,10 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
                 let image = try!(self.on_image(attributes));
                 tile.set_image(image);
             }
+            "objectgroup" => {
+                let object_group = try!(self.on_object_group(attributes));
+                tile.set_object_group(object_group);
+            }
             "properties" => {
                 let properties = try!(self.on_properties(attributes));
                 tile.set_properties(properties);

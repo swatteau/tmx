@@ -776,6 +776,7 @@ impl TerrainSet {
 pub struct Tile {
     id: u32,
     image: Option<Image>,
+    object_group: Option<ObjectGroup>,
     properties: PropertySet,
 }
 
@@ -788,6 +789,10 @@ impl Tile {
         self.image.as_ref()
     }
 
+    pub fn object_group(&self) -> Option<&ObjectGroup> {
+        self.object_group.as_ref()
+    }
+
     pub fn properties(&self) -> Properties {
         self.properties.iter()
     }
@@ -798,6 +803,10 @@ impl Tile {
 
     fn set_image(&mut self, image: Image) {
         self.image = Some(image);
+    }
+
+    fn set_object_group(&mut self, object_group: ObjectGroup) {
+        self.object_group = Some(object_group);
     }
 
     fn set_properties(&mut self, properties: PropertySet) {

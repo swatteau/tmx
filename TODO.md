@@ -69,7 +69,7 @@
 - [ ] probability
 - [x] properties
 - [x] image
-- [ ] objectgroup
+- [x] objectgroup
 - [ ] animation
 
 ## animation
