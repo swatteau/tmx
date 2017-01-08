@@ -283,6 +283,7 @@ pub struct Tileset {
     tile_width: u32,
     tile_height: u32,
     spacing: u32,
+    margin: u32,
     tile_count: u32,
     columns: u32,
     image: Option<Image>,
@@ -308,6 +309,10 @@ impl Tileset {
 
     pub fn spacing(&self) -> u32 {
         self.spacing
+    }
+
+    pub fn margin(&self) -> u32 {
+        self.margin
     }
 
     pub fn tile_width(&self) -> u32 {
@@ -352,6 +357,10 @@ impl Tileset {
 
     fn set_spacing(&mut self, spacing: u32) {
         self.spacing = spacing;
+    }
+
+    fn set_margin(&mut self, margin: u32) {
+        self.margin = margin;
     }
 
     fn set_tile_width(&mut self, tile_width: u32) {
