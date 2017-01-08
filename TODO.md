@@ -79,7 +79,7 @@
 ## frame
 
 - [x] tileid
-- [ ] duration
+- [x] duration
 
 ## layer
 

@@ -850,12 +850,21 @@ impl Animation {
 
 #[derive(Debug, Default)]
 pub struct Frame {
+    duration: u32,
     tile_id: u32,
 }
 
 impl Frame {
+    pub fn duration(&self) -> u32 {
+        self.duration
+    }
+
     pub fn tile_id(&self) -> u32 {
         self.tile_id
+    }
+
+    fn set_duration(&mut self, duration: u32) {
+        self.duration = duration;
     }
 
     fn set_tile_id(&mut self, tile_id: u32) {
