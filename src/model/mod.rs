@@ -219,11 +219,11 @@ impl Default for PropertyType {
 }
 
 #[derive(Debug, Default)]
-struct PropertySet(Vec<Property>);
+struct PropertyCollection(Vec<Property>);
 
-impl PropertySet {
-    pub fn new() -> PropertySet {
-        PropertySet(Vec::new())
+impl PropertyCollection {
+    pub fn new() -> PropertyCollection {
+        PropertyCollection(Vec::new())
     }
 
     pub fn push(&mut self, property: Property) {
@@ -288,8 +288,8 @@ pub struct Tileset {
     columns: u32,
     image: Option<Image>,
     tile_offset: Option<TileOffset>,
-    properties: PropertySet,
-    terrain_types: TerrainSet,
+    properties: PropertyCollection,
+    terrain_types: TerrainCollection,
     tiles: Vec<Tile>,
 }
 
@@ -392,11 +392,11 @@ impl Tileset {
         self.tile_offset = Some(tile_offset);
     }
 
-    fn set_properties(&mut self, properties: PropertySet) {
+    fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
     }
 
-    fn set_terrain_types(&mut self, terrain_types: TerrainSet) {
+    fn set_terrain_types(&mut self, terrain_types: TerrainCollection) {
         self.terrain_types = terrain_types;
     }
 
@@ -449,7 +449,7 @@ pub struct Layer {
     visibility: bool,
     offset_x: i32,
     offset_y: i32,
-    properties: PropertySet,
+    properties: PropertyCollection,
 }
 
 impl Default for Layer {
@@ -464,7 +464,7 @@ impl Default for Layer {
             visibility: true,
             offset_x: 0,
             offset_y: 0,
-            properties: PropertySet::new(),
+            properties: PropertyCollection::new(),
         }
     }
 }
@@ -530,7 +530,7 @@ impl Layer {
         self.offset_y = offset_y;
     }
 
-    fn set_properties(&mut self, properties: PropertySet) {
+    fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
     }
 
@@ -572,7 +572,7 @@ pub struct ImageLayer {
     visibility: bool,
     offset_x: i32,
     offset_y: i32,
-    properties: PropertySet,
+    properties: PropertyCollection,
     image: Option<Image>,
 }
 
@@ -588,7 +588,7 @@ impl Default for ImageLayer {
             visibility: true,
             offset_x: 0,
             offset_y: 0,
-            properties: PropertySet::new(),
+            properties: PropertyCollection::new(),
             image: None,
         }
     }
@@ -663,7 +663,7 @@ impl ImageLayer {
         self.image = Some(image);
     }
 
-    fn set_properties(&mut self, properties: PropertySet) {
+    fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
     }
 
@@ -708,7 +708,7 @@ pub struct ObjectGroup {
     offset_x: i32,
     offset_y: i32,
     draw_order: DrawOrder,
-    properties: PropertySet,
+    properties: PropertyCollection,
 }
 
 impl ObjectGroup {
@@ -780,7 +780,7 @@ impl ObjectGroup {
         self.offset_y = offset_y;
     }
 
-    fn set_properties(&mut self, properties: PropertySet) {
+    fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
     }
 
@@ -814,7 +814,7 @@ impl Default for ObjectGroup {
             offset_x: 0,
             offset_y: 0,
             draw_order: DrawOrder::TopDown,
-            properties: PropertySet::new(),
+            properties: PropertyCollection::new(),
         }
     }
 }
@@ -849,7 +849,7 @@ impl<'a> Iterator for TerrainTypes<'a> {
 pub struct Terrain {
     name: String,
     tile: String,
-    properties: PropertySet,
+    properties: PropertyCollection,
 }
 
 impl Terrain {
@@ -873,16 +873,16 @@ impl Terrain {
         self.tile = tile.into();
     }
 
-    fn set_properties(&mut self, properties: PropertySet) {
+    fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
     }
 
 }
 
 #[derive(Debug, Default)]
-struct TerrainSet(Vec<Terrain>);
+struct TerrainCollection(Vec<Terrain>);
 
-impl TerrainSet {
+impl TerrainCollection {
     pub fn iter(&self) -> TerrainTypes {
         TerrainTypes(self.0.iter())
     }
@@ -898,7 +898,7 @@ pub struct Tile {
     animation: Option<Animation>,
     image: Option<Image>,
     object_group: Option<ObjectGroup>,
-    properties: PropertySet,
+    properties: PropertyCollection,
 }
 
 impl Tile {
@@ -938,7 +938,7 @@ impl Tile {
         self.object_group = Some(object_group);
     }
 
-    fn set_properties(&mut self, properties: PropertySet) {
+    fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
     }
 }

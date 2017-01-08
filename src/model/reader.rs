@@ -169,8 +169,8 @@ impl<R: Read> TmxReader<R> {
     implement_handler!(on_object_group, "objectgroup", ObjectGroup);
     implement_handler!(on_image, "image", Image);
     implement_handler!(on_tile_offset, "tileoffset", TileOffset);
-    implement_handler!(on_properties, "properties", PropertySet);
-    implement_handler!(on_terrain_types, "terraintypes", TerrainSet);
+    implement_handler!(on_properties, "properties", PropertyCollection);
+    implement_handler!(on_terrain_types, "terraintypes", TerrainCollection);
     implement_handler!(on_tile, "tile", Tile);
     implement_handler!(on_property, "property", Property);
     implement_handler!(on_terrain, "terrain", Terrain);
@@ -573,8 +573,8 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
     }
 }
 
-impl<R: Read> ElementReader<PropertySet> for TmxReader<R> {
-    fn read_children(&mut self, properties: &mut PropertySet, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
+impl<R: Read> ElementReader<PropertyCollection> for TmxReader<R> {
+    fn read_children(&mut self, properties: &mut PropertyCollection, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         if name == "property" {
             let property = try!(self.on_property(attributes));
             properties.push(property);
@@ -583,8 +583,8 @@ impl<R: Read> ElementReader<PropertySet> for TmxReader<R> {
     }
 }
 
-impl<R: Read> ElementReader<TerrainSet> for TmxReader<R> {
-    fn read_children(&mut self, terrain_types: &mut TerrainSet, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
+impl<R: Read> ElementReader<TerrainCollection> for TmxReader<R> {
+    fn read_children(&mut self, terrain_types: &mut TerrainCollection, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         if name == "terrain" {
             let terrain = try!(self.on_terrain(attributes));
             terrain_types.push(terrain);
