@@ -171,6 +171,7 @@ impl<R: Read> TmxReader<R> {
     implement_handler!(on_tile_offset, "tileoffset", TileOffset);
     implement_handler!(on_properties, "properties", PropertySet);
     implement_handler!(on_terrain_types, "terraintypes", TerrainSet);
+    implement_handler!(on_tile, "tile", Tile);
     implement_handler!(on_property, "property", Property);
     implement_handler!(on_terrain, "terrain", Terrain);
 }
@@ -310,6 +311,10 @@ impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
             "terraintypes" => {
                 let terrain_types = try!(self.on_terrain_types(attributes));
                 tileset.set_terrain_types(terrain_types);
+            }
+            "tile" => {
+                let tile = try!(self.on_tile(attributes));
+                tileset.add_tile(tile);
             }
             _ => {}
         };
@@ -489,6 +494,32 @@ impl<R: Read> ElementReader<Terrain> for TmxReader<R> {
             "properties" => {
                 let properties = try!(self.on_properties(attributes));
                 terrain.set_properties(properties);
+            }
+            _ => {}
+        };
+        Ok(())
+    }
+}
+
+impl<R: Read> ElementReader<Tile> for TmxReader<R> {
+    fn read_attributes(&mut self, tile: &mut Tile, name: &str, value: &str) -> ::Result<()> {
+        match name {
+            "id" => {
+                let id = try!(read_num(value));
+                tile.set_id(id);
+            }
+            _ => {
+                return Err(Error::UnknownAttribute(name.to_string()));
+            }
+        };
+        Ok(())
+    }
+
+    fn read_children(&mut self, tile: &mut Tile, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
+        match name {
+            "properties" => {
+                let properties = try!(self.on_properties(attributes));
+                tile.set_properties(properties);
             }
             _ => {}
         };

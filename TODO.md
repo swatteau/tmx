@@ -35,7 +35,7 @@
 - [x] properties
 - [x] image
 - [x] terraintypes
-- [ ] tile
+- [x] tile
 
 ## tileoffet
 
@@ -64,10 +64,10 @@
 
 ## tileset.tile
 
-- [ ] id
+- [x] id
 - [ ] terrain
 - [ ] probability
-- [ ] properties
+- [x] properties
 - [ ] image
 - [ ] objectgroup
 - [ ] animation

@@ -290,6 +290,7 @@ pub struct Tileset {
     tile_offset: Option<TileOffset>,
     properties: PropertySet,
     terrain_types: TerrainSet,
+    tiles: Vec<Tile>,
 }
 
 impl Tileset {
@@ -347,6 +348,10 @@ impl Tileset {
         self.terrain_types.iter()
     }
 
+    pub fn tiles(&self) -> Tiles {
+        Tiles(self.tiles.iter())
+    }
+
     fn set_first_gid(&mut self, first_gid: u32) {
         self.first_gid = first_gid;
     }
@@ -393,6 +398,10 @@ impl Tileset {
 
     fn set_terrain_types(&mut self, terrain_types: TerrainSet) {
         self.terrain_types = terrain_types;
+    }
+
+    fn add_tile(&mut self, tile: Tile) {
+        self.tiles.push(tile);
     }
 }
 
@@ -760,6 +769,40 @@ impl TerrainSet {
 
     pub fn push(&mut self, terrain: Terrain) {
         self.0.push(terrain);
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct Tile {
+    id: u32,
+    properties: PropertySet,
+}
+
+impl Tile {
+    pub fn id(&self) -> u32 {
+        self.id
+    }
+
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
+    fn set_id(&mut self, id: u32) {
+        self.id = id;
+    }
+
+    fn set_properties(&mut self, properties: PropertySet) {
+        self.properties = properties;
+    }
+}
+
+pub struct Tiles<'a>(::std::slice::Iter<'a, Tile>);
+
+impl<'a> Iterator for Tiles<'a> {
+    type Item = &'a Tile;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.0.next()
     }
 }
 

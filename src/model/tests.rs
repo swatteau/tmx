@@ -293,6 +293,25 @@ fn after_reading_valid_xml_with_terrains_expect_tileset_to_have_terrains() {
     assert_eq!(1, terrain2.properties().count());
 }
 
+#[test]
+fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles() {
+    let tileset = Tileset::from_str(r#"
+    <tileset>
+        <tile id="123">
+            <properties>
+                <property name="some_name" value="some_value"/>
+            </properties>
+        </tile>
+        <tile>
+        </tile>
+    </tileset>"#).unwrap();
+    assert_eq!(2, tileset.tiles().count());
+
+    let tile1 = tileset.tiles().next().unwrap();
+    assert_eq!(123, tile1.id());
+    assert_eq!(1, tile1.properties().count());
+}
+
 fn get_simple_valid_map() -> Map {
     Map::from_str(r#"<map version="1.0"
         orientation="orthogonal"
