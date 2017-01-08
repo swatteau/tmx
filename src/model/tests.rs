@@ -152,6 +152,8 @@ fn after_reading_xml_with_image_layers_expect_map_to_be_iterable_over_image_laye
     let layer7 = layers.next().unwrap();
     assert_eq!(1, layer7.x());
     assert_eq!(2, layer7.y());
+    assert_eq!(3, layer7.width());
+    assert_eq!(4, layer7.height());
 }
 
 #[test]
@@ -401,7 +403,7 @@ fn get_map_with_image_layers() -> Map {
                     width="1024"
                     height="768"/>
         </imagelayer>
-        <imagelayer x="1" y="2">
+        <imagelayer x="1" y="2" width="3" height="4">
         </imagelayer>
     </map>"#).unwrap()
 }

@@ -415,6 +415,14 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
                 let y = try!(read_num(value));
                 image_layer.set_y(y);
             }
+            "width" => {
+                let width = try!(read_num(value));
+                image_layer.set_width(width);
+            }
+            "height" => {
+                let height = try!(read_num(value));
+                image_layer.set_height(height);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }
