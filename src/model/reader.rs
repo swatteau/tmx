@@ -517,6 +517,10 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
 
     fn read_children(&mut self, tile: &mut Tile, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         match name {
+            "image" => {
+                let image = try!(self.on_image(attributes));
+                tile.set_image(image);
+            }
             "properties" => {
                 let properties = try!(self.on_properties(attributes));
                 tile.set_properties(properties);

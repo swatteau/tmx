@@ -68,7 +68,7 @@
 - [ ] terrain
 - [ ] probability
 - [x] properties
-- [ ] image
+- [x] image
 - [ ] objectgroup
 - [ ] animation
 

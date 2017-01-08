@@ -303,6 +303,7 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
             </properties>
         </tile>
         <tile>
+            <image source="some_file.png" width="8" height="16"/>
         </tile>
     </tileset>"#).unwrap();
     assert_eq!(2, tileset.tiles().count());
@@ -310,6 +311,9 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
     let tile1 = tileset.tiles().next().unwrap();
     assert_eq!(123, tile1.id());
     assert_eq!(1, tile1.properties().count());
+
+    let tile2 = tileset.tiles().nth(1).unwrap();
+    assert!(tile2.image().is_some());
 }
 
 fn get_simple_valid_map() -> Map {

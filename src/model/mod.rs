@@ -775,6 +775,7 @@ impl TerrainSet {
 #[derive(Debug, Default)]
 pub struct Tile {
     id: u32,
+    image: Option<Image>,
     properties: PropertySet,
 }
 
@@ -783,12 +784,20 @@ impl Tile {
         self.id
     }
 
+    pub fn image(&self) -> Option<&Image> {
+        self.image.as_ref()
+    }
+
     pub fn properties(&self) -> Properties {
         self.properties.iter()
     }
 
     fn set_id(&mut self, id: u32) {
         self.id = id;
+    }
+
+    fn set_image(&mut self, image: Image) {
+        self.image = Some(image);
     }
 
     fn set_properties(&mut self, properties: PropertySet) {
