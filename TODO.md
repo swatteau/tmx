@@ -70,7 +70,7 @@
 - [x] properties
 - [x] image
 - [x] objectgroup
-- [ ] animation
+- [x] animation
 
 ## animation
 

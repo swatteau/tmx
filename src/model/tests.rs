@@ -308,8 +308,13 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
         <tile>
             <objectgroup/>
         </tile>
+        <tile>
+            <animation>
+                <frame/>
+            </animation>
+        </tile>
     </tileset>"#).unwrap();
-    assert_eq!(3, tileset.tiles().count());
+    assert_eq!(4, tileset.tiles().count());
 
     let tile1 = tileset.tiles().next().unwrap();
     assert_eq!(123, tile1.id());
@@ -320,6 +325,12 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
 
     let tile3 = tileset.tiles().nth(2).unwrap();
     assert!(tile3.object_group().is_some());
+
+    let tile4 = tileset.tiles().nth(3).unwrap();
+    assert!(tile4.animation().is_some());
+    let animation = tile4.animation().unwrap();
+    assert!(animation.frame().is_some());
+
 }
 
 fn get_simple_valid_map() -> Map {

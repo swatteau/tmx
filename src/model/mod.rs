@@ -775,6 +775,7 @@ impl TerrainSet {
 #[derive(Debug, Default)]
 pub struct Tile {
     id: u32,
+    animation: Option<Animation>,
     image: Option<Image>,
     object_group: Option<ObjectGroup>,
     properties: PropertySet,
@@ -783,6 +784,10 @@ pub struct Tile {
 impl Tile {
     pub fn id(&self) -> u32 {
         self.id
+    }
+
+    pub fn animation(&self) -> Option<&Animation> {
+        self.animation.as_ref()
     }
 
     pub fn image(&self) -> Option<&Image> {
@@ -799,6 +804,10 @@ impl Tile {
 
     fn set_id(&mut self, id: u32) {
         self.id = id;
+    }
+
+    fn set_animation(&mut self, animation: Animation) {
+        self.animation = Some(animation);
     }
 
     fn set_image(&mut self, image: Image) {
@@ -823,6 +832,24 @@ impl<'a> Iterator for Tiles<'a> {
         self.0.next()
     }
 }
+
+#[derive(Debug, Default)]
+pub struct Animation {
+    frame: Option<Frame>,
+}
+
+impl Animation {
+    pub fn frame(&self) -> Option<&Frame> {
+        self.frame.as_ref()
+    }
+
+    fn set_frame(&mut self, frame: Frame) {
+        self.frame = Some(frame);
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct Frame;
 
 #[cfg(test)]
 mod tests;

@@ -174,6 +174,8 @@ impl<R: Read> TmxReader<R> {
     implement_handler!(on_tile, "tile", Tile);
     implement_handler!(on_property, "property", Property);
     implement_handler!(on_terrain, "terrain", Terrain);
+    implement_handler!(on_animation, "animation", Animation);
+    implement_handler!(on_frame, "frame", Frame);
 }
 
 trait ElementReader<T> {
@@ -517,6 +519,10 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
 
     fn read_children(&mut self, tile: &mut Tile, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         match name {
+            "animation" => {
+                let animation = try!(self.on_animation(attributes));
+                tile.set_animation(animation);
+            }
             "image" => {
                 let image = try!(self.on_image(attributes));
                 tile.set_image(image);
@@ -600,4 +606,20 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
         };
         Ok(())
     }
+}
+
+impl<R: Read> ElementReader<Animation> for TmxReader<R> {
+    fn read_children(&mut self, animation: &mut Animation, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
+        match name {
+            "frame" => {
+                let frame = try!(self.on_frame(attributes));
+                animation.set_frame(frame);
+            }
+            _ => {}
+        };
+        Ok(())
+    }
+}
+
+impl<R: Read> ElementReader<Frame> for TmxReader<R> {
 }
