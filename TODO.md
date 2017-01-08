@@ -27,7 +27,7 @@
 - [x] name
 - [x] tilewidth
 - [x] tileheight
-- [ ] spacing
+- [x] spacing
 - [ ] margin
 - [x] tilecount
 - [ ] columns

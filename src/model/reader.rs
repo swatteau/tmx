@@ -270,6 +270,10 @@ impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
                 let tile_height = try!(read_num(value));
                 tileset.set_tile_height(tile_height);
             }
+            "spacing" => {
+                let spacing = try!(read_num(value));
+                tileset.set_spacing(spacing);
+            }
             "tilecount" => {
                 let tile_count = try!(read_num(value));
                 tileset.set_tile_count(tile_count);

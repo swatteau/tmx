@@ -282,6 +282,7 @@ pub struct Tileset {
     name: String,
     tile_width: u32,
     tile_height: u32,
+    spacing: u32,
     tile_count: u32,
     image: Option<Image>,
     tile_offset: Option<TileOffset>,
@@ -302,6 +303,10 @@ impl Tileset {
 
     pub fn name(&self) -> &str {
         &self.name
+    }
+
+    pub fn spacing(&self) -> u32 {
+        self.spacing
     }
 
     pub fn tile_width(&self) -> u32 {
@@ -338,6 +343,10 @@ impl Tileset {
 
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
+    }
+
+    fn set_spacing(&mut self, spacing: u32) {
+        self.spacing = spacing;
     }
 
     fn set_tile_width(&mut self, tile_width: u32) {

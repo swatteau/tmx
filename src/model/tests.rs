@@ -192,6 +192,12 @@ fn after_reading_valid_xml_expect_tileset_to_have_tile_height() {
 }
 
 #[test]
+fn after_reading_valid_xml_expect_tileset_to_have_spacing() {
+    let tileset = get_simple_valid_tileset();
+    assert_eq!(4, tileset.spacing());
+}
+
+#[test]
 fn after_reading_valid_xml_expect_tileset_to_have_tile_count() {
     let tileset = get_simple_valid_tileset();
     assert_eq!(100, tileset.tile_count());
@@ -331,6 +337,7 @@ fn get_simple_valid_tileset() -> Tileset {
                 name="simple"
                 tilewidth="32"
                 tileheight="16"
+                spacing="4"
                 tilecount="100">
     </tileset>"#).unwrap()
 }
