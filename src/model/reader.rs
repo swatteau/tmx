@@ -339,7 +339,7 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
                 let opacity = try!(read_num(value));
                 layer.set_opacity(opacity);
             }
-            "visibility" => {
+            "visible" => {
                 let visibility = try!(read_num::<u32>(value));
                 if visibility == 0 {
                     layer.set_visibility(false);
@@ -398,7 +398,7 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
                 let opacity = try!(read_num(value));
                 image_layer.set_opacity(opacity);
             }
-            "visibility" => {
+            "visible" => {
                 let visibility = try!(read_num::<u32>(value));
                 if visibility == 0 {
                     image_layer.set_visibility(false);
@@ -612,7 +612,7 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 let opacity = try!(read_num(value));
                 object_group.set_opacity(opacity);
             }
-            "visibility" => {
+            "visible" => {
                 let visibility = try!(read_num::<u32>(value));
                 if visibility == 0 {
                     object_group.set_visibility(false);

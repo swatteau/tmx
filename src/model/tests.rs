@@ -412,7 +412,7 @@ fn get_map_with_layers() -> Map {
     Map::from_str(r#"<map>
         <layer name="layer1_name"/>
         <layer name="layer2_name" opacity="0"/>
-        <layer name="layer3_name" visibility="0"/>
+        <layer name="layer3_name" visible="0"/>
         <layer name="layer4_name" offsetx="1" offsety="2" x="3" y="4" width="5" height="6"/>
         <layer>
             <properties>
@@ -426,7 +426,7 @@ fn get_map_with_image_layers() -> Map {
     Map::from_str(r#"<map>
         <imagelayer name="layer1_name"/>
         <imagelayer name="layer2_name" opacity="0"/>
-        <imagelayer name="layer3_name" visibility="0"/>
+        <imagelayer name="layer3_name" visible="0"/>
         <imagelayer name="layer4_name" offsetx="1" offsety="2"/>
         <imagelayer>
             <properties>
@@ -462,7 +462,7 @@ fn get_map_with_objectgroups() -> Map {
                 <property/>
             </properties>
         </objectgroup>
-        <objectgroup opacity=\"0\" visibility=\"0\" draworder=\"index\"
+        <objectgroup opacity=\"0\" visible=\"0\" draworder=\"index\"
             offsetx=\"1\" offsety=\"2\" x=\"3\" y=\"4\" width=\"5\" height=\"6\">
         </objectgroup>
         <objectgroup color=\"#ff000000\"/>
