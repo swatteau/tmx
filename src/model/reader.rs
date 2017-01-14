@@ -757,6 +757,9 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
                 let properties = try!(self.on_properties(attributes));
                 object.set_properties(properties);
             }
+            "ellipse" => {
+                object.set_shape(Shape::Ellipse);
+            }
             _ => {}
         };
         Ok(())

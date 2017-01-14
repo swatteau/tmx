@@ -873,6 +873,7 @@ pub struct Object {
     visible: bool,
     gid: Option<u32>,
     properties: PropertyCollection,
+    shape: Option<Shape>,
 }
 
 impl Default for Object {
@@ -889,6 +890,7 @@ impl Default for Object {
             visible: true,
             gid: None,
             properties: PropertyCollection::new(),
+            shape: None,
         }
     }
 }
@@ -938,6 +940,10 @@ impl Object {
         self.properties.iter()
     }
 
+    pub fn shape(&self) -> Option<&Shape> {
+        self.shape.as_ref()
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
     }
@@ -981,6 +987,10 @@ impl Object {
     fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
     }
+
+    fn set_shape(&mut self, shape: Shape) {
+        self.shape = Some(shape);
+    }
 }
 
 pub struct Objects<'a>(::std::slice::Iter<'a, Object>);
@@ -991,6 +1001,11 @@ impl<'a> Iterator for Objects<'a> {
     fn next(&mut self) -> Option<Self::Item> {
         self.0.next()
     }
+}
+
+#[derive(Debug, PartialEq, Eq)]
+pub enum Shape {
+    Ellipse,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

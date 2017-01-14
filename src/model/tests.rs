@@ -209,7 +209,7 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
 fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objects() {
     let map = get_map_with_objects();
     let group = map.object_groups().next().unwrap();
-    assert_eq!(3, group.objects().count());
+    assert_eq!(4, group.objects().count());
 
     let mut objects = group.objects();
 
@@ -217,6 +217,7 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
     assert!(object.is_visible());
     assert_eq!(None, object.gid());
     assert_eq!(0, object.properties().count());
+    assert_eq!(None, object.shape());
 
     let object = objects.next().unwrap();
     assert_eq!(1, object.id());
@@ -232,6 +233,9 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
 
     let object = objects.next().unwrap();
     assert_eq!(1, object.properties().count());
+
+    let object = objects.next().unwrap();
+    assert_eq!(Some(&Shape::Ellipse), object.shape());
 }
 
 #[test]
@@ -493,6 +497,9 @@ fn get_map_with_objects() -> Map {
                 <properties>
                     <property name="prop1" value="val1"/>
                 </properties>
+            </object>
+            <object>
+                <ellipse/>
             </object>
         </objectgroup>
     </map>"#).unwrap()
