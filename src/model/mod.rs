@@ -5,6 +5,20 @@ use ::color::Color;
 
 mod reader;
 
+macro_rules! define_iterator_wrapper {
+    ($name: ident, $item: ident) => {
+        pub struct $name<'a>(::std::slice::Iter<'a, $item>);
+
+        impl<'a> Iterator for $name<'a> {
+            type Item = &'a $item;
+
+            fn next(&mut self) -> Option<Self::Item> {
+                self.0.next()
+            }
+        }
+    }
+}
+
 #[derive(Debug, Default)]
 pub struct Map {
     bg_color: Option<Color>,
@@ -162,15 +176,7 @@ impl Default for RenderOrder {
     }
 }
 
-pub struct Tilesets<'a>(::std::slice::Iter<'a, Tileset>);
-
-impl<'a> Iterator for Tilesets<'a> {
-    type Item = &'a Tileset;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(Tilesets, Tileset);
 
 #[derive(Debug, Default)]
 pub struct Property {
@@ -246,15 +252,7 @@ impl PropertyCollection {
     }
 }
 
-pub struct Properties<'a>(::std::slice::Iter<'a, Property>);
-
-impl<'a> Iterator for Properties<'a> {
-    type Item = &'a Property;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(Properties, Property);
 
 #[derive(Debug, Default, Clone, Copy)]
 pub struct TileOffset {
@@ -562,15 +560,7 @@ impl Layer {
     }
 }
 
-pub struct Layers<'a>(::std::slice::Iter<'a, Layer>);
-
-impl<'a> Iterator for Layers<'a> {
-    type Item = &'a Layer;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(Layers, Layer);
 
 #[derive(Debug)]
 pub struct ImageLayer {
@@ -695,15 +685,7 @@ impl ImageLayer {
     }
 }
 
-pub struct ImageLayers<'a>(::std::slice::Iter<'a, ImageLayer>);
-
-impl<'a> Iterator for ImageLayers<'a> {
-    type Item = &'a ImageLayer;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(ImageLayers, ImageLayer);
 
 pub type Opacity = f64;
 
@@ -850,15 +832,7 @@ impl Default for ObjectGroup {
     }
 }
 
-pub struct ObjectGroups<'a>(::std::slice::Iter<'a, ObjectGroup>);
-
-impl<'a> Iterator for ObjectGroups<'a> {
-    type Item = &'a ObjectGroup;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(ObjectGroups, ObjectGroup);
 
 #[derive(Debug)]
 pub struct Object {
@@ -993,15 +967,7 @@ impl Object {
     }
 }
 
-pub struct Objects<'a>(::std::slice::Iter<'a, Object>);
-
-impl<'a> Iterator for Objects<'a> {
-    type Item = &'a Object;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(Objects, Object);
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum Shape {
@@ -1058,15 +1024,7 @@ pub struct Point {
     pub y: i32,
 }
 
-pub struct Points<'a>(::std::slice::Iter<'a, Point>);
-
-impl<'a> Iterator for Points<'a> {
-    type Item = &'a Point;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(Points, Point);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum DrawOrder {
@@ -1074,15 +1032,7 @@ pub enum DrawOrder {
     Index,
 }
 
-pub struct TerrainTypes<'a>(::std::slice::Iter<'a, Terrain>);
-
-impl<'a> Iterator for TerrainTypes<'a> {
-    type Item = &'a Terrain;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(TerrainTypes, Terrain);
 
 #[derive(Debug, Default)]
 pub struct Terrain {
@@ -1182,15 +1132,7 @@ impl Tile {
     }
 }
 
-pub struct Tiles<'a>(::std::slice::Iter<'a, Tile>);
-
-impl<'a> Iterator for Tiles<'a> {
-    type Item = &'a Tile;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.0.next()
-    }
-}
+define_iterator_wrapper!(Tiles, Tile);
 
 #[derive(Debug, Default)]
 pub struct Animation {
