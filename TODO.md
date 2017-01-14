@@ -108,7 +108,7 @@
 ## objectgroup
 
 - [x] name
-- [ ] color
+- [x] color
 - [x] x
 - [x] y
 - [x] width

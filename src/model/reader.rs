@@ -603,6 +603,10 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
             "name" => {
                 object_group.set_name(value);
             }
+            "color" => {
+                let color = try!(Color::from_str(value));
+                object_group.set_color(color);
+            }
             "opacity" => {
                 let opacity = try!(read_num(value));
                 object_group.set_opacity(opacity);

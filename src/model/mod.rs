@@ -710,6 +710,7 @@ pub type Opacity = f64;
 #[derive(Debug)]
 pub struct ObjectGroup {
     name: String,
+    color: Option<Color>,
     x: i32,
     y: i32,
     width: u32,
@@ -725,6 +726,10 @@ pub struct ObjectGroup {
 impl ObjectGroup {
     pub fn name(&self) -> &str {
         &self.name
+    }
+
+    pub fn color(&self) -> Option<&Color> {
+        self.color.as_ref()
     }
 
     pub fn opacity(&self) -> Opacity {
@@ -769,6 +774,10 @@ impl ObjectGroup {
 
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
+    }
+
+    fn set_color(&mut self, color: Color) {
+        self.color = Some(color);
     }
 
     fn set_opacity(&mut self, opacity: Opacity) {
@@ -816,6 +825,7 @@ impl Default for ObjectGroup {
     fn default() -> ObjectGroup {
         ObjectGroup {
             name: String::default(),
+            color: None,
             x: 0,
             y: 0,
             width: 0,

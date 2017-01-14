@@ -173,7 +173,7 @@ fn after_reading_xml_with_image_layers_expect_map_to_be_iterable_over_image_laye
 #[test]
 fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_groups() {
     let map = get_map_with_objectgroups();
-    assert_eq!(2, map.object_groups().count());
+    assert_eq!(3, map.object_groups().count());
 
     let mut object_groups = map.object_groups();
     let group1 = object_groups.next().unwrap();
@@ -199,6 +199,10 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
     assert_eq!(5, group2.width());
     assert_eq!(6, group2.height());
     assert_eq!(DrawOrder::Index, group2.draw_order());
+    assert_eq!(None, group2.color());
+
+    let group3 = object_groups.next().unwrap();
+    assert_eq!(Some(&Color(255, 0, 0, 0)), group3.color());
 }
 
 #[test]
@@ -435,15 +439,16 @@ fn get_simple_valid_tileset() -> Tileset {
 }
 
 fn get_map_with_objectgroups() -> Map {
-    Map::from_str(r#"<map>
-        <objectgroup name="some_name">
+    Map::from_str("<map>
+        <objectgroup name=\"some_name\">
             <properties>
                 <property/>
             </properties>
         </objectgroup>
-        <objectgroup opacity="0" visibility="0" draworder="index"
-            offsetx="1" offsety="2" x="3" y="4" width="5" height="6">
+        <objectgroup opacity=\"0\" visibility=\"0\" draworder=\"index\"
+            offsetx=\"1\" offsety=\"2\" x=\"3\" y=\"4\" width=\"5\" height=\"6\">
         </objectgroup>
-    </map>"#).unwrap()
+        <objectgroup color=\"#ff000000\"/>
+    </map>").unwrap()
 }
 
