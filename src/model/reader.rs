@@ -740,6 +740,10 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
                     object.set_visible(false);
                 }
             }
+            "gid" => {
+                let gid = try!(read_num(value));
+                object.set_gid(gid);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }

@@ -871,6 +871,7 @@ pub struct Object {
     height: u32,
     rotation: f32,
     visible: bool,
+    gid: Option<u32>,
 }
 
 impl Default for Object {
@@ -885,6 +886,7 @@ impl Default for Object {
             height: 0,
             rotation: 0.0,
             visible: true,
+            gid: None,
         }
     }
 }
@@ -926,6 +928,10 @@ impl Object {
         self.visible
     }
 
+    pub fn gid(&self) -> Option<u32> {
+        self.gid
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
     }
@@ -960,6 +966,10 @@ impl Object {
 
     fn set_visible(&mut self, visible: bool) {
         self.visible = visible;
+    }
+
+    fn set_gid(&mut self, gid: u32) {
+        self.gid = Some(gid);
     }
 }
 

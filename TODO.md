@@ -131,7 +131,7 @@
 - [x] width*
 - [x] height*
 - [x] rotation
-- [ ] gid
+- [x] gid
 - [x] visible
 - [ ] properties
 - [ ] ellipse

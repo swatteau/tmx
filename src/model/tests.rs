@@ -215,6 +215,7 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
 
     let object = objects.next().unwrap();
     assert!(object.is_visible());
+    assert_eq!(None, object.gid());
 
     let object = objects.next().unwrap();
     assert_eq!(1, object.id());
@@ -226,6 +227,7 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
     assert_eq!(4, object.height());
     assert_eq!(0.707, object.rotation());
     assert!(!object.is_visible());
+    assert_eq!(Some(123), object.gid());
 }
 
 #[test]
@@ -481,7 +483,8 @@ fn get_map_with_objects() -> Map {
             <object/>
             <object id="1" name="obj" type="ty"
                     x="1" y="2" width="3" height="4"
-                    rotation="0.707" visible="0"/>
+                    rotation="0.707" visible="0"
+                    gid="123"/>
         </objectgroup>
     </map>"#).unwrap()
 }
