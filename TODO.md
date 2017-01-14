@@ -128,8 +128,8 @@
 - [x] type
 - [x] x*
 - [x] y*
-- [ ] width*
-- [ ] height*
+- [x] width*
+- [x] height*
 - [ ] rotation
 - [ ] gid
 - [ ] visible

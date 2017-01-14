@@ -867,6 +867,8 @@ pub struct Object {
     object_type: String,
     x: i32,
     y: i32,
+    width: u32,
+    height: u32,
 }
 
 impl Object {
@@ -890,6 +892,14 @@ impl Object {
         self.y
     }
 
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
     }
@@ -908,6 +918,14 @@ impl Object {
 
     fn set_y(&mut self, y: i32) {
         self.y = y;
+    }
+
+    fn set_width(&mut self, width: u32) {
+        self.width = width;
+    }
+
+    fn set_height(&mut self, height: u32) {
+        self.height = height;
     }
 }
 

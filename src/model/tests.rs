@@ -217,6 +217,8 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
     assert_eq!("ty", object.object_type());
     assert_eq!(1, object.x());
     assert_eq!(2, object.y());
+    assert_eq!(3, object.width());
+    assert_eq!(4, object.height());
 }
 
 #[test]
@@ -470,7 +472,7 @@ fn get_map_with_objects() -> Map {
     Map::from_str(r#"<map>
         <objectgroup>
             <object id="1" name="obj" type="ty"
-                    x="1" y="2"/>
+                    x="1" y="2" width="3" height="4"/>
         </objectgroup>
     </map>"#).unwrap()
 }
