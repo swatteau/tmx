@@ -19,6 +19,7 @@ mod color;
 mod error;
 mod model;
 
+pub use color::Color;
 pub use error::Error;
 pub use model::*;
 
