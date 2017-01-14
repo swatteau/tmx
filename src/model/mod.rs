@@ -1007,6 +1007,7 @@ impl<'a> Iterator for Objects<'a> {
 pub enum Shape {
     Ellipse,
     Polygon(Polygon),
+    Polyline(Polyline),
 }
 
 #[derive(Debug, Default, PartialEq, Eq)]
@@ -1027,6 +1028,27 @@ impl Polygon {
 impl From<Polygon> for Shape {
     fn from(polygon: Polygon) -> Shape {
         Shape::Polygon(polygon)
+    }
+}
+
+#[derive(Debug, Default, PartialEq, Eq)]
+pub struct Polyline {
+    points: Vec<Point>,
+}
+
+impl Polyline {
+    pub fn points(&self) -> Points {
+        Points(self.points.iter())
+    }
+
+    fn add_point(&mut self, point: Point) {
+        self.points.push(point);
+    }
+}
+
+impl From<Polyline> for Shape {
+    fn from(polyline: Polyline) -> Shape {
+        Shape::Polyline(polyline)
     }
 }
 

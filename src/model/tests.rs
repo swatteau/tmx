@@ -209,7 +209,7 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
 fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objects() {
     let map = get_map_with_objects();
     let group = map.object_groups().next().unwrap();
-    assert_eq!(5, group.objects().count());
+    assert_eq!(6, group.objects().count());
 
     let mut objects = group.objects();
 
@@ -246,6 +246,9 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
         assert_eq!(&Point {x: 2, y: 3}, points.next().unwrap());
         assert_eq!(&Point {x: 4, y: 5}, points.next().unwrap());
     }
+
+    let object = objects.next().unwrap();
+    assert_matches!(object.shape(), Some(&Shape::Polyline(..)));
 }
 
 #[test]
@@ -522,6 +525,9 @@ fn get_map_with_objects() -> Map {
             </object>
             <object>
                 <polygon points="0,1 2,3 4,5"/>
+            </object>
+            <object>
+                <polyline points="0,1 2,3 4,5"/>
             </object>
         </objectgroup>
     </map>"#).unwrap()

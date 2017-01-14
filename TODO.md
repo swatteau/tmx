@@ -136,7 +136,7 @@
 - [x] properties
 - [x] ellipse
 - [x] polygon
-- [ ] polyline
+- [x] polyline
 - [ ] image*
 
 ## ellipse

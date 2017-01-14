@@ -193,6 +193,7 @@ impl<R: Read> TmxReader<R> {
     implement_handler!(on_animation, "animation", Animation);
     implement_handler!(on_frame, "frame", Frame);
     implement_handler!(on_polygon, "polygon", Polygon);
+    implement_handler!(on_polyline, "polyline", Polyline);
 }
 
 trait ElementReader<T> {
@@ -780,6 +781,10 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
                 let polygon = try!(self.on_polygon(attributes));
                 object.set_shape(polygon);
             }
+            "polyline" => {
+                let polyline = try!(self.on_polyline(attributes));
+                object.set_shape(polyline);
+            }
             _ => {}
         };
         Ok(())
@@ -792,6 +797,22 @@ impl<R: Read> ElementReader<Polygon> for TmxReader<R> {
             "points" => {
                 for result in value.split(' ').map(Point::from_str) {
                     polygon.add_point(try!(result));
+                }
+            }
+            _ => {
+                return Err(Error::UnknownAttribute(name.to_string()));
+            }
+        };
+        Ok(())
+    }
+}
+
+impl<R: Read> ElementReader<Polyline> for TmxReader<R> {
+    fn read_attributes(&mut self, polyline: &mut Polyline, name: &str, value: &str) -> ::Result<()> {
+        match name {
+            "points" => {
+                for result in value.split(' ').map(Point::from_str) {
+                    polyline.add_point(try!(result));
                 }
             }
             _ => {
