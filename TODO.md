@@ -125,7 +125,7 @@
 
 - [x] id
 - [x] name
-- [ ] type
+- [x] type
 - [ ] x*
 - [ ] y*
 - [ ] width*
