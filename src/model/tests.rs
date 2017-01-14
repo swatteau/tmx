@@ -1,7 +1,7 @@
 use super::*;
 use std::str::FromStr;
 
-use ::error::Error;
+use error::Error;
 
 #[test]
 fn after_reading_valid_xml_expect_map_to_have_version() {

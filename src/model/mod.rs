@@ -1,7 +1,7 @@
 use std::path::Path;
 use std::fs::File;
 
-use ::color::Color;
+use color::Color;
 
 mod reader;
 

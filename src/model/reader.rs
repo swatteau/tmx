@@ -3,7 +3,7 @@ use std::str::FromStr;
 use xml::reader::{EventReader, XmlEvent};
 use xml::attribute::OwnedAttribute;
 
-use ::error::Error;
+use error::Error;
 use super::*;
 
 macro_rules! implement_handler {
