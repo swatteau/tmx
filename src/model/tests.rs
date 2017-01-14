@@ -209,9 +209,14 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
 fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objects() {
     let map = get_map_with_objects();
     let group = map.object_groups().next().unwrap();
-    assert_eq!(1, group.objects().count());
+    assert_eq!(2, group.objects().count());
 
-    let object = group.objects().next().unwrap();
+    let mut objects = group.objects();
+
+    let object = objects.next().unwrap();
+    assert!(object.is_visible());
+
+    let object = objects.next().unwrap();
     assert_eq!(1, object.id());
     assert_eq!("obj", object.name());
     assert_eq!("ty", object.object_type());
@@ -220,6 +225,7 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
     assert_eq!(3, object.width());
     assert_eq!(4, object.height());
     assert_eq!(0.707, object.rotation());
+    assert!(!object.is_visible());
 }
 
 #[test]
@@ -472,9 +478,10 @@ fn get_map_with_objectgroups() -> Map {
 fn get_map_with_objects() -> Map {
     Map::from_str(r#"<map>
         <objectgroup>
+            <object/>
             <object id="1" name="obj" type="ty"
                     x="1" y="2" width="3" height="4"
-                    rotation="0.707"/>
+                    rotation="0.707" visible="0"/>
         </objectgroup>
     </map>"#).unwrap()
 }

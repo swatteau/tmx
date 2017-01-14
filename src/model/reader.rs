@@ -734,6 +734,12 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
                 let rotation = try!(read_num(value));
                 object.set_rotation(rotation);
             }
+            "visible" => {
+                let visibility = try!(read_num::<u32>(value));
+                if visibility == 0 {
+                    object.set_visibility(false);
+                }
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }

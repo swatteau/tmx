@@ -132,7 +132,7 @@
 - [x] height*
 - [x] rotation
 - [ ] gid
-- [ ] visible
+- [x] visible
 - [ ] properties
 - [ ] ellipse
 - [ ] polygon

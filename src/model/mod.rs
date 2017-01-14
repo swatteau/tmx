@@ -860,7 +860,7 @@ impl<'a> Iterator for ObjectGroups<'a> {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct Object {
     id: u32,
     name: String,
@@ -870,6 +870,23 @@ pub struct Object {
     width: u32,
     height: u32,
     rotation: f32,
+    visibility: bool,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Object {
+            id: 0,
+            name: String::new(),
+            object_type: String::new(),
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+            rotation: 0.0,
+            visibility: true,
+        }
+    }
 }
 
 impl Object {
@@ -905,6 +922,10 @@ impl Object {
         self.rotation
     }
 
+    pub fn is_visible(&self) -> bool {
+        self.visibility
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
     }
@@ -935,6 +956,10 @@ impl Object {
 
     fn set_rotation(&mut self, rotation: f32) {
         self.rotation = rotation;
+    }
+
+    fn set_visibility(&mut self, visibility: bool) {
+        self.visibility = visibility;
     }
 }
 
