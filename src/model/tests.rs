@@ -213,6 +213,7 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
 
     let object = group.objects().next().unwrap();
     assert_eq!(1, object.id());
+    assert_eq!("obj", object.name());
 }
 
 #[test]
@@ -465,7 +466,7 @@ fn get_map_with_objectgroups() -> Map {
 fn get_map_with_objects() -> Map {
     Map::from_str(r#"<map>
         <objectgroup>
-            <object id="1"/>
+            <object id="1" name="obj"/>
         </objectgroup>
     </map>"#).unwrap()
 }

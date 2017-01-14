@@ -863,6 +863,7 @@ impl<'a> Iterator for ObjectGroups<'a> {
 #[derive(Debug)]
 pub struct Object {
     id: u32,
+    name: String,
 }
 
 impl Object {
@@ -870,8 +871,16 @@ impl Object {
         self.id
     }
 
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
+    }
+
+    fn set_name<S: Into<String>>(&mut self, name: S) {
+        self.name = name.into();
     }
 }
 
@@ -879,6 +888,7 @@ impl Default for Object {
     fn default() -> Object {
         Object {
             id: 0,
+            name: String::new(),
         }
     }
 }

@@ -124,7 +124,7 @@
 ## object
 
 - [x] id
-- [ ] name
+- [x] name
 - [ ] type
 - [ ] x*
 - [ ] y*
