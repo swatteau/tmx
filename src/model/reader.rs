@@ -167,6 +167,7 @@ impl<R: Read> TmxReader<R> {
     implement_handler!(on_layer, "layer", Layer);
     implement_handler!(on_image_layer, "imagelayer", ImageLayer);
     implement_handler!(on_object_group, "objectgroup", ObjectGroup);
+    implement_handler!(on_object, "object", Object);
     implement_handler!(on_image, "image", Image);
     implement_handler!(on_tile_offset, "tileoffset", TileOffset);
     implement_handler!(on_properties, "properties", PropertyCollection);
@@ -654,6 +655,10 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
 
     fn read_children(&mut self, object_group: &mut ObjectGroup, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         match name {
+            "object" => {
+                let object = try!(self.on_object(attributes));
+                object_group.add_object(object);
+            }
             "properties" => {
                 let properties = try!(self.on_properties(attributes));
                 object_group.set_properties(properties);
@@ -687,6 +692,21 @@ impl<R: Read> ElementReader<Frame> for TmxReader<R> {
             "tileid" => {
                 let tile_id = try!(read_num(value));
                 frame.set_tile_id(tile_id);
+            }
+            _ => {
+                return Err(Error::UnknownAttribute(name.to_string()));
+            }
+        };
+        Ok(())
+    }
+}
+
+impl<R: Read> ElementReader<Object> for TmxReader<R> {
+    fn read_attributes(&mut self, object: &mut Object, name: &str, value: &str) -> ::Result<()> {
+        match name {
+            "id" => {
+                let id = try!(read_num(value));
+                object.set_id(id);
             }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));

@@ -206,6 +206,16 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
 }
 
 #[test]
+fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objects() {
+    let map = get_map_with_objects();
+    let group = map.object_groups().next().unwrap();
+    assert_eq!(1, group.objects().count());
+
+    let object = group.objects().next().unwrap();
+    assert_eq!(1, object.id());
+}
+
+#[test]
 fn after_reading_valid_xml_expect_tileset_to_have_first_gid() {
     let tileset = get_simple_valid_tileset();
     assert_eq!(1, tileset.first_gid());
@@ -450,5 +460,13 @@ fn get_map_with_objectgroups() -> Map {
         </objectgroup>
         <objectgroup color=\"#ff000000\"/>
     </map>").unwrap()
+}
+
+fn get_map_with_objects() -> Map {
+    Map::from_str(r#"<map>
+        <objectgroup>
+            <object id="1"/>
+        </objectgroup>
+    </map>"#).unwrap()
 }
 

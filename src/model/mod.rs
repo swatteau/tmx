@@ -721,6 +721,7 @@ pub struct ObjectGroup {
     offset_y: i32,
     draw_order: DrawOrder,
     properties: PropertyCollection,
+    objects: Vec<Object>,
 }
 
 impl ObjectGroup {
@@ -772,6 +773,10 @@ impl ObjectGroup {
         self.y
     }
 
+    pub fn objects(&self) -> Objects {
+        Objects(self.objects.iter())
+    }
+
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
     }
@@ -819,6 +824,10 @@ impl ObjectGroup {
     fn set_y(&mut self, y: i32) {
         self.y = y;
     }
+
+    fn add_object(&mut self, object: Object) {
+        self.objects.push(object);
+    }
 }
 
 impl Default for ObjectGroup {
@@ -836,6 +845,7 @@ impl Default for ObjectGroup {
             offset_y: 0,
             draw_order: DrawOrder::TopDown,
             properties: PropertyCollection::new(),
+            objects: Vec::new(),
         }
     }
 }
@@ -844,6 +854,39 @@ pub struct ObjectGroups<'a>(::std::slice::Iter<'a, ObjectGroup>);
 
 impl<'a> Iterator for ObjectGroups<'a> {
     type Item = &'a ObjectGroup;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.0.next()
+    }
+}
+
+#[derive(Debug)]
+pub struct Object {
+    id: u32,
+}
+
+impl Object {
+    pub fn id(&self) -> u32 {
+        self.id
+    }
+
+    fn set_id(&mut self, id: u32) {
+        self.id = id;
+    }
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Object {
+            id: 0,
+        }
+    }
+}
+
+pub struct Objects<'a>(::std::slice::Iter<'a, Object>);
+
+impl<'a> Iterator for Objects<'a> {
+    type Item = &'a Object;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.0.next()

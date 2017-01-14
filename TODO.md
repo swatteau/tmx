@@ -119,11 +119,11 @@
 - [x] offsety
 - [x] draworder
 - [x] properties
-- [ ] object
+- [x] object
 
 ## object
 
-- [ ] id
+- [x] id
 - [ ] name
 - [ ] type
 - [ ] x*
