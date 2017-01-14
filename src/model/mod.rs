@@ -457,7 +457,7 @@ pub struct Layer {
     width: u32,
     height: u32,
     opacity: Opacity,
-    visibility: bool,
+    visible: bool,
     offset_x: i32,
     offset_y: i32,
     properties: PropertyCollection,
@@ -472,7 +472,7 @@ impl Default for Layer {
             width: 0,
             height: 0,
             opacity: 1.0,
-            visibility: true,
+            visible: true,
             offset_x: 0,
             offset_y: 0,
             properties: PropertyCollection::new(),
@@ -490,7 +490,7 @@ impl Layer {
     }
 
     pub fn is_visible(&self) -> bool {
-        self.visibility
+        self.visible
     }
 
     pub fn offset_x(&self) -> i32 {
@@ -529,8 +529,8 @@ impl Layer {
         self.opacity = opacity;
     }
 
-    fn set_visibility(&mut self, visibility: bool) {
-        self.visibility = visibility;
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
     }
 
     fn set_offset_x(&mut self, offset_x: i32) {
@@ -580,7 +580,7 @@ pub struct ImageLayer {
     width: u32,
     height: u32,
     opacity: Opacity,
-    visibility: bool,
+    visible: bool,
     offset_x: i32,
     offset_y: i32,
     properties: PropertyCollection,
@@ -596,7 +596,7 @@ impl Default for ImageLayer {
             width: 0,
             height: 0,
             opacity: 1.0,
-            visibility: true,
+            visible: true,
             offset_x: 0,
             offset_y: 0,
             properties: PropertyCollection::new(),
@@ -615,7 +615,7 @@ impl ImageLayer {
     }
 
     pub fn is_visible(&self) -> bool {
-        self.visibility
+        self.visible
     }
 
     pub fn offset_x(&self) -> i32 {
@@ -658,8 +658,8 @@ impl ImageLayer {
         self.opacity = opacity;
     }
 
-    fn set_visibility(&mut self, visibility: bool) {
-        self.visibility = visibility;
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
     }
 
     fn set_offset_x(&mut self, offset_x: i32) {
@@ -716,7 +716,7 @@ pub struct ObjectGroup {
     width: u32,
     height: u32,
     opacity: Opacity,
-    visibility: bool,
+    visible: bool,
     offset_x: i32,
     offset_y: i32,
     draw_order: DrawOrder,
@@ -738,7 +738,7 @@ impl ObjectGroup {
     }
 
     pub fn is_visible(&self) -> bool {
-        self.visibility
+        self.visible
     }
 
     pub fn draw_order(&self) -> DrawOrder {
@@ -789,8 +789,8 @@ impl ObjectGroup {
         self.opacity = opacity;
     }
 
-    fn set_visibility(&mut self, visibility: bool) {
-        self.visibility = visibility;
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
     }
 
     fn set_draw_order(&mut self, draw_order: DrawOrder) {
@@ -840,7 +840,7 @@ impl Default for ObjectGroup {
             width: 0,
             height: 0,
             opacity: 1.0,
-            visibility: true,
+            visible: true,
             offset_x: 0,
             offset_y: 0,
             draw_order: DrawOrder::TopDown,
@@ -870,7 +870,7 @@ pub struct Object {
     width: u32,
     height: u32,
     rotation: f32,
-    visibility: bool,
+    visible: bool,
 }
 
 impl Default for Object {
@@ -884,7 +884,7 @@ impl Default for Object {
             width: 0,
             height: 0,
             rotation: 0.0,
-            visibility: true,
+            visible: true,
         }
     }
 }
@@ -923,7 +923,7 @@ impl Object {
     }
 
     pub fn is_visible(&self) -> bool {
-        self.visibility
+        self.visible
     }
 
     fn set_id(&mut self, id: u32) {
@@ -958,8 +958,8 @@ impl Object {
         self.rotation = rotation;
     }
 
-    fn set_visibility(&mut self, visibility: bool) {
-        self.visibility = visibility;
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
     }
 }
 

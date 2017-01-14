@@ -342,7 +342,7 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
             "visible" => {
                 let visibility = try!(read_num::<u32>(value));
                 if visibility == 0 {
-                    layer.set_visibility(false);
+                    layer.set_visible(false);
                 }
             }
             "offsetx" => {
@@ -401,7 +401,7 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
             "visible" => {
                 let visibility = try!(read_num::<u32>(value));
                 if visibility == 0 {
-                    image_layer.set_visibility(false);
+                    image_layer.set_visible(false);
                 }
             }
             "offsetx" => {
@@ -615,7 +615,7 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
             "visible" => {
                 let visibility = try!(read_num::<u32>(value));
                 if visibility == 0 {
-                    object_group.set_visibility(false);
+                    object_group.set_visible(false);
                 }
             }
             "offsetx" => {
@@ -737,7 +737,7 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
             "visible" => {
                 let visibility = try!(read_num::<u32>(value));
                 if visibility == 0 {
-                    object.set_visibility(false);
+                    object.set_visible(false);
                 }
             }
             _ => {
