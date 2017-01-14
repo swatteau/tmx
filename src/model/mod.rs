@@ -1,10 +1,13 @@
 use std::path::Path;
 use std::fs::File;
 
+use ::color::Color;
+
 mod reader;
 
 #[derive(Debug, Default)]
 pub struct Map {
+    bg_color: Option<Color>,
     version: String,
     orientation: Orientation,
     render_order: RenderOrder,
@@ -24,6 +27,10 @@ impl Map {
         let file = try!(File::open(path));
         let mut reader = reader::TmxReader::new(file);
         reader.read_map()
+    }
+
+    pub fn background_color(&self) -> Option<&Color> {
+        self.bg_color.as_ref()
     }
 
     pub fn height(&self) -> u32 {
@@ -88,6 +95,10 @@ impl Map {
 
     pub fn object_groups(&self) -> ObjectGroups {
         ObjectGroups(self.object_groups.iter())
+    }
+
+    fn set_background_color(&mut self, color: Color) {
+        self.bg_color = Some(color);
     }
 
     fn set_height(&mut self, height: u32) {

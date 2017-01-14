@@ -58,6 +58,14 @@ fn after_reading_valid_xml_expect_map_to_have_next_object_id() {
 }
 
 #[test]
+fn after_reading_valid_xml_with_background_color_expect_map_to_have_that_background_color() {
+    let map = Map::from_str("<map/>").unwrap();
+    assert_eq!(None, map.background_color());
+    let map = Map::from_str("<map backgroundcolor=\"#80a0b0c0\"></map>").unwrap();
+    assert_eq!(Some(&Color(128, 160, 176, 192)), map.background_color());
+}
+
+#[test]
 fn when_reading_map_xml_with_invalid_attribute_expect_attribute_error() {
     let result = Map::from_str(r#"<map bad=""></map>"#);
     assert_matches!(result, Err(Error::UnknownAttribute(..)));
@@ -79,6 +87,12 @@ fn when_reading_map_xml_with_invalid_render_order_expect_render_order_error() {
 fn when_reading_invalid_xml_element_expect_error() {
     let result = Map::from_str("<nomap/>");
     assert_matches!(result, Err(Error::BadXml));
+}
+
+#[test]
+fn when_reading_map_xml_with_invalid_background_color_expect_invalid_color_error() {
+    let result = Map::from_str(r#"<map backgroundcolor="bad"/>"#);
+    assert_matches!(result, Err(Error::InvalidColor(..)));
 }
 
 #[test]

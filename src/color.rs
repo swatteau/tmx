@@ -2,7 +2,8 @@ use std::str::FromStr;
 
 use ::error::Error;
 
-pub struct Color(u8, u8, u8, u8);
+#[derive(Debug, PartialEq, Eq)]
+pub struct Color(pub u8, pub u8, pub u8, pub u8);
 
 impl FromStr for Color {
     type Err = Error;

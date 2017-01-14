@@ -193,6 +193,10 @@ trait ElementReader<T> {
 impl<R: Read> ElementReader<Map> for TmxReader<R> {
     fn read_attributes(&mut self, map: &mut Map, name: &str, value: &str) -> ::Result<()> {
         match name {
+            "backgroundcolor" => {
+                let color = try!(Color::from_str(value));
+                map.set_background_color(color);
+            }
             "version" => {
                 map.set_version(value);
             }

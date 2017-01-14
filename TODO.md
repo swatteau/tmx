@@ -12,7 +12,7 @@
 - [ ] hexsidelength
 - [ ] staggeraxis
 - [ ] staggerindex
-- [ ] backgroundcolor
+- [x] backgroundcolor
 - [ ] nextobjectid
 - [x] properties
 - [x] tileset
