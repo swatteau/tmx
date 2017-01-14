@@ -13,7 +13,7 @@
 - [ ] staggeraxis
 - [ ] staggerindex
 - [x] backgroundcolor
-- [ ] nextobjectid
+- [x] nextobjectid
 - [x] properties
 - [x] tileset
 - [x] layer
