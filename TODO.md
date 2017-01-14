@@ -126,8 +126,8 @@
 - [x] id
 - [x] name
 - [x] type
-- [ ] x*
-- [ ] y*
+- [x] x*
+- [x] y*
 - [ ] width*
 - [ ] height*
 - [ ] rotation

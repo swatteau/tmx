@@ -860,11 +860,13 @@ impl<'a> Iterator for ObjectGroups<'a> {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Object {
     id: u32,
     name: String,
     object_type: String,
+    x: i32,
+    y: i32,
 }
 
 impl Object {
@@ -880,6 +882,14 @@ impl Object {
         &self.object_type
     }
 
+    pub fn x(&self) -> i32 {
+        self.x
+    }
+
+    pub fn y(&self) -> i32 {
+        self.y
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
     }
@@ -891,15 +901,13 @@ impl Object {
     fn set_object_type<S: Into<String>>(&mut self, object_type: S) {
         self.object_type = object_type.into();
     }
-}
 
-impl Default for Object {
-    fn default() -> Object {
-        Object {
-            id: 0,
-            name: String::new(),
-            object_type: String::new(),
-        }
+    fn set_x(&mut self, x: i32) {
+        self.x = x;
+    }
+
+    fn set_y(&mut self, y: i32) {
+        self.y = y;
     }
 }
 

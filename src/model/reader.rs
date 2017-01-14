@@ -714,6 +714,14 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
             "type" => {
                 object.set_object_type(value);
             }
+            "x" => {
+                let x = try!(read_num(value));
+                object.set_x(x);
+            }
+            "y" => {
+                let y = try!(read_num(value));
+                object.set_y(y);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }
