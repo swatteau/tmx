@@ -872,6 +872,7 @@ pub struct Object {
     rotation: f32,
     visible: bool,
     gid: Option<u32>,
+    properties: PropertyCollection,
 }
 
 impl Default for Object {
@@ -887,6 +888,7 @@ impl Default for Object {
             rotation: 0.0,
             visible: true,
             gid: None,
+            properties: PropertyCollection::new(),
         }
     }
 }
@@ -932,6 +934,10 @@ impl Object {
         self.gid
     }
 
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
     }
@@ -970,6 +976,10 @@ impl Object {
 
     fn set_gid(&mut self, gid: u32) {
         self.gid = Some(gid);
+    }
+
+    fn set_properties(&mut self, properties: PropertyCollection) {
+        self.properties = properties;
     }
 }
 

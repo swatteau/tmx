@@ -133,7 +133,7 @@
 - [x] rotation
 - [x] gid
 - [x] visible
-- [ ] properties
+- [x] properties
 - [ ] ellipse
 - [ ] polygon
 - [ ] polyline

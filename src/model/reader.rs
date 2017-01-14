@@ -750,4 +750,15 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
         };
         Ok(())
     }
+
+    fn read_children(&mut self, object: &mut Object, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
+        match name {
+            "properties" => {
+                let properties = try!(self.on_properties(attributes));
+                object.set_properties(properties);
+            }
+            _ => {}
+        };
+        Ok(())
+    }
 }
