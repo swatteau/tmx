@@ -130,7 +130,7 @@
 - [x] y*
 - [x] width*
 - [x] height*
-- [ ] rotation
+- [x] rotation
 - [ ] gid
 - [ ] visible
 - [ ] properties

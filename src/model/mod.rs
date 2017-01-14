@@ -869,6 +869,7 @@ pub struct Object {
     y: i32,
     width: u32,
     height: u32,
+    rotation: f32,
 }
 
 impl Object {
@@ -900,6 +901,10 @@ impl Object {
         self.height
     }
 
+    pub fn rotation(&self) -> f32 {
+        self.rotation
+    }
+
     fn set_id(&mut self, id: u32) {
         self.id = id;
     }
@@ -926,6 +931,10 @@ impl Object {
 
     fn set_height(&mut self, height: u32) {
         self.height = height;
+    }
+
+    fn set_rotation(&mut self, rotation: f32) {
+        self.rotation = rotation;
     }
 }
 

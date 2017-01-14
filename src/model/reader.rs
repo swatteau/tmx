@@ -730,6 +730,10 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
                 let height = try!(read_num(value));
                 object.set_height(height);
             }
+            "rotation" => {
+                let rotation = try!(read_num(value));
+                object.set_rotation(rotation);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }
