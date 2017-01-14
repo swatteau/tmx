@@ -988,8 +988,8 @@ impl Object {
         self.properties = properties;
     }
 
-    fn set_shape(&mut self, shape: Shape) {
-        self.shape = Some(shape);
+    fn set_shape<S: Into<Shape>>(&mut self, shape: S) {
+        self.shape = Some(shape.into());
     }
 }
 
@@ -1006,6 +1006,44 @@ impl<'a> Iterator for Objects<'a> {
 #[derive(Debug, PartialEq, Eq)]
 pub enum Shape {
     Ellipse,
+    Polygon(Polygon),
+}
+
+#[derive(Debug, Default, PartialEq, Eq)]
+pub struct Polygon {
+    points: Vec<Point>,
+}
+
+impl Polygon {
+    pub fn points(&self) -> Points {
+        Points(self.points.iter())
+    }
+
+    fn add_point(&mut self, point: Point) {
+        self.points.push(point);
+    }
+}
+
+impl From<Polygon> for Shape {
+    fn from(polygon: Polygon) -> Shape {
+        Shape::Polygon(polygon)
+    }
+}
+
+#[derive(Debug, PartialEq, Eq)]
+pub struct Point {
+    pub x: i32,
+    pub y: i32,
+}
+
+pub struct Points<'a>(::std::slice::Iter<'a, Point>);
+
+impl<'a> Iterator for Points<'a> {
+    type Item = &'a Point;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.0.next()
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

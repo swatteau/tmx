@@ -135,7 +135,7 @@
 - [x] visible
 - [x] properties
 - [x] ellipse
-- [ ] polygon
+- [x] polygon
 - [ ] polyline
 - [ ] image*
 

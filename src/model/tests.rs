@@ -209,7 +209,7 @@ fn after_reading_xml_with_object_groups_expect_map_to_be_iterable_over_object_gr
 fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objects() {
     let map = get_map_with_objects();
     let group = map.object_groups().next().unwrap();
-    assert_eq!(4, group.objects().count());
+    assert_eq!(5, group.objects().count());
 
     let mut objects = group.objects();
 
@@ -235,7 +235,17 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
     assert_eq!(1, object.properties().count());
 
     let object = objects.next().unwrap();
-    assert_eq!(Some(&Shape::Ellipse), object.shape());
+    assert_matches!(object.shape(), Some(&Shape::Ellipse));
+
+    let object = objects.next().unwrap();
+    assert_matches!(object.shape(), Some(&Shape::Polygon(..)));
+    if let Some(&Shape::Polygon(ref polygon)) = object.shape() {
+        assert_eq!(3, polygon.points().count());
+        let mut points = polygon.points();
+        assert_eq!(&Point {x: 0, y: 1}, points.next().unwrap());
+        assert_eq!(&Point {x: 2, y: 3}, points.next().unwrap());
+        assert_eq!(&Point {x: 4, y: 5}, points.next().unwrap());
+    }
 }
 
 #[test]
@@ -406,6 +416,15 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
     assert_eq!(500, frame.duration());
 }
 
+#[test]
+fn expect_point_to_be_constructible_from_comma_separated_pair_of_ints() {
+    assert_matches!(Point::from_str(""), Err(Error::InvalidPoint(..)));
+    assert_matches!(Point::from_str("1,2"), Ok(Point {x: 1, y: 2}));
+    assert_matches!(Point::from_str("a,2"), Err(Error::InvalidNumber(..)));
+    assert_matches!(Point::from_str("1,b"), Err(Error::InvalidNumber(..)));
+    assert_matches!(Point::from_str("1,2,3"), Err(Error::InvalidPoint(..)));
+}
+
 fn get_simple_valid_map() -> Map {
     Map::from_str(r#"<map version="1.0"
         orientation="orthogonal"
@@ -500,6 +519,9 @@ fn get_map_with_objects() -> Map {
             </object>
             <object>
                 <ellipse/>
+            </object>
+            <object>
+                <polygon points="0,1 2,3 4,5"/>
             </object>
         </objectgroup>
     </map>"#).unwrap()

@@ -12,6 +12,7 @@ pub enum Error {
     UnknownAttribute(String),
     InvalidColor(String),
     InvalidNumber(String),
+    InvalidPoint(String),
     Io(io::Error),
 }
 
@@ -42,6 +43,7 @@ impl fmt::Display for Error {
             Error::UnknownAttribute(ref attr) => write!(f, "Unknown attribute: `{}`", attr),
             Error::InvalidColor(ref color) => write!(f, "Invalid color: `{}`", color),
             Error::InvalidNumber(ref num) => write!(f, "Invalid number: `{}`", num),
+            Error::InvalidPoint(ref point) => write!(f, "Invalid point: `{}`", point),
             Error::Io(ref err) => write!(f, "I/O error: {}", err),
         }
     }
@@ -58,6 +60,7 @@ impl error::Error for Error {
             Error::UnknownAttribute(..) => "Unknown attribute",
             Error::InvalidColor(..) => "Invalid color",
             Error::InvalidNumber(..) => "Invalid number",
+            Error::InvalidPoint(..) => "Invalid point",
             Error::Io(ref err) => err.description(),
         }
     }

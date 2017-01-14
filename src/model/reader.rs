@@ -115,6 +115,21 @@ impl FromStr for PropertyType {
     }
 }
 
+impl FromStr for Point {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Point> {
+        let mut coords: Vec<_> = s.split(',').map(read_num::<i32>).collect();
+        if coords.len() == 2 {
+            let y = try!(coords.pop().unwrap());
+            let x = try!(coords.pop().unwrap());
+            Ok(Point {x: x, y: y})
+        } else {
+            Err(Error::InvalidPoint(s.to_string()))
+        }
+    }
+}
+
 pub struct TmxReader<R: Read> {
     reader: EventReader<R>,
 }
@@ -177,6 +192,7 @@ impl<R: Read> TmxReader<R> {
     implement_handler!(on_terrain, "terrain", Terrain);
     implement_handler!(on_animation, "animation", Animation);
     implement_handler!(on_frame, "frame", Frame);
+    implement_handler!(on_polygon, "polygon", Polygon);
 }
 
 trait ElementReader<T> {
@@ -760,7 +776,27 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
             "ellipse" => {
                 object.set_shape(Shape::Ellipse);
             }
+            "polygon" => {
+                let polygon = try!(self.on_polygon(attributes));
+                object.set_shape(polygon);
+            }
             _ => {}
+        };
+        Ok(())
+    }
+}
+
+impl<R: Read> ElementReader<Polygon> for TmxReader<R> {
+    fn read_attributes(&mut self, polygon: &mut Polygon, name: &str, value: &str) -> ::Result<()> {
+        match name {
+            "points" => {
+                for result in value.split(' ').map(Point::from_str) {
+                    polygon.add_point(try!(result));
+                }
+            }
+            _ => {
+                return Err(Error::UnknownAttribute(name.to_string()));
+            }
         };
         Ok(())
     }
