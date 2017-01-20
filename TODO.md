@@ -141,15 +141,15 @@
 
 ## ellipse
 
-- [ ]
+- [x]
 
 ## polygon
 
-- [ ] points
+- [x] points
 
 ## polyline
 
-- [ ] points
+- [x] points
 
 ## imagelayer
 
