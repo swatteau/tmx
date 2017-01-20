@@ -64,6 +64,18 @@ impl FromStr for Axis {
     }
 }
 
+impl FromStr for Index {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Index> {
+        match s {
+            "even" => Ok(Index::Even),
+            "odd" => Ok(Index::Odd),
+            _ => Err(Error::BadIndex(s.to_string())),
+        }
+    }
+}
+
 impl FromStr for Orientation {
     type Err = Error;
 
@@ -261,6 +273,10 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
             "staggeraxis" => {
                 let stagger_axis = try!(Axis::from_str(value));
                 map.set_stagger_axis(stagger_axis);
+            }
+            "staggerindex" => {
+                let stagger_index = try!(Index::from_str(value));
+                map.set_stagger_index(stagger_index);
             }
             "nextobjectid" => {
                 let next_object_id = try!(read_num(value));

@@ -6,6 +6,7 @@ use std::io;
 pub enum Error {
     BadXml,
     BadAxis(String),
+    BadIndex(String),
     BadOrientation(String),
     BadPropertyType(String),
     BadRenderOrder(String),
@@ -24,6 +25,11 @@ impl fmt::Display for Error {
             Error::BadAxis(ref value) => {
                 write!(f,
                        "Illegal value `{}` for the `staggeraxis` attribute",
+                       value)
+            }
+            Error::BadIndex(ref value) => {
+                write!(f,
+                       "Illegal value `{}` for the `staggerindex` attribute",
                        value)
             }
             Error::BadOrientation(ref value) => {
@@ -60,6 +66,7 @@ impl error::Error for Error {
         match *self {
             Error::BadXml => "Invalid XML input",
             Error::BadAxis(..) => "Bad axis value",
+            Error::BadIndex(..) => "Bad index value",
             Error::BadOrientation(..) => "Bad orientation value",
             Error::BadPropertyType(..) => "Bad property type value",
             Error::BadRenderOrder(..) => "Bad renderorder value",

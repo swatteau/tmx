@@ -56,6 +56,7 @@ fn after_reading_hexagonal_map_xml_expect_map_to_have_special_attributes() {
     let map = Map::from_str("<map/>").unwrap();
     assert_eq!(None, map.hex_side_length());
     assert_eq!(None, map.stagger_axis());
+    assert_eq!(None, map.stagger_index());
 
     let map = get_hexagonal_map();
     assert_eq!(Some(32), map.hex_side_length());
@@ -86,6 +87,12 @@ fn when_reading_map_xml_with_invalid_attribute_expect_attribute_error() {
 fn when_reading_map_xml_with_invalid_staggeraxis_expect_axis_error() {
     let result = Map::from_str(r#"<map staggeraxis="bad"></map>"#);
     assert_matches!(result, Err(Error::BadAxis(..)));
+}
+
+#[test]
+fn when_reading_map_xml_with_invalid_staggerindex_expect_index_error() {
+    let result = Map::from_str(r#"<map staggerindex="bad"></map>"#);
+    assert_matches!(result, Err(Error::BadIndex(..)));
 }
 
 #[test]
@@ -551,6 +558,7 @@ fn get_map_with_objects() -> Map {
 }
 
 fn get_hexagonal_map() -> Map {
-    Map::from_str(r#"<map orientation="hexagonal" hexsidelength="32" staggeraxis="y"/>"#).unwrap()
+    Map::from_str(r#"<map orientation="hexagonal" hexsidelength="32"
+        staggeraxis="y" staggerindex="even"/>"#).unwrap()
 }
 

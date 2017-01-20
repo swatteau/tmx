@@ -11,7 +11,7 @@
 - [x] tileheight
 - [x] hexsidelength
 - [x] staggeraxis
-- [ ] staggerindex
+- [x] staggerindex
 - [x] backgroundcolor
 - [x] nextobjectid
 - [x] properties
