@@ -242,6 +242,10 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
                 let tile_height = try!(read_num(value));
                 map.set_tile_height(tile_height);
             }
+            "hexsidelength" => {
+                let hex_side_length = try!(read_num(value));
+                map.set_hex_side_length(hex_side_length);
+            }
             "nextobjectid" => {
                 let next_object_id = try!(read_num(value));
                 map.set_next_object_id(next_object_id);

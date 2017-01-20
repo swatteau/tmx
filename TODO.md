@@ -9,7 +9,7 @@
 - [x] height
 - [x] tilewidth
 - [x] tileheight
-- [ ] hexsidelength
+- [x] hexsidelength
 - [ ] staggeraxis
 - [ ] staggerindex
 - [x] backgroundcolor

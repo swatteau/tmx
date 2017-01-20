@@ -52,6 +52,15 @@ fn after_reading_valid_xml_expect_map_to_have_tile_height() {
 }
 
 #[test]
+fn after_reading_hexagonal_map_xml_expect_map_to_have_special_attributes() {
+    let map = Map::from_str("<map/>").unwrap();
+    assert_eq!(None, map.hex_side_length());
+
+    let map = get_hexagonal_map();
+    assert_eq!(Some(32), map.hex_side_length());
+}
+
+#[test]
 fn after_reading_valid_xml_expect_map_to_have_next_object_id() {
     let map = get_simple_valid_map();
     assert_eq!(1, map.next_object_id());
@@ -531,5 +540,9 @@ fn get_map_with_objects() -> Map {
             </object>
         </objectgroup>
     </map>"#).unwrap()
+}
+
+fn get_hexagonal_map() -> Map {
+    Map::from_str(r#"<map orientation="hexagonal" hexsidelength="32"/>"#).unwrap()
 }
 

@@ -29,6 +29,7 @@ pub struct Map {
     height: u32,
     tile_width: u32,
     tile_height: u32,
+    hex_side_length: Option<u32>,
     next_object_id: u32,
     tilesets: Vec<Tileset>,
     layers: Vec<Layer>,
@@ -73,6 +74,10 @@ impl Map {
 
     pub fn tile_height(&self) -> u32 {
         self.tile_height
+    }
+
+    pub fn hex_side_length(&self) -> Option<u32> {
+        self.hex_side_length
     }
 
     pub fn next_object_id(&self) -> u32 {
@@ -141,6 +146,10 @@ impl Map {
 
     fn set_tile_height(&mut self, tile_height: u32) {
         self.tile_height = tile_height;
+    }
+
+    fn set_hex_side_length(&mut self, hex_side_length: u32) {
+        self.hex_side_length = Some(hex_side_length);
     }
 
     fn set_next_object_id(&mut self, next_object_id: u32) {
