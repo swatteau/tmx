@@ -1123,6 +1123,7 @@ impl TerrainCollection {
 #[derive(Debug, Default)]
 pub struct Tile {
     id: u32,
+    probability: Option<f32>,
     animation: Option<Animation>,
     image: Option<Image>,
     object_group: Option<ObjectGroup>,
@@ -1132,6 +1133,10 @@ pub struct Tile {
 impl Tile {
     pub fn id(&self) -> u32 {
         self.id
+    }
+
+    pub fn probability(&self) -> Option<f32> {
+        self.probability
     }
 
     pub fn animation(&self) -> Option<&Animation> {
@@ -1152,6 +1157,10 @@ impl Tile {
 
     fn set_id(&mut self, id: u32) {
         self.id = id;
+    }
+
+    fn set_probability(&mut self, probability: f32) {
+        self.probability = Some(probability);
     }
 
     fn set_animation(&mut self, animation: Animation) {

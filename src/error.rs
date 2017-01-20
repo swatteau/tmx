@@ -11,6 +11,7 @@ pub enum Error {
     BadPropertyType(String),
     BadRenderOrder(String),
     BadDrawOrder(String),
+    BadProbability(f32),
     UnknownAttribute(String),
     InvalidColor(String),
     InvalidNumber(String),
@@ -52,6 +53,11 @@ impl fmt::Display for Error {
                        "Illegal value `{}` for the `draworder` attribute",
                        value)
             }
+            Error::BadProbability(ref value) => {
+                write!(f,
+                       "Illegal value `{}` for the `probability` attribute",
+                       value)
+            }
             Error::UnknownAttribute(ref attr) => write!(f, "Unknown attribute: `{}`", attr),
             Error::InvalidColor(ref color) => write!(f, "Invalid color: `{}`", color),
             Error::InvalidNumber(ref num) => write!(f, "Invalid number: `{}`", num),
@@ -71,6 +77,7 @@ impl error::Error for Error {
             Error::BadPropertyType(..) => "Bad property type value",
             Error::BadRenderOrder(..) => "Bad renderorder value",
             Error::BadDrawOrder(..) => "Bad draworder value",
+            Error::BadProbability(..) => "Bad probability value",
             Error::UnknownAttribute(..) => "Unknown attribute",
             Error::InvalidColor(..) => "Invalid color",
             Error::InvalidNumber(..) => "Invalid number",

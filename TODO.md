@@ -66,7 +66,7 @@
 
 - [x] id
 - [ ] terrain
-- [ ] probability
+- [x] probability
 - [x] properties
 - [x] image
 - [x] objectgroup

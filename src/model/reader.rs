@@ -600,6 +600,13 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
                 let id = try!(read_num(value));
                 tile.set_id(id);
             }
+            "probability" => {
+                let probability = try!(read_num(value));
+                if probability < 0.0 || probability > 1.0 {
+                    return Err(Error::BadProbability(probability));
+                }
+                tile.set_probability(probability);
+            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }

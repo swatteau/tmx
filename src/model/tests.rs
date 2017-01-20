@@ -421,8 +421,10 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
                 <frame tileid="123" duration="500"/>
             </animation>
         </tile>
+        <tile probability="0.5">
+        </tile>
     </tileset>"#).unwrap();
-    assert_eq!(4, tileset.tiles().count());
+    assert_eq!(5, tileset.tiles().count());
 
     let tile1 = tileset.tiles().next().unwrap();
     assert_eq!(123, tile1.id());
@@ -441,6 +443,9 @@ fn after_reading_valid_xml_with_tiles_expect_tileset_to_be_iterable_over_tiles()
     let frame = animation.frame().unwrap();
     assert_eq!(123, frame.tile_id());
     assert_eq!(500, frame.duration());
+
+    let tile5 = tileset.tiles().nth(4).unwrap();
+    assert_eq!(Some(0.5), tile5.probability());
 }
 
 #[test]
