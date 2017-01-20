@@ -30,6 +30,7 @@ pub struct Map {
     tile_width: u32,
     tile_height: u32,
     hex_side_length: Option<u32>,
+    stagger_axis: Option<Axis>,
     next_object_id: u32,
     tilesets: Vec<Tileset>,
     layers: Vec<Layer>,
@@ -78,6 +79,10 @@ impl Map {
 
     pub fn hex_side_length(&self) -> Option<u32> {
         self.hex_side_length
+    }
+
+    pub fn stagger_axis(&self) -> Option<Axis> {
+        self.stagger_axis
     }
 
     pub fn next_object_id(&self) -> u32 {
@@ -152,9 +157,19 @@ impl Map {
         self.hex_side_length = Some(hex_side_length);
     }
 
+    fn set_stagger_axis(&mut self, stagger_axis: Axis) {
+        self.stagger_axis = Some(stagger_axis);
+    }
+
     fn set_next_object_id(&mut self, next_object_id: u32) {
         self.next_object_id = next_object_id;
     }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Axis {
+    X,
+    Y,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

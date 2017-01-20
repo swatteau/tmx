@@ -55,9 +55,11 @@ fn after_reading_valid_xml_expect_map_to_have_tile_height() {
 fn after_reading_hexagonal_map_xml_expect_map_to_have_special_attributes() {
     let map = Map::from_str("<map/>").unwrap();
     assert_eq!(None, map.hex_side_length());
+    assert_eq!(None, map.stagger_axis());
 
     let map = get_hexagonal_map();
     assert_eq!(Some(32), map.hex_side_length());
+    assert_eq!(Some(Axis::Y), map.stagger_axis());
 }
 
 #[test]
@@ -78,6 +80,12 @@ fn after_reading_valid_xml_with_background_color_expect_map_to_have_that_backgro
 fn when_reading_map_xml_with_invalid_attribute_expect_attribute_error() {
     let result = Map::from_str(r#"<map bad=""></map>"#);
     assert_matches!(result, Err(Error::UnknownAttribute(..)));
+}
+
+#[test]
+fn when_reading_map_xml_with_invalid_staggeraxis_expect_axis_error() {
+    let result = Map::from_str(r#"<map staggeraxis="bad"></map>"#);
+    assert_matches!(result, Err(Error::BadAxis(..)));
 }
 
 #[test]
@@ -543,6 +551,6 @@ fn get_map_with_objects() -> Map {
 }
 
 fn get_hexagonal_map() -> Map {
-    Map::from_str(r#"<map orientation="hexagonal" hexsidelength="32"/>"#).unwrap()
+    Map::from_str(r#"<map orientation="hexagonal" hexsidelength="32" staggeraxis="y"/>"#).unwrap()
 }
 

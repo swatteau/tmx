@@ -10,7 +10,7 @@
 - [x] tilewidth
 - [x] tileheight
 - [x] hexsidelength
-- [ ] staggeraxis
+- [x] staggeraxis
 - [ ] staggerindex
 - [x] backgroundcolor
 - [x] nextobjectid

@@ -5,6 +5,7 @@ use std::io;
 #[derive(Debug)]
 pub enum Error {
     BadXml,
+    BadAxis(String),
     BadOrientation(String),
     BadPropertyType(String),
     BadRenderOrder(String),
@@ -20,6 +21,11 @@ impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Error::BadXml => write!(f, "Invalid XML input"),
+            Error::BadAxis(ref value) => {
+                write!(f,
+                       "Illegal value `{}` for the `staggeraxis` attribute",
+                       value)
+            }
             Error::BadOrientation(ref value) => {
                 write!(f,
                        "Illegal value `{}` for the `orientation` attribute",
@@ -53,6 +59,7 @@ impl error::Error for Error {
     fn description(&self) -> &str {
         match *self {
             Error::BadXml => "Invalid XML input",
+            Error::BadAxis(..) => "Bad axis value",
             Error::BadOrientation(..) => "Bad orientation value",
             Error::BadPropertyType(..) => "Bad property type value",
             Error::BadRenderOrder(..) => "Bad renderorder value",

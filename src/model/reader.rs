@@ -52,6 +52,18 @@ impl FromStr for Map {
     }
 }
 
+impl FromStr for Axis {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Axis> {
+        match s {
+            "x" => Ok(Axis::X),
+            "y" => Ok(Axis::Y),
+            _ => Err(Error::BadAxis(s.to_string())),
+        }
+    }
+}
+
 impl FromStr for Orientation {
     type Err = Error;
 
@@ -245,6 +257,10 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
             "hexsidelength" => {
                 let hex_side_length = try!(read_num(value));
                 map.set_hex_side_length(hex_side_length);
+            }
+            "staggeraxis" => {
+                let stagger_axis = try!(Axis::from_str(value));
+                map.set_stagger_axis(stagger_axis);
             }
             "nextobjectid" => {
                 let next_object_id = try!(read_num(value));
