@@ -507,6 +507,9 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
 impl<R: Read> ElementReader<Image> for TmxReader<R> {
     fn read_attributes(&mut self, image: &mut Image, name: &str, value: &str) -> ::Result<()> {
         match name {
+            "format" => {
+                image.set_format(value);
+            }
             "source" => {
                 image.set_source(value);
             }

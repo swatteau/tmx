@@ -327,11 +327,13 @@ fn after_reading_valid_xml_expect_tileset_to_have_columns() {
 fn after_reading_valid_xml_with_image_element_expect_tileset_to_have_image() {
     let tileset = Tileset::from_str(
         r#"<tileset>
-        <image source="some_file.png"
-                width="1024"
-                height="768"/>
+        <image format="png"
+               source="some_file.png"
+               width="1024"
+               height="768"/>
     <tileset>"#).unwrap();
     let image = tileset.image().unwrap();
+    assert_eq!("png", image.format());
     assert_eq!("some_file.png", image.source());
     assert_eq!(1024, image.width());
     assert_eq!(768, image.height());

@@ -44,7 +44,7 @@
 
 ## image
 
-- [ ] format
+- [x] format
 - [ ] id*
 - [x] source
 - [ ] trans

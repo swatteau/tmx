@@ -455,12 +455,17 @@ impl Tileset {
 
 #[derive(Debug, Default)]
 pub struct Image {
+    format: String,
     source: String,
     width: u32,
     height: u32,
 }
 
 impl Image {
+    pub fn format(&self) -> &str {
+        &self.format
+    }
+
     pub fn source(&self) -> &str {
         &self.source
     }
@@ -471,6 +476,10 @@ impl Image {
 
     pub fn height(&self) -> u32 {
         self.height
+    }
+
+    fn set_format<S: Into<String>>(&mut self, format: S) {
+        self.format = format.into();
     }
 
     fn set_source<S: Into<String>>(&mut self, source: S) {
