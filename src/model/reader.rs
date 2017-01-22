@@ -513,6 +513,10 @@ impl<R: Read> ElementReader<Image> for TmxReader<R> {
             "source" => {
                 image.set_source(value);
             }
+            "trans" => {
+                let color = try!(Color::from_str(value));
+                image.set_trans(color);
+            }
             "width" => {
                 let width = try!(read_num(value));
                 image.set_width(width);

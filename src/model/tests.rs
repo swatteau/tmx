@@ -329,12 +329,14 @@ fn after_reading_valid_xml_with_image_element_expect_tileset_to_have_image() {
         r#"<tileset>
         <image format="png"
                source="some_file.png"
+               trans="FF00FF"
                width="1024"
                height="768"/>
     <tileset>"#).unwrap();
     let image = tileset.image().unwrap();
     assert_eq!("png", image.format());
     assert_eq!("some_file.png", image.source());
+    assert_eq!(Some(&Color(255, 255, 0, 255)), image.trans());
     assert_eq!(1024, image.width());
     assert_eq!(768, image.height());
 }

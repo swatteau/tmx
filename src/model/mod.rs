@@ -457,6 +457,7 @@ impl Tileset {
 pub struct Image {
     format: String,
     source: String,
+    trans: Option<Color>,
     width: u32,
     height: u32,
 }
@@ -468,6 +469,10 @@ impl Image {
 
     pub fn source(&self) -> &str {
         &self.source
+    }
+
+    pub fn trans(&self) -> Option<&Color> {
+        self.trans.as_ref()
     }
 
     pub fn width(&self) -> u32 {
@@ -484,6 +489,10 @@ impl Image {
 
     fn set_source<S: Into<String>>(&mut self, source: S) {
         self.source = source.into();
+    }
+
+    fn set_trans(&mut self, color: Color) {
+        self.trans = Some(color);
     }
 
     fn set_width(&mut self, width: u32) {
