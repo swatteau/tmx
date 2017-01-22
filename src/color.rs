@@ -10,14 +10,14 @@ impl FromStr for Color {
 
     fn from_str(s: &str) -> ::Result<Color> {
         let color = if s.starts_with('#') {
-            let alpha = if s.len() == 9 {
-                hex_pair_to_number(&s[1..3])
+            let (alpha, rgb_offset) = if s.len() == 9 {
+                (hex_pair_to_number(&s[1..3]), 3)
             } else {
-                Some(255)
+                (Some(255), 1)
             };
-            alpha.and_then(|a| hex_rgb_to_rgb(&s[3..]).and_then(|(r, g, b)| Some(Color(a, r, g, b))))
+            alpha.and_then(|a| hex_rgb_to_rgb(&s[rgb_offset..]).and_then(|(r, g, b)| Some(Color(a, r, g, b))))
         } else {
-            None
+            hex_rgb_to_rgb(s).and_then(|(r, g, b)| Some(Color(255, r, g, b)))
         };
         color.ok_or(Error::InvalidColor(s.to_string()))
     }
@@ -92,5 +92,9 @@ mod tests {
     #[test]
     fn test_hex_string_to_color() {
         assert!(Color::from_str("").is_err());
+        assert!(Color::from_str("010204").is_ok());
+        assert!(Color::from_str("#010204").is_ok());
+        assert!(Color::from_str("00010204").is_err());
+        assert!(Color::from_str("#00010204").is_ok());
     }
 }
