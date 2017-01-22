@@ -45,7 +45,6 @@
 ## image
 
 - [x] format
-- [ ] id*
 - [x] source
 - [x] trans
 - [x] width
@@ -137,7 +136,6 @@
 - [x] ellipse
 - [x] polygon
 - [x] polyline
-- [ ] image*
 
 ## ellipse
 
