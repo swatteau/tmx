@@ -1141,6 +1141,7 @@ impl TerrainCollection {
 #[derive(Debug, Default)]
 pub struct Tile {
     id: u32,
+    corners: Option<Corners>,
     probability: Option<f32>,
     animation: Option<Animation>,
     image: Option<Image>,
@@ -1151,6 +1152,10 @@ pub struct Tile {
 impl Tile {
     pub fn id(&self) -> u32 {
         self.id
+    }
+
+    pub fn terrain(&self) -> Option<&Corners> {
+        self.corners.as_ref()
     }
 
     pub fn probability(&self) -> Option<f32> {
@@ -1177,6 +1182,10 @@ impl Tile {
         self.id = id;
     }
 
+    fn set_corners(&mut self, corners: Corners) {
+        self.corners = Some(corners);
+    }
+
     fn set_probability(&mut self, probability: f32) {
         self.probability = Some(probability);
     }
@@ -1199,6 +1208,9 @@ impl Tile {
 }
 
 define_iterator_wrapper!(Tiles, Tile);
+
+#[derive(Debug, PartialEq, Eq)]
+pub struct Corners(pub u32, pub u32, pub u32, pub u32);
 
 #[derive(Debug, Default)]
 pub struct Animation {

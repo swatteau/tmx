@@ -64,7 +64,7 @@
 ## tileset.tile
 
 - [x] id
-- [ ] terrain
+- [x] terrain
 - [x] probability
 - [x] properties
 - [x] image

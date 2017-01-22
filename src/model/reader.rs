@@ -154,6 +154,19 @@ impl FromStr for Point {
     }
 }
 
+impl FromStr for Corners {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Corners> {
+        let ids: Vec<u32> = try!(s.split(',').map(read_num).collect());
+        if ids.len() == 4 {
+            Ok(Corners(ids[0], ids[1], ids[2], ids[3]))
+        } else {
+            Err(Error::InvalidTerrain(s.to_string()))
+        }
+    }
+}
+
 pub struct TmxReader<R: Read> {
     reader: EventReader<R>,
 }
@@ -606,6 +619,10 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
             "id" => {
                 let id = try!(read_num(value));
                 tile.set_id(id);
+            }
+            "terrain" => {
+                let corners = try!(Corners::from_str(value));
+                tile.set_corners(corners);
             }
             "probability" => {
                 let probability = try!(read_num(value));

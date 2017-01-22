@@ -16,6 +16,7 @@ pub enum Error {
     InvalidColor(String),
     InvalidNumber(String),
     InvalidPoint(String),
+    InvalidTerrain(String),
     Io(io::Error),
 }
 
@@ -62,6 +63,7 @@ impl fmt::Display for Error {
             Error::InvalidColor(ref color) => write!(f, "Invalid color: `{}`", color),
             Error::InvalidNumber(ref num) => write!(f, "Invalid number: `{}`", num),
             Error::InvalidPoint(ref point) => write!(f, "Invalid point: `{}`", point),
+            Error::InvalidTerrain(ref terrain) => write!(f, "Invalid terrain: `{}`", terrain),
             Error::Io(ref err) => write!(f, "I/O error: {}", err),
         }
     }
@@ -82,6 +84,7 @@ impl error::Error for Error {
             Error::InvalidColor(..) => "Invalid color",
             Error::InvalidNumber(..) => "Invalid number",
             Error::InvalidPoint(..) => "Invalid point",
+            Error::InvalidTerrain(..) => "Invalid terrain",
             Error::Io(ref err) => err.description(),
         }
     }
