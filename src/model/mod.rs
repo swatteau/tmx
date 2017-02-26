@@ -18,6 +18,7 @@ mod image;
 mod map;
 mod property;
 mod reader;
+mod shape;
 mod tileset;
 
 pub use self::map::Map;

@@ -4,6 +4,7 @@ use error::Error;
 use model::color::*;
 use model::map::*;
 use model::property::*;
+use model::shape::*;
 use model::tileset::*;
 
 #[test]
