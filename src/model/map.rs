@@ -34,6 +34,7 @@ pub struct Map {
     stagger_axis: Option<Axis>,
     stagger_index: Option<Index>,
     next_object_id: u32,
+    properties: PropertyCollection,
     tilesets: Vec<Tileset>,
     layers: Vec<Layer>,
     image_layers: Vec<ImageLayer>,
@@ -141,6 +142,14 @@ impl Map {
 
     fn set_next_object_id(&mut self, next_object_id: u32) {
         self.next_object_id = next_object_id;
+    }
+
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
+    fn set_properties(&mut self, properties: PropertyCollection) {
+        self.properties = properties;
     }
 
     pub fn tilesets(&self) -> Tilesets {
@@ -878,6 +887,10 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
 
     fn read_children(&mut self, map: &mut Map, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         match name {
+            "properties" => {
+                let properties = try!(self.on_properties(attributes));
+                map.set_properties(properties);
+            }
             "tileset" => {
                 let ts = try!(self.on_tileset(attributes));
                 map.add_tileset(ts);

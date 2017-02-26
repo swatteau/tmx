@@ -82,6 +82,19 @@ fn after_reading_valid_xml_with_background_color_expect_map_to_have_that_backgro
 }
 
 #[test]
+fn after_reading_valid_xml_with_properties_expect_map_to_have_properties() {
+    let map = Map::from_str(r#"<map>
+        <properties>
+            <property name="prop1_name" value="prop1_value"/>
+            <property name="prop2_name" value="0" type="int"/>
+            <property name="prop3_name" value="0.0" type="float"/>
+            <property name="prop4_name" value="true" type="bool"/>
+        </properties>
+    </map>"#).unwrap();
+    assert_eq!(4, map.properties().count());
+}
+
+#[test]
 fn when_reading_map_xml_with_invalid_attribute_expect_attribute_error() {
     let result = Map::from_str(r#"<map bad=""></map>"#);
     assert_matches!(result, Err(Error::UnknownAttribute(..)));
