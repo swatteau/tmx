@@ -8,8 +8,9 @@ use super::reader::{TmxReader, ElementReader, read_num};
 
 use color::Color;
 use model::data::Data;
-use model::tileset::{Tileset, Image};
+use model::tileset::{Tileset};
 use model::property::{PropertyCollection, Properties};
+use model::image::Image;
 
 #[derive(Debug, Default)]
 pub struct Map {

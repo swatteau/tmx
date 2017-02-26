@@ -1,6 +1,7 @@
 use super::*;
 use std::str::FromStr;
 
+use color::Color;
 use error::Error;
 
 #[test]

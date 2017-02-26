@@ -12,6 +12,7 @@ macro_rules! define_iterator_wrapper {
     }
 }
 
+mod image;
 mod property;
 mod map;
 mod tileset;
@@ -22,6 +23,7 @@ pub use self::map::*;
 pub use self::tileset::*;
 pub use self::data::*;
 pub use self::property::*;
+pub use self::image::*;
 
 #[cfg(test)]
 mod tests;
