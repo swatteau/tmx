@@ -5,13 +5,13 @@ use std::fs::File;
 
 use xml::attribute::OwnedAttribute;
 
-use color::Color;
 use error::Error;
-use model::reader::{self, TmxReader, ElementReader};
+use model::color::Color;
 use model::data::Data;
-use model::tileset::{Tileset};
-use model::property::{PropertyCollection, Properties};
 use model::image::Image;
+use model::property::{PropertyCollection, Properties};
+use model::reader::{self, TmxReader, ElementReader};
+use model::tileset::{Tileset};
 
 #[derive(Debug, Default)]
 pub struct Map {

@@ -1,7 +1,7 @@
 use std::str::FromStr;
 
-use color::Color;
 use error::Error;
+use model::color::*;
 use model::map::*;
 use model::property::*;
 use model::tileset::*;

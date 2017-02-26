@@ -3,10 +3,10 @@ use std::str::FromStr;
 
 use xml::attribute::OwnedAttribute;
 
-use color::Color;
 use error::Error;
-use model::reader::{self, TmxReader, ElementReader};
+use model::color::Color;
 use model::data::Data;
+use model::reader::{self, TmxReader, ElementReader};
 
 #[derive(Debug, Default)]
 pub struct Image {

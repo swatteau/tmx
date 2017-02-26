@@ -12,6 +12,7 @@ macro_rules! define_iterator_wrapper {
     }
 }
 
+mod color;
 mod data;
 mod image;
 mod map;
