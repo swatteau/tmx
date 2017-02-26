@@ -49,7 +49,7 @@
 - [x] trans
 - [x] width
 - [x] height
-- [ ] data
+- [x] data
 
 ## terraintypes
 

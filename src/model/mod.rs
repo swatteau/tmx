@@ -460,6 +460,7 @@ pub struct Image {
     trans: Option<Color>,
     width: u32,
     height: u32,
+    data: Option<Data>,
 }
 
 impl Image {
@@ -483,6 +484,10 @@ impl Image {
         self.height
     }
 
+    pub fn data(&self) -> Option<&Data> {
+        self.data.as_ref()
+    }
+
     fn set_format<S: Into<String>>(&mut self, format: S) {
         self.format = format.into();
     }
@@ -501,6 +506,10 @@ impl Image {
 
     fn set_height(&mut self, height: u32) {
         self.height = height;
+    }
+
+    fn set_data(&mut self, data: Data) {
+        self.data = Some(data);
     }
 }
 

@@ -344,7 +344,9 @@ fn after_reading_valid_xml_with_image_element_expect_tileset_to_have_image() {
                source="some_file.png"
                trans="FF00FF"
                width="1024"
-               height="768"/>
+               height="768">
+            <data encoding="base64" compression="gzip"></data>
+        </image>
     <tileset>"#).unwrap();
     let image = tileset.image().unwrap();
     assert_eq!("png", image.format());
@@ -352,6 +354,7 @@ fn after_reading_valid_xml_with_image_element_expect_tileset_to_have_image() {
     assert_eq!(Some(&Color(255, 255, 0, 255)), image.trans());
     assert_eq!(1024, image.width());
     assert_eq!(768, image.height());
+    assert!(image.data().is_some());
 }
 
 #[test]
