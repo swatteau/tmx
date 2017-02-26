@@ -3,8 +3,6 @@ use std::fs::File;
 
 use color::Color;
 
-mod reader;
-
 macro_rules! define_iterator_wrapper {
     ($name: ident, $item: ident) => {
         pub struct $name<'a>(::std::slice::Iter<'a, $item>);
@@ -18,6 +16,11 @@ macro_rules! define_iterator_wrapper {
         }
     }
 }
+
+mod data;
+mod reader;
+
+pub use self::data::*;
 
 #[derive(Debug, Default)]
 pub struct Map {
@@ -275,7 +278,7 @@ impl Default for PropertyType {
 }
 
 #[derive(Debug, Default)]
-struct PropertyCollection(Vec<Property>);
+pub struct PropertyCollection(Vec<Property>);
 
 impl PropertyCollection {
     pub fn new() -> PropertyCollection {
@@ -637,61 +640,6 @@ impl Layer {
 }
 
 define_iterator_wrapper!(Layers, Layer);
-
-#[derive(Debug, Default)]
-pub struct Data {
-    encoding: Option<String>,
-    compression: Option<String>,
-    raw: Option<String>,
-    tiles: Vec<DataTile>,
-}
-
-impl Data {
-    pub fn encoding(&self) -> Option<&str> {
-        self.encoding.as_ref().map(String::as_str)
-    }
-
-    pub fn compression(&self) -> Option<&str> {
-        self.compression.as_ref().map(String::as_str)
-    }
-
-    pub fn raw_content(&self) -> Option<&str> {
-        self.raw.as_ref().map(String::as_str)
-    }
-
-    pub fn tiles(&self) -> DataTiles {
-        DataTiles(self.tiles.iter())
-    }
-
-    fn set_encoding<S: Into<String>>(&mut self, encoding: S) {
-        self.encoding = Some(encoding.into());
-    }
-
-    fn set_compression<S: Into<String>>(&mut self, compression: S) {
-        self.compression = Some(compression.into());
-    }
-
-    fn set_raw_content<S: Into<String>>(&mut self, content: S) {
-        self.raw = Some(content.into());
-    }
-
-    fn add_tile(&mut self, tile: DataTile) {
-        self.tiles.push(tile);
-    }
-}
-
-define_iterator_wrapper!(DataTiles, DataTile);
-
-#[derive(Debug, Default)]
-pub struct DataTile {
-    gid: i32,
-}
-
-impl DataTile {
-    fn set_gid(&mut self, gid: i32) {
-        self.gid = gid;
-    }
-}
 
 #[derive(Debug)]
 pub struct ImageLayer {
@@ -1200,7 +1148,7 @@ impl Terrain {
 }
 
 #[derive(Debug, Default)]
-struct TerrainCollection(Vec<Terrain>);
+pub struct TerrainCollection(Vec<Terrain>);
 
 impl TerrainCollection {
     pub fn iter(&self) -> TerrainTypes {

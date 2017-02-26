@@ -8,7 +8,7 @@ use super::*;
 
 macro_rules! implement_handler {
     ($handler: ident, $tag: expr, $elem_type: ty) => {
-        fn $handler(&mut self, attributes: &[OwnedAttribute]) -> ::Result<$elem_type> {
+        pub fn $handler(&mut self, attributes: &[OwnedAttribute]) -> ::Result<$elem_type> {
             let mut elem = <$elem_type>::default();
 
             // Process attributes
@@ -42,7 +42,7 @@ macro_rules! implement_handler {
     }
 }
 
-fn read_num<T: FromStr>(s: &str) -> ::Result<T> {
+pub fn read_num<T: FromStr>(s: &str) -> ::Result<T> {
     s.parse::<T>().map_err(|_| Error::InvalidNumber(s.to_string()))
 }
 
@@ -238,7 +238,7 @@ impl<R: Read> TmxReader<R> {
     implement_handler!(on_polyline, "polyline", Polyline);
 }
 
-trait ElementReader<T> {
+pub trait ElementReader<T> {
     #[allow(unused_variables)]
     fn read_attributes(&mut self, elem: &mut T, name: &str, value: &str) -> ::Result<()> {
         Ok(())
@@ -693,51 +693,6 @@ impl<R: Read> ElementReader<PropertyCollection> for TmxReader<R> {
             let property = try!(self.on_property(attributes));
             properties.push(property);
         }
-        Ok(())
-    }
-}
-
-impl<R: Read> ElementReader<Data> for TmxReader<R> {
-    fn read_attributes(&mut self, data: &mut Data, name: &str, value: &str) -> ::Result<()> {
-        match name {
-            "encoding" => {
-                data.set_encoding(value);
-            }
-            "compression" => {
-                data.set_compression(value);
-            }
-            _ => {
-                return Err(Error::UnknownAttribute(name.to_string()));
-            }
-        };
-        Ok(())
-    }
-
-    fn read_children(&mut self, data: &mut Data, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
-        if name == "tile" {
-            let tile = try!(self.on_data_tile(attributes));
-            data.add_tile(tile);
-        }
-        Ok(())
-    }
-
-    fn read_content(&mut self, data: &mut Data, content: &str) -> ::Result<()> {
-        data.set_raw_content(content);
-        Ok(())
-    }
-}
-
-impl<R: Read> ElementReader<DataTile> for TmxReader<R> {
-    fn read_attributes(&mut self, tile: &mut DataTile, name: &str, value: &str) -> ::Result<()> {
-        match name {
-            "gid" => {
-                let gid = try!(read_num(value));
-                tile.set_gid(gid);
-            }
-            _ => {
-                return Err(Error::UnknownAttribute(name.to_string()));
-            }
-        };
         Ok(())
     }
 }
