@@ -119,20 +119,6 @@ impl FromStr for DrawOrder {
     }
 }
 
-impl FromStr for PropertyType {
-    type Err = Error;
-
-    fn from_str(s: &str) -> ::Result<PropertyType> {
-        match s {
-            "string" => Ok(PropertyType::String),
-            "int" => Ok(PropertyType::Int),
-            "float" => Ok(PropertyType::Float),
-            "bool" => Ok(PropertyType::Bool),
-            _ => Err(Error::BadPropertyType(s.to_string())),
-        }
-    }
-}
-
 impl FromStr for Point {
     type Err = Error;
 
