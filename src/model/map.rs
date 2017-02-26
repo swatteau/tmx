@@ -805,6 +805,94 @@ pub enum DrawOrder {
     Index,
 }
 
+impl FromStr for Map {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Map> {
+        let mut tmx = TmxReader::new(s.as_bytes());
+        tmx.read_map()
+    }
+}
+
+impl FromStr for Axis {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Axis> {
+        match s {
+            "x" => Ok(Axis::X),
+            "y" => Ok(Axis::Y),
+            _ => Err(Error::BadAxis(s.to_string())),
+        }
+    }
+}
+
+impl FromStr for Index {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Index> {
+        match s {
+            "even" => Ok(Index::Even),
+            "odd" => Ok(Index::Odd),
+            _ => Err(Error::BadIndex(s.to_string())),
+        }
+    }
+}
+
+impl FromStr for Orientation {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Orientation> {
+        match s {
+            "orthogonal" => Ok(Orientation::Orthogonal),
+            "isometric" => Ok(Orientation::Isometric),
+            "staggered" => Ok(Orientation::Staggered),
+            "hexagonal" => Ok(Orientation::Hexagonal),
+            _ => Err(Error::BadOrientation(s.to_string())),
+        }
+    }
+}
+
+impl FromStr for RenderOrder {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<RenderOrder> {
+        match s {
+            "right-down" => Ok(RenderOrder::RightDown),
+            "right-up" => Ok(RenderOrder::RightUp),
+            "left-down" => Ok(RenderOrder::LeftDown),
+            "left-up" => Ok(RenderOrder::LeftUp),
+            _ => Err(Error::BadRenderOrder(s.to_string())),
+        }
+    }
+}
+
+impl FromStr for DrawOrder {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<DrawOrder> {
+        match s {
+            "topdown" => Ok(DrawOrder::TopDown),
+            "index" => Ok(DrawOrder::Index),
+            _ => Err(Error::BadDrawOrder(s.to_string())),
+        }
+    }
+}
+
+impl FromStr for Point {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Point> {
+        let mut coords: Vec<_> = s.split(',').map(read_num::<i32>).collect();
+        if coords.len() == 2 {
+            let y = try!(coords.pop().unwrap());
+            let x = try!(coords.pop().unwrap());
+            Ok(Point {x: x, y: y})
+        } else {
+            Err(Error::InvalidPoint(s.to_string()))
+        }
+    }
+}
+
 impl<R: Read> ElementReader<Map> for TmxReader<R> {
     fn read_attributes(&mut self, map: &mut Map, name: &str, value: &str) -> ::Result<()> {
         match name {

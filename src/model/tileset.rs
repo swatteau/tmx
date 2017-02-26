@@ -257,6 +257,19 @@ define_iterator_wrapper!(Tiles, Tile);
 #[derive(Debug, PartialEq, Eq)]
 pub struct Corners(pub u32, pub u32, pub u32, pub u32);
 
+impl FromStr for Corners {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Corners> {
+        let ids: Vec<u32> = try!(s.split(',').map(read_num).collect());
+        if ids.len() == 4 {
+            Ok(Corners(ids[0], ids[1], ids[2], ids[3]))
+        } else {
+            Err(Error::InvalidTerrain(s.to_string()))
+        }
+    }
+}
+
 #[derive(Debug, Default)]
 pub struct Animation {
     frame: Option<Frame>,
