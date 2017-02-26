@@ -12,14 +12,14 @@ macro_rules! define_iterator_wrapper {
     }
 }
 
-mod color;
-mod data;
-mod image;
-mod map;
-mod property;
-mod reader;
-mod shape;
-mod tileset;
+pub mod color;
+pub mod data;
+pub mod image;
+pub mod map;
+pub mod property;
+pub mod reader;
+pub mod shape;
+pub mod tileset;
 
 pub use self::map::Map;
 pub use self::tileset::Tileset;

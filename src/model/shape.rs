@@ -4,6 +4,8 @@ use std::str::FromStr;
 use error::Error;
 use model::reader::{self, TmxReader, ElementReader};
 
+define_iterator_wrapper!(Points, Point);
+
 #[derive(Debug, PartialEq, Eq)]
 pub enum Shape {
     Ellipse,
@@ -58,8 +60,6 @@ pub struct Point {
     pub x: i32,
     pub y: i32,
 }
-
-define_iterator_wrapper!(Points, Point);
 
 impl FromStr for Point {
     type Err = Error;

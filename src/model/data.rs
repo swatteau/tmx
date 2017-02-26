@@ -5,6 +5,8 @@ use xml::attribute::OwnedAttribute;
 use error::Error;
 use model::reader::{self, TmxReader, ElementReader};
 
+define_iterator_wrapper!(DataTiles, DataTile);
+
 #[derive(Debug, Default)]
 pub struct Data {
     encoding: Option<String>,
@@ -18,36 +20,34 @@ impl Data {
         self.encoding.as_ref().map(String::as_str)
     }
 
-    pub fn compression(&self) -> Option<&str> {
-        self.compression.as_ref().map(String::as_str)
-    }
-
-    pub fn raw_content(&self) -> Option<&str> {
-        self.raw.as_ref().map(String::as_str)
-    }
-
-    pub fn tiles(&self) -> DataTiles {
-        DataTiles(self.tiles.iter())
-    }
-
     fn set_encoding<S: Into<String>>(&mut self, encoding: S) {
         self.encoding = Some(encoding.into());
+    }
+
+    pub fn compression(&self) -> Option<&str> {
+        self.compression.as_ref().map(String::as_str)
     }
 
     fn set_compression<S: Into<String>>(&mut self, compression: S) {
         self.compression = Some(compression.into());
     }
 
+    pub fn raw_content(&self) -> Option<&str> {
+        self.raw.as_ref().map(String::as_str)
+    }
+
     fn set_raw_content<S: Into<String>>(&mut self, content: S) {
         self.raw = Some(content.into());
+    }
+
+    pub fn tiles(&self) -> DataTiles {
+        DataTiles(self.tiles.iter())
     }
 
     fn add_tile(&mut self, tile: DataTile) {
         self.tiles.push(tile);
     }
 }
-
-define_iterator_wrapper!(DataTiles, DataTile);
 
 #[derive(Debug, Default)]
 pub struct DataTile {

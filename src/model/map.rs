@@ -14,6 +14,12 @@ use model::reader::{self, TmxReader, ElementReader};
 use model::shape::Shape;
 use model::tileset::{Tileset};
 
+define_iterator_wrapper!(Tilesets, Tileset);
+define_iterator_wrapper!(Layers, Layer);
+define_iterator_wrapper!(ImageLayers, ImageLayer);
+define_iterator_wrapper!(ObjectGroups, ObjectGroup);
+define_iterator_wrapper!(Objects, Object);
+
 #[derive(Debug, Default)]
 pub struct Map {
     bg_color: Option<Color>,
@@ -41,132 +47,141 @@ impl Map {
         reader.read_map()
     }
 
-    pub fn background_color(&self) -> Option<&Color> {
-        self.bg_color.as_ref()
-    }
-
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    pub fn orientation(&self) -> Orientation {
-        self.orientation
-    }
-
-    pub fn render_order(&self) -> RenderOrder {
-        self.render_order
-    }
-
     pub fn version(&self) -> &str {
         &self.version
-    }
-
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    pub fn tile_width(&self) -> u32 {
-        self.tile_width
-    }
-
-    pub fn tile_height(&self) -> u32 {
-        self.tile_height
-    }
-
-    pub fn hex_side_length(&self) -> Option<u32> {
-        self.hex_side_length
-    }
-
-    pub fn stagger_axis(&self) -> Option<Axis> {
-        self.stagger_axis
-    }
-
-    pub fn stagger_index(&self) -> Option<Index> {
-        self.stagger_index
-    }
-
-    pub fn next_object_id(&self) -> u32 {
-        self.next_object_id
-    }
-
-    fn add_tileset(&mut self, tileset: Tileset) {
-        self.tilesets.push(tileset);
-    }
-
-    fn add_layer(&mut self, layer: Layer) {
-        self.layers.push(layer);
-    }
-
-    fn add_image_layer(&mut self, image_layer: ImageLayer) {
-        self.image_layers.push(image_layer);
-    }
-
-    fn add_object_group(&mut self, object_group: ObjectGroup) {
-        self.object_groups.push(object_group);
-    }
-
-    pub fn tilesets(&self) -> Tilesets {
-        Tilesets(self.tilesets.iter())
-    }
-
-    pub fn layers(&self) -> Layers {
-        Layers(self.layers.iter())
-    }
-
-    pub fn image_layers(&self) -> ImageLayers {
-        ImageLayers(self.image_layers.iter())
-    }
-
-    pub fn object_groups(&self) -> ObjectGroups {
-        ObjectGroups(self.object_groups.iter())
-    }
-
-    fn set_background_color(&mut self, color: Color) {
-        self.bg_color = Some(color);
-    }
-
-    fn set_height(&mut self, height: u32) {
-        self.height = height;
-    }
-
-    fn set_orientation(&mut self, orientation: Orientation) {
-        self.orientation = orientation;
-    }
-
-    fn set_render_order(&mut self, render_order: RenderOrder) {
-        self.render_order = render_order;
     }
 
     fn set_version<S: Into<String>>(&mut self, version: S) {
         self.version = version.into();
     }
 
+    pub fn orientation(&self) -> Orientation {
+        self.orientation
+    }
+
+    fn set_orientation(&mut self, orientation: Orientation) {
+        self.orientation = orientation;
+    }
+
+    pub fn render_order(&self) -> RenderOrder {
+        self.render_order
+    }
+
+    fn set_render_order(&mut self, render_order: RenderOrder) {
+        self.render_order = render_order;
+    }
+
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
     fn set_width(&mut self, width: u32) {
         self.width = width;
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
+    fn set_height(&mut self, height: u32) {
+        self.height = height;
+    }
+
+    pub fn tile_width(&self) -> u32 {
+        self.tile_width
     }
 
     fn set_tile_width(&mut self, tile_width: u32) {
         self.tile_width = tile_width;
     }
 
+    pub fn tile_height(&self) -> u32 {
+        self.tile_height
+    }
+
     fn set_tile_height(&mut self, tile_height: u32) {
         self.tile_height = tile_height;
+    }
+
+    pub fn hex_side_length(&self) -> Option<u32> {
+        self.hex_side_length
     }
 
     fn set_hex_side_length(&mut self, hex_side_length: u32) {
         self.hex_side_length = Some(hex_side_length);
     }
 
+    pub fn stagger_axis(&self) -> Option<Axis> {
+        self.stagger_axis
+    }
+
     fn set_stagger_axis(&mut self, stagger_axis: Axis) {
         self.stagger_axis = Some(stagger_axis);
+    }
+
+    pub fn stagger_index(&self) -> Option<Index> {
+        self.stagger_index
     }
 
     fn set_stagger_index(&mut self, stagger_index: Index) {
         self.stagger_index = Some(stagger_index);
     }
 
+    pub fn background_color(&self) -> Option<&Color> {
+        self.bg_color.as_ref()
+    }
+
+    fn set_background_color(&mut self, color: Color) {
+        self.bg_color = Some(color);
+    }
+
+    pub fn next_object_id(&self) -> u32 {
+        self.next_object_id
+    }
+
     fn set_next_object_id(&mut self, next_object_id: u32) {
         self.next_object_id = next_object_id;
+    }
+
+    pub fn tilesets(&self) -> Tilesets {
+        Tilesets(self.tilesets.iter())
+    }
+
+    fn add_tileset(&mut self, tileset: Tileset) {
+        self.tilesets.push(tileset);
+    }
+
+    pub fn layers(&self) -> Layers {
+        Layers(self.layers.iter())
+    }
+
+    fn add_layer(&mut self, layer: Layer) {
+        self.layers.push(layer);
+    }
+
+    pub fn image_layers(&self) -> ImageLayers {
+        ImageLayers(self.image_layers.iter())
+    }
+
+    fn add_image_layer(&mut self, image_layer: ImageLayer) {
+        self.image_layers.push(image_layer);
+    }
+
+    pub fn object_groups(&self) -> ObjectGroups {
+        ObjectGroups(self.object_groups.iter())
+    }
+
+    fn add_object_group(&mut self, object_group: ObjectGroup) {
+        self.object_groups.push(object_group);
+    }
+}
+
+impl FromStr for Map {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Map> {
+        let mut tmx = TmxReader::new(s.as_bytes());
+        tmx.read_map()
     }
 }
 
@@ -176,10 +191,34 @@ pub enum Axis {
     Y,
 }
 
+impl FromStr for Axis {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Axis> {
+        match s {
+            "x" => Ok(Axis::X),
+            "y" => Ok(Axis::Y),
+            _ => Err(Error::BadAxis(s.to_string())),
+        }
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Index {
     Even,
     Odd,
+}
+
+impl FromStr for Index {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Index> {
+        match s {
+            "even" => Ok(Index::Even),
+            "odd" => Ok(Index::Odd),
+            _ => Err(Error::BadIndex(s.to_string())),
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -193,6 +232,20 @@ pub enum Orientation {
 impl Default for Orientation {
     fn default() -> Orientation {
         Orientation::Orthogonal
+    }
+}
+
+impl FromStr for Orientation {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Orientation> {
+        match s {
+            "orthogonal" => Ok(Orientation::Orthogonal),
+            "isometric" => Ok(Orientation::Isometric),
+            "staggered" => Ok(Orientation::Staggered),
+            "hexagonal" => Ok(Orientation::Hexagonal),
+            _ => Err(Error::BadOrientation(s.to_string())),
+        }
     }
 }
 
@@ -210,7 +263,19 @@ impl Default for RenderOrder {
     }
 }
 
-define_iterator_wrapper!(Tilesets, Tileset);
+impl FromStr for RenderOrder {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<RenderOrder> {
+        match s {
+            "right-down" => Ok(RenderOrder::RightDown),
+            "right-up" => Ok(RenderOrder::RightUp),
+            "left-down" => Ok(RenderOrder::LeftDown),
+            "left-up" => Ok(RenderOrder::LeftUp),
+            _ => Err(Error::BadRenderOrder(s.to_string())),
+        }
+    }
+}
 
 #[derive(Debug)]
 pub struct Layer {
@@ -250,92 +315,90 @@ impl Layer {
         &self.name
     }
 
-    pub fn opacity(&self) -> Opacity {
-        self.opacity
-    }
-
-    pub fn is_visible(&self) -> bool {
-        self.visible
-    }
-
-    pub fn offset_x(&self) -> i32 {
-        self.offset_x
-    }
-
-    pub fn offset_y(&self) -> i32 {
-        self.offset_y
-    }
-
-    pub fn properties(&self) -> Properties {
-        self.properties.iter()
-    }
-
-    pub fn data(&self) -> Option<&Data> {
-        self.data.as_ref()
+    fn set_name<S: Into<String>>(&mut self, name: S) {
+        self.name = name.into();
     }
 
     pub fn x(&self) -> i32 {
         self.x
     }
 
-    pub fn y(&self) -> i32 {
-        self.y
-    }
-
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    fn set_name<S: Into<String>>(&mut self, name: S) {
-        self.name = name.into();
-    }
-
-    fn set_opacity(&mut self, opacity: Opacity) {
-        self.opacity = opacity;
-    }
-
-    fn set_visible(&mut self, visible: bool) {
-        self.visible = visible;
-    }
-
-    fn set_offset_x(&mut self, offset_x: i32) {
-        self.offset_x = offset_x;
-    }
-
-    fn set_offset_y(&mut self, offset_y: i32) {
-        self.offset_y = offset_y;
-    }
-
-    fn set_properties(&mut self, properties: PropertyCollection) {
-        self.properties = properties;
-    }
-
-    fn set_data(&mut self, data: Data) {
-        self.data = Some(data);
-    }
-
     fn set_x(&mut self, x: i32) {
         self.x = x;
+    }
+
+    pub fn y(&self) -> i32 {
+        self.y
     }
 
     fn set_y(&mut self, y: i32) {
         self.y = y;
     }
 
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
     fn set_width(&mut self, width: u32) {
         self.width = width;
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
     }
 
     fn set_height(&mut self, height: u32) {
         self.height = height;
     }
-}
 
-define_iterator_wrapper!(Layers, Layer);
+    pub fn opacity(&self) -> Opacity {
+        self.opacity
+    }
+
+    fn set_opacity(&mut self, opacity: Opacity) {
+        self.opacity = opacity;
+    }
+
+    pub fn is_visible(&self) -> bool {
+        self.visible
+    }
+
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
+    }
+
+    pub fn offset_x(&self) -> i32 {
+        self.offset_x
+    }
+
+    fn set_offset_x(&mut self, offset_x: i32) {
+        self.offset_x = offset_x;
+    }
+
+    pub fn offset_y(&self) -> i32 {
+        self.offset_y
+    }
+
+    fn set_offset_y(&mut self, offset_y: i32) {
+        self.offset_y = offset_y;
+    }
+
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
+    fn set_properties(&mut self, properties: PropertyCollection) {
+        self.properties = properties;
+    }
+
+    pub fn data(&self) -> Option<&Data> {
+        self.data.as_ref()
+    }
+
+    fn set_data(&mut self, data: Data) {
+        self.data = Some(data);
+    }
+}
 
 #[derive(Debug)]
 pub struct ImageLayer {
@@ -375,92 +438,90 @@ impl ImageLayer {
         &self.name
     }
 
-    pub fn opacity(&self) -> Opacity {
-        self.opacity
-    }
-
-    pub fn is_visible(&self) -> bool {
-        self.visible
+    fn set_name<S: Into<String>>(&mut self, name: S) {
+        self.name = name.into();
     }
 
     pub fn offset_x(&self) -> i32 {
         self.offset_x
     }
 
-    pub fn offset_y(&self) -> i32 {
-        self.offset_y
-    }
-
-    pub fn image(&self) -> Option<&Image> {
-        self.image.as_ref()
-    }
-
-    pub fn properties(&self) -> Properties {
-        self.properties.iter()
-    }
-
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    pub fn x(&self) -> i32 {
-        self.x
-    }
-
-    pub fn y(&self) -> i32 {
-        self.y
-    }
-
-    fn set_name<S: Into<String>>(&mut self, name: S) {
-        self.name = name.into();
-    }
-
-    fn set_opacity(&mut self, opacity: Opacity) {
-        self.opacity = opacity;
-    }
-
-    fn set_visible(&mut self, visible: bool) {
-        self.visible = visible;
-    }
-
     fn set_offset_x(&mut self, offset_x: i32) {
         self.offset_x = offset_x;
+    }
+
+    pub fn offset_y(&self) -> i32 {
+        self.offset_y
     }
 
     fn set_offset_y(&mut self, offset_y: i32) {
         self.offset_y = offset_y;
     }
 
-    fn set_image(&mut self, image: Image) {
-        self.image = Some(image);
-    }
-
-    fn set_properties(&mut self, properties: PropertyCollection) {
-        self.properties = properties;
-    }
-
-    fn set_width(&mut self, width: u32) {
-        self.width = width;
-    }
-
-    fn set_height(&mut self, height: u32) {
-        self.height = height;
+    pub fn x(&self) -> i32 {
+        self.x
     }
 
     fn set_x(&mut self, x: i32) {
         self.x = x;
     }
 
+    pub fn y(&self) -> i32 {
+        self.y
+    }
+
     fn set_y(&mut self, y: i32) {
         self.y = y;
     }
-}
 
-define_iterator_wrapper!(ImageLayers, ImageLayer);
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
+    fn set_width(&mut self, width: u32) {
+        self.width = width;
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
+    fn set_height(&mut self, height: u32) {
+        self.height = height;
+    }
+
+    pub fn opacity(&self) -> Opacity {
+        self.opacity
+    }
+
+    fn set_opacity(&mut self, opacity: Opacity) {
+        self.opacity = opacity;
+    }
+
+    pub fn is_visible(&self) -> bool {
+        self.visible
+    }
+
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
+    }
+
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
+    fn set_properties(&mut self, properties: PropertyCollection) {
+        self.properties = properties;
+    }
+
+    pub fn image(&self) -> Option<&Image> {
+        self.image.as_ref()
+    }
+
+    fn set_image(&mut self, image: Image) {
+        self.image = Some(image);
+    }
+}
 
 pub type Opacity = f64;
 
@@ -486,100 +547,100 @@ impl ObjectGroup {
         &self.name
     }
 
-    pub fn color(&self) -> Option<&Color> {
-        self.color.as_ref()
-    }
-
-    pub fn opacity(&self) -> Opacity {
-        self.opacity
-    }
-
-    pub fn is_visible(&self) -> bool {
-        self.visible
-    }
-
-    pub fn draw_order(&self) -> DrawOrder {
-        self.draw_order
-    }
-
-    pub fn offset_x(&self) -> i32 {
-        self.offset_x
-    }
-
-    pub fn offset_y(&self) -> i32 {
-        self.offset_y
-    }
-
-    pub fn properties(&self) -> Properties {
-        self.properties.iter()
-    }
-
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    pub fn x(&self) -> i32 {
-        self.x
-    }
-
-    pub fn y(&self) -> i32 {
-        self.y
-    }
-
-    pub fn objects(&self) -> Objects {
-        Objects(self.objects.iter())
-    }
-
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
+    }
+
+    pub fn color(&self) -> Option<&Color> {
+        self.color.as_ref()
     }
 
     fn set_color(&mut self, color: Color) {
         self.color = Some(color);
     }
 
-    fn set_opacity(&mut self, opacity: Opacity) {
-        self.opacity = opacity;
-    }
-
-    fn set_visible(&mut self, visible: bool) {
-        self.visible = visible;
-    }
-
-    fn set_draw_order(&mut self, draw_order: DrawOrder) {
-        self.draw_order = draw_order;
-    }
-
-    fn set_offset_x(&mut self, offset_x: i32) {
-        self.offset_x = offset_x;
-    }
-
-    fn set_offset_y(&mut self, offset_y: i32) {
-        self.offset_y = offset_y;
-    }
-
-    fn set_properties(&mut self, properties: PropertyCollection) {
-        self.properties = properties;
-    }
-
-    fn set_width(&mut self, width: u32) {
-        self.width = width;
-    }
-
-    fn set_height(&mut self, height: u32) {
-        self.height = height;
+    pub fn x(&self) -> i32 {
+        self.x
     }
 
     fn set_x(&mut self, x: i32) {
         self.x = x;
     }
 
+    pub fn y(&self) -> i32 {
+        self.y
+    }
+
     fn set_y(&mut self, y: i32) {
         self.y = y;
+    }
+
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
+    fn set_width(&mut self, width: u32) {
+        self.width = width;
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
+    fn set_height(&mut self, height: u32) {
+        self.height = height;
+    }
+
+    pub fn opacity(&self) -> Opacity {
+        self.opacity
+    }
+
+    fn set_opacity(&mut self, opacity: Opacity) {
+        self.opacity = opacity;
+    }
+
+    pub fn is_visible(&self) -> bool {
+        self.visible
+    }
+
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
+    }
+
+    pub fn offset_x(&self) -> i32 {
+        self.offset_x
+    }
+
+    fn set_offset_x(&mut self, offset_x: i32) {
+        self.offset_x = offset_x;
+    }
+
+    pub fn offset_y(&self) -> i32 {
+        self.offset_y
+    }
+
+    fn set_offset_y(&mut self, offset_y: i32) {
+        self.offset_y = offset_y;
+    }
+
+    pub fn draw_order(&self) -> DrawOrder {
+        self.draw_order
+    }
+
+    fn set_draw_order(&mut self, draw_order: DrawOrder) {
+        self.draw_order = draw_order;
+    }
+
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
+    fn set_properties(&mut self, properties: PropertyCollection) {
+        self.properties = properties;
+    }
+
+    pub fn objects(&self) -> Objects {
+        Objects(self.objects.iter())
     }
 
     fn add_object(&mut self, object: Object) {
@@ -606,8 +667,6 @@ impl Default for ObjectGroup {
         }
     }
 }
-
-define_iterator_wrapper!(ObjectGroups, ObjectGroup);
 
 #[derive(Debug)]
 pub struct Object {
@@ -649,92 +708,92 @@ impl Object {
         self.id
     }
 
-    pub fn name(&self) -> &str {
-        &self.name
-    }
-
-    pub fn object_type(&self) -> &str {
-        &self.object_type
-    }
-
-    pub fn x(&self) -> i32 {
-        self.x
-    }
-
-    pub fn y(&self) -> i32 {
-        self.y
-    }
-
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    pub fn rotation(&self) -> f32 {
-        self.rotation
-    }
-
-    pub fn is_visible(&self) -> bool {
-        self.visible
-    }
-
-    pub fn gid(&self) -> Option<u32> {
-        self.gid
-    }
-
-    pub fn properties(&self) -> Properties {
-        self.properties.iter()
-    }
-
-    pub fn shape(&self) -> Option<&Shape> {
-        self.shape.as_ref()
-    }
-
     fn set_id(&mut self, id: u32) {
         self.id = id;
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
     }
 
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
     }
 
+    pub fn object_type(&self) -> &str {
+        &self.object_type
+    }
+
     fn set_object_type<S: Into<String>>(&mut self, object_type: S) {
         self.object_type = object_type.into();
+    }
+
+    pub fn x(&self) -> i32 {
+        self.x
     }
 
     fn set_x(&mut self, x: i32) {
         self.x = x;
     }
 
+    pub fn y(&self) -> i32 {
+        self.y
+    }
+
     fn set_y(&mut self, y: i32) {
         self.y = y;
+    }
+
+    pub fn width(&self) -> u32 {
+        self.width
     }
 
     fn set_width(&mut self, width: u32) {
         self.width = width;
     }
 
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
     fn set_height(&mut self, height: u32) {
         self.height = height;
+    }
+
+    pub fn rotation(&self) -> f32 {
+        self.rotation
     }
 
     fn set_rotation(&mut self, rotation: f32) {
         self.rotation = rotation;
     }
 
-    fn set_visible(&mut self, visible: bool) {
-        self.visible = visible;
+    pub fn gid(&self) -> Option<u32> {
+        self.gid
     }
 
     fn set_gid(&mut self, gid: u32) {
         self.gid = Some(gid);
     }
 
+    pub fn is_visible(&self) -> bool {
+        self.visible
+    }
+
+    fn set_visible(&mut self, visible: bool) {
+        self.visible = visible;
+    }
+
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
     fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
+    }
+
+    pub fn shape(&self) -> Option<&Shape> {
+        self.shape.as_ref()
     }
 
     fn set_shape<S: Into<Shape>>(&mut self, shape: S) {
@@ -742,73 +801,10 @@ impl Object {
     }
 }
 
-define_iterator_wrapper!(Objects, Object);
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum DrawOrder {
     TopDown,
     Index,
-}
-
-impl FromStr for Map {
-    type Err = Error;
-
-    fn from_str(s: &str) -> ::Result<Map> {
-        let mut tmx = TmxReader::new(s.as_bytes());
-        tmx.read_map()
-    }
-}
-
-impl FromStr for Axis {
-    type Err = Error;
-
-    fn from_str(s: &str) -> ::Result<Axis> {
-        match s {
-            "x" => Ok(Axis::X),
-            "y" => Ok(Axis::Y),
-            _ => Err(Error::BadAxis(s.to_string())),
-        }
-    }
-}
-
-impl FromStr for Index {
-    type Err = Error;
-
-    fn from_str(s: &str) -> ::Result<Index> {
-        match s {
-            "even" => Ok(Index::Even),
-            "odd" => Ok(Index::Odd),
-            _ => Err(Error::BadIndex(s.to_string())),
-        }
-    }
-}
-
-impl FromStr for Orientation {
-    type Err = Error;
-
-    fn from_str(s: &str) -> ::Result<Orientation> {
-        match s {
-            "orthogonal" => Ok(Orientation::Orthogonal),
-            "isometric" => Ok(Orientation::Isometric),
-            "staggered" => Ok(Orientation::Staggered),
-            "hexagonal" => Ok(Orientation::Hexagonal),
-            _ => Err(Error::BadOrientation(s.to_string())),
-        }
-    }
-}
-
-impl FromStr for RenderOrder {
-    type Err = Error;
-
-    fn from_str(s: &str) -> ::Result<RenderOrder> {
-        match s {
-            "right-down" => Ok(RenderOrder::RightDown),
-            "right-up" => Ok(RenderOrder::RightUp),
-            "left-down" => Ok(RenderOrder::LeftDown),
-            "left-up" => Ok(RenderOrder::LeftUp),
-            _ => Err(Error::BadRenderOrder(s.to_string())),
-        }
-    }
 }
 
 impl FromStr for DrawOrder {

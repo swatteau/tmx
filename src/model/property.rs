@@ -4,6 +4,8 @@ use std::str::FromStr;
 use error::Error;
 use model::reader::{TmxReader, ElementReader};
 
+define_iterator_wrapper!(Properties, Property);
+
 #[derive(Debug, Default)]
 pub struct Property {
     name: String,
@@ -26,24 +28,24 @@ impl Property {
         &self.name
     }
 
-    pub fn value(&self) -> &str {
-        &self.value
+    fn set_name<S: Into<String>>(&mut self, name: S) {
+        self.name = name.into();
     }
 
     pub fn property_type(&self) -> PropertyType {
         self.property_type
     }
 
-    fn set_name<S: Into<String>>(&mut self, name: S) {
-        self.name = name.into();
+    fn set_property_type(&mut self, property_type: PropertyType) {
+        self.property_type = property_type;
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
     }
 
     fn set_value<S: Into<String>>(&mut self, value: S) {
         self.value = value.into();
-    }
-
-    fn set_property_type(&mut self, property_type: PropertyType) {
-        self.property_type = property_type;
     }
 }
 
@@ -77,8 +79,6 @@ impl PropertyCollection {
         Properties(self.0.iter())
     }
 }
-
-define_iterator_wrapper!(Properties, Property);
 
 impl FromStr for PropertyType {
     type Err = Error;

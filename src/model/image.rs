@@ -23,44 +23,44 @@ impl Image {
         &self.format
     }
 
-    pub fn source(&self) -> &str {
-        &self.source
-    }
-
-    pub fn trans(&self) -> Option<&Color> {
-        self.trans.as_ref()
-    }
-
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    pub fn data(&self) -> Option<&Data> {
-        self.data.as_ref()
-    }
-
     fn set_format<S: Into<String>>(&mut self, format: S) {
         self.format = format.into();
+    }
+
+    pub fn source(&self) -> &str {
+        &self.source
     }
 
     fn set_source<S: Into<String>>(&mut self, source: S) {
         self.source = source.into();
     }
 
+    pub fn trans(&self) -> Option<&Color> {
+        self.trans.as_ref()
+    }
+
     fn set_trans(&mut self, color: Color) {
         self.trans = Some(color);
+    }
+
+    pub fn width(&self) -> u32 {
+        self.width
     }
 
     fn set_width(&mut self, width: u32) {
         self.width = width;
     }
 
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
     fn set_height(&mut self, height: u32) {
         self.height = height;
+    }
+
+    pub fn data(&self) -> Option<&Data> {
+        self.data.as_ref()
     }
 
     fn set_data(&mut self, data: Data) {

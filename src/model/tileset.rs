@@ -11,6 +11,9 @@ use model::map::ObjectGroup;
 use model::property::{Properties, PropertyCollection};
 use model::reader::{self, TmxReader, ElementReader};
 
+define_iterator_wrapper!(Tiles, Tile);
+define_iterator_wrapper!(TerrainTypes, Terrain);
+
 #[derive(Debug, Default)]
 pub struct Tileset {
     first_gid: u32,
@@ -39,104 +42,113 @@ impl Tileset {
         self.first_gid
     }
 
-    pub fn name(&self) -> &str {
-        &self.name
-    }
-
-    pub fn spacing(&self) -> u32 {
-        self.spacing
-    }
-
-    pub fn margin(&self) -> u32 {
-        self.margin
-    }
-
-    pub fn tile_width(&self) -> u32 {
-        self.tile_width
-    }
-
-    pub fn tile_height(&self) -> u32 {
-        self.tile_height
-    }
-
-    pub fn tile_count(&self) -> u32 {
-        self.tile_count
-    }
-
-    pub fn columns(&self) -> u32 {
-        self.columns
-    }
-
-    pub fn image(&self) -> Option<&Image> {
-        self.image.as_ref()
-    }
-
-    pub fn tile_offset(&self) -> Option<TileOffset> {
-        self.tile_offset
-    }
-
-    pub fn properties(&self) -> Properties {
-        self.properties.iter()
-    }
-
-    pub fn terrain_types(&self) -> TerrainTypes {
-        self.terrain_types.iter()
-    }
-
-    pub fn tiles(&self) -> Tiles {
-        Tiles(self.tiles.iter())
-    }
-
     fn set_first_gid(&mut self, first_gid: u32) {
         self.first_gid = first_gid;
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
     }
 
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
     }
 
-    fn set_spacing(&mut self, spacing: u32) {
-        self.spacing = spacing;
-    }
-
-    fn set_margin(&mut self, margin: u32) {
-        self.margin = margin;
+    pub fn tile_width(&self) -> u32 {
+        self.tile_width
     }
 
     fn set_tile_width(&mut self, tile_width: u32) {
         self.tile_width = tile_width;
     }
 
+    pub fn tile_height(&self) -> u32 {
+        self.tile_height
+    }
+
     fn set_tile_height(&mut self, tile_height: u32) {
         self.tile_height = tile_height;
+    }
+
+    pub fn spacing(&self) -> u32 {
+        self.spacing
+    }
+
+    fn set_spacing(&mut self, spacing: u32) {
+        self.spacing = spacing;
+    }
+
+    pub fn margin(&self) -> u32 {
+        self.margin
+    }
+
+    fn set_margin(&mut self, margin: u32) {
+        self.margin = margin;
+    }
+
+    pub fn tile_count(&self) -> u32 {
+        self.tile_count
     }
 
     fn set_tile_count(&mut self, tile_count: u32) {
         self.tile_count = tile_count;
     }
 
+    pub fn columns(&self) -> u32 {
+        self.columns
+    }
+
     fn set_columns(&mut self, columns: u32) {
         self.columns = columns;
     }
 
-    fn set_image(&mut self, image: Image) {
-        self.image = Some(image);
+    pub fn tile_offset(&self) -> Option<TileOffset> {
+        self.tile_offset
     }
 
     fn set_tile_offset(&mut self, tile_offset: TileOffset) {
         self.tile_offset = Some(tile_offset);
     }
 
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
     fn set_properties(&mut self, properties: PropertyCollection) {
         self.properties = properties;
+    }
+
+    pub fn image(&self) -> Option<&Image> {
+        self.image.as_ref()
+    }
+
+    fn set_image(&mut self, image: Image) {
+        self.image = Some(image);
+    }
+
+    pub fn terrain_types(&self) -> TerrainTypes {
+        self.terrain_types.iter()
     }
 
     fn set_terrain_types(&mut self, terrain_types: TerrainCollection) {
         self.terrain_types = terrain_types;
     }
 
+    pub fn tiles(&self) -> Tiles {
+        Tiles(self.tiles.iter())
+    }
+
     fn add_tile(&mut self, tile: Tile) {
         self.tiles.push(tile);
+    }
+}
+
+impl FromStr for Tileset {
+    type Err = Error;
+
+    fn from_str(s: &str) -> ::Result<Tileset> {
+        let mut tsx = TmxReader::new(s.as_bytes());
+        tsx.read_tileset()
     }
 }
 
@@ -158,12 +170,12 @@ impl TileOffset {
         self.x
     }
 
-    pub fn y(&self) -> i32 {
-        self.y
-    }
-
     fn set_x(&mut self, x: i32) {
         self.x = x;
+    }
+
+    pub fn y(&self) -> i32 {
+        self.y
     }
 
     fn set_y(&mut self, y: i32) {
@@ -175,11 +187,11 @@ impl TileOffset {
 pub struct TerrainCollection(Vec<Terrain>);
 
 impl TerrainCollection {
-    pub fn iter(&self) -> TerrainTypes {
+    fn iter(&self) -> TerrainTypes {
         TerrainTypes(self.0.iter())
     }
 
-    pub fn push(&mut self, terrain: Terrain) {
+    fn push(&mut self, terrain: Terrain) {
         self.0.push(terrain);
     }
 }
@@ -200,60 +212,58 @@ impl Tile {
         self.id
     }
 
-    pub fn terrain(&self) -> Option<&Corners> {
-        self.corners.as_ref()
-    }
-
-    pub fn probability(&self) -> Option<f32> {
-        self.probability
-    }
-
-    pub fn animation(&self) -> Option<&Animation> {
-        self.animation.as_ref()
-    }
-
-    pub fn image(&self) -> Option<&Image> {
-        self.image.as_ref()
-    }
-
-    pub fn object_group(&self) -> Option<&ObjectGroup> {
-        self.object_group.as_ref()
-    }
-
-    pub fn properties(&self) -> Properties {
-        self.properties.iter()
-    }
-
     fn set_id(&mut self, id: u32) {
         self.id = id;
+    }
+
+    pub fn terrain(&self) -> Option<&Corners> {
+        self.corners.as_ref()
     }
 
     fn set_corners(&mut self, corners: Corners) {
         self.corners = Some(corners);
     }
 
+    pub fn probability(&self) -> Option<f32> {
+        self.probability
+    }
+
     fn set_probability(&mut self, probability: f32) {
         self.probability = Some(probability);
     }
 
-    fn set_animation(&mut self, animation: Animation) {
-        self.animation = Some(animation);
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
+    }
+
+    fn set_properties(&mut self, properties: PropertyCollection) {
+        self.properties = properties;
+    }
+
+    pub fn image(&self) -> Option<&Image> {
+        self.image.as_ref()
     }
 
     fn set_image(&mut self, image: Image) {
         self.image = Some(image);
     }
 
+    pub fn object_group(&self) -> Option<&ObjectGroup> {
+        self.object_group.as_ref()
+    }
+
     fn set_object_group(&mut self, object_group: ObjectGroup) {
         self.object_group = Some(object_group);
     }
 
-    fn set_properties(&mut self, properties: PropertyCollection) {
-        self.properties = properties;
+    pub fn animation(&self) -> Option<&Animation> {
+        self.animation.as_ref()
+    }
+
+    fn set_animation(&mut self, animation: Animation) {
+        self.animation = Some(animation);
     }
 }
-
-define_iterator_wrapper!(Tiles, Tile);
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct Corners(pub u32, pub u32, pub u32, pub u32);
@@ -293,20 +303,20 @@ pub struct Frame {
 }
 
 impl Frame {
-    pub fn duration(&self) -> u32 {
-        self.duration
-    }
-
     pub fn tile_id(&self) -> u32 {
         self.tile_id
     }
 
-    fn set_duration(&mut self, duration: u32) {
-        self.duration = duration;
-    }
-
     fn set_tile_id(&mut self, tile_id: u32) {
         self.tile_id = tile_id;
+    }
+
+    pub fn duration(&self) -> u32 {
+        self.duration
+    }
+
+    fn set_duration(&mut self, duration: u32) {
+        self.duration = duration;
     }
 }
 
@@ -322,36 +332,24 @@ impl Terrain {
         &self.name
     }
 
-    pub fn tile(&self) -> &str {
-        &self.tile
-    }
-
-    pub fn properties(&self) -> Properties {
-        self.properties.iter()
-    }
-
     fn set_name<S: Into<String>>(&mut self, name: S) {
         self.name = name.into();
+    }
+
+    pub fn tile(&self) -> &str {
+        &self.tile
     }
 
     fn set_tile<S: Into<String>>(&mut self, tile: S) {
         self.tile = tile.into();
     }
 
-    fn set_properties(&mut self, properties: PropertyCollection) {
-        self.properties = properties;
+    pub fn properties(&self) -> Properties {
+        self.properties.iter()
     }
 
-}
-
-define_iterator_wrapper!(TerrainTypes, Terrain);
-
-impl FromStr for Tileset {
-    type Err = Error;
-
-    fn from_str(s: &str) -> ::Result<Tileset> {
-        let mut tsx = TmxReader::new(s.as_bytes());
-        tsx.read_tileset()
+    fn set_properties(&mut self, properties: PropertyCollection) {
+        self.properties = properties;
     }
 }
 
