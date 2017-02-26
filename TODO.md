@@ -14,7 +14,7 @@
 - [x] staggerindex
 - [x] backgroundcolor
 - [x] nextobjectid
-- [x] properties
+- [ ] properties
 - [x] tileset
 - [x] layer
 - [x] objectgroup

@@ -100,11 +100,11 @@ impl<R: Read> ElementReader<Property> for TmxReader<R> {
             "name" => {
                 property.set_name(value);
             }
-            "value" => {
-                property.set_value(value);
-            }
             "type" => {
                 property.set_property_type(try!(PropertyType::from_str(value)));
+            }
+            "value" => {
+                property.set_value(value);
             }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));

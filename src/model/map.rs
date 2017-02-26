@@ -822,10 +822,6 @@ impl FromStr for DrawOrder {
 impl<R: Read> ElementReader<Map> for TmxReader<R> {
     fn read_attributes(&mut self, map: &mut Map, name: &str, value: &str) -> ::Result<()> {
         match name {
-            "backgroundcolor" => {
-                let color = try!(Color::from_str(value));
-                map.set_background_color(color);
-            }
             "version" => {
                 map.set_version(value);
             }
@@ -865,6 +861,10 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
                 let stagger_index = try!(Index::from_str(value));
                 map.set_stagger_index(stagger_index);
             }
+            "backgroundcolor" => {
+                let color = try!(Color::from_str(value));
+                map.set_background_color(color);
+            }
             "nextobjectid" => {
                 let next_object_id = try!(reader::read_num(value));
                 map.set_next_object_id(next_object_id);
@@ -886,13 +886,13 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
                 let layer = try!(self.on_layer(attributes));
                 map.add_layer(layer);
             }
-            "imagelayer" => {
-                let image_layer = try!(self.on_image_layer(attributes));
-                map.add_image_layer(image_layer);
-            }
             "objectgroup" => {
                 let object_group = try!(self.on_object_group(attributes));
                 map.add_object_group(object_group);
+            }
+            "imagelayer" => {
+                let image_layer = try!(self.on_image_layer(attributes));
+                map.add_image_layer(image_layer);
             }
             _ => {}
         }
@@ -905,6 +905,22 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
         match name {
             "name" => {
                 layer.set_name(value);
+            }
+            "x" => {
+                let x = try!(reader::read_num(value));
+                layer.set_x(x);
+            }
+            "y" => {
+                let y = try!(reader::read_num(value));
+                layer.set_y(y);
+            }
+            "width" => {
+                let width = try!(reader::read_num(value));
+                layer.set_width(width);
+            }
+            "height" => {
+                let height = try!(reader::read_num(value));
+                layer.set_height(height);
             }
             "opacity" => {
                 let opacity = try!(reader::read_num(value));
@@ -923,22 +939,6 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
             "offsety" => {
                 let offset_y = try!(reader::read_num(value));
                 layer.set_offset_y(offset_y);
-            }
-            "x" => {
-                let x = try!(reader::read_num(value));
-                layer.set_x(x);
-            }
-            "y" => {
-                let y = try!(reader::read_num(value));
-                layer.set_y(y);
-            }
-            "width" => {
-                let width = try!(reader::read_num(value));
-                layer.set_width(width);
-            }
-            "height" => {
-                let height = try!(reader::read_num(value));
-                layer.set_height(height);
             }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
@@ -969,16 +969,6 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
             "name" => {
                 image_layer.set_name(value);
             }
-            "opacity" => {
-                let opacity = try!(reader::read_num(value));
-                image_layer.set_opacity(opacity);
-            }
-            "visible" => {
-                let visibility = try!(reader::read_num::<u32>(value));
-                if visibility == 0 {
-                    image_layer.set_visible(false);
-                }
-            }
             "offsetx" => {
                 let offset_x = try!(reader::read_num(value));
                 image_layer.set_offset_x(offset_x);
@@ -1002,6 +992,16 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
             "height" => {
                 let height = try!(reader::read_num(value));
                 image_layer.set_height(height);
+            }
+            "opacity" => {
+                let opacity = try!(reader::read_num(value));
+                image_layer.set_opacity(opacity);
+            }
+            "visible" => {
+                let visibility = try!(reader::read_num::<u32>(value));
+                if visibility == 0 {
+                    image_layer.set_visible(false);
+                }
             }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
@@ -1036,6 +1036,22 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 let color = try!(Color::from_str(value));
                 object_group.set_color(color);
             }
+            "x" => {
+                let x = try!(reader::read_num(value));
+                object_group.set_x(x);
+            }
+            "y" => {
+                let y = try!(reader::read_num(value));
+                object_group.set_y(y);
+            }
+            "width" => {
+                let width = try!(reader::read_num(value));
+                object_group.set_width(width);
+            }
+            "height" => {
+                let height = try!(reader::read_num(value));
+                object_group.set_height(height);
+            }
             "opacity" => {
                 let opacity = try!(reader::read_num(value));
                 object_group.set_opacity(opacity);
@@ -1058,22 +1074,6 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 let draw_order = try!(DrawOrder::from_str(value));
                 object_group.set_draw_order(draw_order);
             }
-            "x" => {
-                let x = try!(reader::read_num(value));
-                object_group.set_x(x);
-            }
-            "y" => {
-                let y = try!(reader::read_num(value));
-                object_group.set_y(y);
-            }
-            "width" => {
-                let width = try!(reader::read_num(value));
-                object_group.set_width(width);
-            }
-            "height" => {
-                let height = try!(reader::read_num(value));
-                object_group.set_height(height);
-            }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
             }
@@ -1083,13 +1083,13 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
 
     fn read_children(&mut self, object_group: &mut ObjectGroup, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         match name {
-            "object" => {
-                let object = try!(self.on_object(attributes));
-                object_group.add_object(object);
-            }
             "properties" => {
                 let properties = try!(self.on_properties(attributes));
                 object_group.set_properties(properties);
+            }
+            "object" => {
+                let object = try!(self.on_object(attributes));
+                object_group.add_object(object);
             }
             _ => {}
         };
@@ -1130,15 +1130,15 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
                 let rotation = try!(reader::read_num(value));
                 object.set_rotation(rotation);
             }
+            "gid" => {
+                let gid = try!(reader::read_num(value));
+                object.set_gid(gid);
+            }
             "visible" => {
                 let visibility = try!(reader::read_num::<u32>(value));
                 if visibility == 0 {
                     object.set_visible(false);
                 }
-            }
-            "gid" => {
-                let gid = try!(reader::read_num(value));
-                object.set_gid(gid);
             }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));

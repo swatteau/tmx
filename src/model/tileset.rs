@@ -365,15 +365,15 @@ impl Terrain {
 impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
     fn read_attributes(&mut self, tileset: &mut Tileset, name: &str, value: &str) -> ::Result<()> {
         match name {
-            "name" => {
-                tileset.set_name(value);
-            }
             "firstgid" => {
                 let first_gid = try!(reader::read_num(value));
                 tileset.set_first_gid(first_gid);
             }
             "source" => {
                 tileset.set_source(value);
+            }
+            "name" => {
+                tileset.set_name(value);
             }
             "tilewidth" => {
                 let tile_width = try!(reader::read_num(value));
@@ -408,10 +408,6 @@ impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
 
     fn read_children(&mut self, tileset: &mut Tileset, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         match name {
-            "image" => {
-                let image = try!(self.on_image(attributes));
-                tileset.set_image(image);
-            }
             "tileoffset" => {
                 let tile_offset = try!(self.on_tile_offset(attributes));
                 tileset.set_tile_offset(tile_offset);
@@ -419,6 +415,10 @@ impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
             "properties" => {
                 let properties = try!(self.on_properties(attributes));
                 tileset.set_properties(properties);
+            }
+            "image" => {
+                let image = try!(self.on_image(attributes));
+                tileset.set_image(image);
             }
             "terraintypes" => {
                 let terrain_types = try!(self.on_terrain_types(attributes));
@@ -508,9 +508,9 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
 
     fn read_children(&mut self, tile: &mut Tile, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         match name {
-            "animation" => {
-                let animation = try!(self.on_animation(attributes));
-                tile.set_animation(animation);
+            "properties" => {
+                let properties = try!(self.on_properties(attributes));
+                tile.set_properties(properties);
             }
             "image" => {
                 let image = try!(self.on_image(attributes));
@@ -520,9 +520,9 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
                 let object_group = try!(self.on_object_group(attributes));
                 tile.set_object_group(object_group);
             }
-            "properties" => {
-                let properties = try!(self.on_properties(attributes));
-                tile.set_properties(properties);
+            "animation" => {
+                let animation = try!(self.on_animation(attributes));
+                tile.set_animation(animation);
             }
             _ => {}
         };
@@ -566,13 +566,13 @@ impl<R: Read> ElementReader<Animation> for TmxReader<R> {
 impl<R: Read> ElementReader<Frame> for TmxReader<R> {
     fn read_attributes(&mut self, frame: &mut Frame, name: &str, value: &str) -> ::Result<()> {
         match name {
-            "duration" => {
-                let duration = try!(reader::read_num(value));
-                frame.set_duration(duration);
-            }
             "tileid" => {
                 let tile_id = try!(reader::read_num(value));
                 frame.set_tile_id(tile_id);
+            }
+            "duration" => {
+                let duration = try!(reader::read_num(value));
+                frame.set_duration(duration);
             }
             _ => {
                 return Err(Error::UnknownAttribute(name.to_string()));
