@@ -23,7 +23,7 @@
 ## tileset
 
 - [x] firstgid
-- [ ] source
+- [x] source
 - [x] name
 - [x] tilewidth
 - [x] tileheight

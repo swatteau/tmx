@@ -17,6 +17,7 @@ define_iterator_wrapper!(TerrainTypes, Terrain);
 #[derive(Debug, Default)]
 pub struct Tileset {
     first_gid: u32,
+    source: String,
     name: String,
     tile_width: u32,
     tile_height: u32,
@@ -44,6 +45,14 @@ impl Tileset {
 
     fn set_first_gid(&mut self, first_gid: u32) {
         self.first_gid = first_gid;
+    }
+
+    pub fn source(&self) -> &str {
+        &self.source
+    }
+
+    fn set_source<S: Into<String>>(&mut self, source: S) {
+        self.source = source.into();
     }
 
     pub fn name(&self) -> &str {
@@ -362,6 +371,9 @@ impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
             "firstgid" => {
                 let first_gid = try!(reader::read_num(value));
                 tileset.set_first_gid(first_gid);
+            }
+            "source" => {
+                tileset.set_source(value);
             }
             "tilewidth" => {
                 let tile_width = try!(reader::read_num(value));

@@ -335,6 +335,12 @@ fn after_reading_valid_xml_expect_tileset_to_have_tile_count() {
 }
 
 #[test]
+fn after_reading_valid_xml_expect_tileset_to_have_source() {
+    let tileset = get_simple_valid_tileset();
+    assert_eq!("some_file.tsx", tileset.source());
+}
+
+#[test]
 fn after_reading_valid_xml_expect_tileset_to_have_columns() {
     let tileset = get_simple_valid_tileset();
     assert_eq!(24, tileset.columns());
@@ -550,6 +556,7 @@ fn get_map_with_image_layers() -> Map {
 fn get_simple_valid_tileset() -> Tileset {
     Tileset::from_str(r#"<tileset firstgid="1"
                 name="simple"
+                source="some_file.tsx"
                 tilewidth="32"
                 tileheight="16"
                 spacing="4"
