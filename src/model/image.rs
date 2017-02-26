@@ -1,9 +1,11 @@
 use std::io::Read;
 use std::str::FromStr;
-use error::Error;
+
 use xml::attribute::OwnedAttribute;
-use super::reader::{TmxReader, ElementReader, read_num};
+
 use color::Color;
+use error::Error;
+use model::reader::{self, TmxReader, ElementReader};
 use model::data::Data;
 
 #[derive(Debug, Default)]
@@ -80,11 +82,11 @@ impl<R: Read> ElementReader<Image> for TmxReader<R> {
                 image.set_trans(color);
             }
             "width" => {
-                let width = try!(read_num(value));
+                let width = try!(reader::read_num(value));
                 image.set_width(width);
             }
             "height" => {
-                let height = try!(read_num(value));
+                let height = try!(reader::read_num(value));
                 image.set_height(height);
             }
             _ => {

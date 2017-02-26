@@ -1,7 +1,9 @@
 use std::io::Read;
+
 use xml::attribute::OwnedAttribute;
+
 use error::Error;
-use super::reader::{TmxReader, ElementReader, read_num};
+use model::reader::{self, TmxReader, ElementReader};
 
 #[derive(Debug, Default)]
 pub struct Data {
@@ -92,7 +94,7 @@ impl<R: Read> ElementReader<DataTile> for TmxReader<R> {
     fn read_attributes(&mut self, tile: &mut DataTile, name: &str, value: &str) -> ::Result<()> {
         match name {
             "gid" => {
-                let gid = try!(read_num(value));
+                let gid = try!(reader::read_num(value));
                 tile.set_gid(gid);
             }
             _ => {

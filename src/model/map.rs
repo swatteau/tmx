@@ -2,11 +2,12 @@ use std::io::Read;
 use std::str::FromStr;
 use std::path::Path;
 use std::fs::File;
+
 use xml::attribute::OwnedAttribute;
-use error::Error;
-use super::reader::{TmxReader, ElementReader, read_num};
 
 use color::Color;
+use error::Error;
+use model::reader::{self, TmxReader, ElementReader};
 use model::data::Data;
 use model::tileset::{Tileset};
 use model::property::{PropertyCollection, Properties};
@@ -882,7 +883,7 @@ impl FromStr for Point {
     type Err = Error;
 
     fn from_str(s: &str) -> ::Result<Point> {
-        let mut coords: Vec<_> = s.split(',').map(read_num::<i32>).collect();
+        let mut coords: Vec<_> = s.split(',').map(reader::read_num::<i32>).collect();
         if coords.len() == 2 {
             let y = try!(coords.pop().unwrap());
             let x = try!(coords.pop().unwrap());
@@ -912,23 +913,23 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
                 map.set_render_order(render_order);
             }
             "width" => {
-                let width = try!(read_num(value));
+                let width = try!(reader::read_num(value));
                 map.set_width(width);
             }
             "height" => {
-                let height = try!(read_num(value));
+                let height = try!(reader::read_num(value));
                 map.set_height(height);
             }
             "tilewidth" => {
-                let tile_width = try!(read_num(value));
+                let tile_width = try!(reader::read_num(value));
                 map.set_tile_width(tile_width);
             }
             "tileheight" => {
-                let tile_height = try!(read_num(value));
+                let tile_height = try!(reader::read_num(value));
                 map.set_tile_height(tile_height);
             }
             "hexsidelength" => {
-                let hex_side_length = try!(read_num(value));
+                let hex_side_length = try!(reader::read_num(value));
                 map.set_hex_side_length(hex_side_length);
             }
             "staggeraxis" => {
@@ -940,7 +941,7 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
                 map.set_stagger_index(stagger_index);
             }
             "nextobjectid" => {
-                let next_object_id = try!(read_num(value));
+                let next_object_id = try!(reader::read_num(value));
                 map.set_next_object_id(next_object_id);
             }
             _ => {
@@ -981,37 +982,37 @@ impl<R: Read> ElementReader<Layer> for TmxReader<R> {
                 layer.set_name(value);
             }
             "opacity" => {
-                let opacity = try!(read_num(value));
+                let opacity = try!(reader::read_num(value));
                 layer.set_opacity(opacity);
             }
             "visible" => {
-                let visibility = try!(read_num::<u32>(value));
+                let visibility = try!(reader::read_num::<u32>(value));
                 if visibility == 0 {
                     layer.set_visible(false);
                 }
             }
             "offsetx" => {
-                let offset_x = try!(read_num(value));
+                let offset_x = try!(reader::read_num(value));
                 layer.set_offset_x(offset_x);
             }
             "offsety" => {
-                let offset_y = try!(read_num(value));
+                let offset_y = try!(reader::read_num(value));
                 layer.set_offset_y(offset_y);
             }
             "x" => {
-                let x = try!(read_num(value));
+                let x = try!(reader::read_num(value));
                 layer.set_x(x);
             }
             "y" => {
-                let y = try!(read_num(value));
+                let y = try!(reader::read_num(value));
                 layer.set_y(y);
             }
             "width" => {
-                let width = try!(read_num(value));
+                let width = try!(reader::read_num(value));
                 layer.set_width(width);
             }
             "height" => {
-                let height = try!(read_num(value));
+                let height = try!(reader::read_num(value));
                 layer.set_height(height);
             }
             _ => {
@@ -1044,37 +1045,37 @@ impl<R: Read> ElementReader<ImageLayer> for TmxReader<R> {
                 image_layer.set_name(value);
             }
             "opacity" => {
-                let opacity = try!(read_num(value));
+                let opacity = try!(reader::read_num(value));
                 image_layer.set_opacity(opacity);
             }
             "visible" => {
-                let visibility = try!(read_num::<u32>(value));
+                let visibility = try!(reader::read_num::<u32>(value));
                 if visibility == 0 {
                     image_layer.set_visible(false);
                 }
             }
             "offsetx" => {
-                let offset_x = try!(read_num(value));
+                let offset_x = try!(reader::read_num(value));
                 image_layer.set_offset_x(offset_x);
             }
             "offsety" => {
-                let offset_y = try!(read_num(value));
+                let offset_y = try!(reader::read_num(value));
                 image_layer.set_offset_y(offset_y);
             }
             "x" => {
-                let x = try!(read_num(value));
+                let x = try!(reader::read_num(value));
                 image_layer.set_x(x);
             }
             "y" => {
-                let y = try!(read_num(value));
+                let y = try!(reader::read_num(value));
                 image_layer.set_y(y);
             }
             "width" => {
-                let width = try!(read_num(value));
+                let width = try!(reader::read_num(value));
                 image_layer.set_width(width);
             }
             "height" => {
-                let height = try!(read_num(value));
+                let height = try!(reader::read_num(value));
                 image_layer.set_height(height);
             }
             _ => {
@@ -1111,21 +1112,21 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 object_group.set_color(color);
             }
             "opacity" => {
-                let opacity = try!(read_num(value));
+                let opacity = try!(reader::read_num(value));
                 object_group.set_opacity(opacity);
             }
             "visible" => {
-                let visibility = try!(read_num::<u32>(value));
+                let visibility = try!(reader::read_num::<u32>(value));
                 if visibility == 0 {
                     object_group.set_visible(false);
                 }
             }
             "offsetx" => {
-                let offset_x = try!(read_num(value));
+                let offset_x = try!(reader::read_num(value));
                 object_group.set_offset_x(offset_x);
             }
             "offsety" => {
-                let offset_y = try!(read_num(value));
+                let offset_y = try!(reader::read_num(value));
                 object_group.set_offset_y(offset_y);
             }
             "draworder" => {
@@ -1133,19 +1134,19 @@ impl<R: Read> ElementReader<ObjectGroup> for TmxReader<R> {
                 object_group.set_draw_order(draw_order);
             }
             "x" => {
-                let x = try!(read_num(value));
+                let x = try!(reader::read_num(value));
                 object_group.set_x(x);
             }
             "y" => {
-                let y = try!(read_num(value));
+                let y = try!(reader::read_num(value));
                 object_group.set_y(y);
             }
             "width" => {
-                let width = try!(read_num(value));
+                let width = try!(reader::read_num(value));
                 object_group.set_width(width);
             }
             "height" => {
-                let height = try!(read_num(value));
+                let height = try!(reader::read_num(value));
                 object_group.set_height(height);
             }
             _ => {
@@ -1175,7 +1176,7 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
     fn read_attributes(&mut self, object: &mut Object, name: &str, value: &str) -> ::Result<()> {
         match name {
             "id" => {
-                let id = try!(read_num(value));
+                let id = try!(reader::read_num(value));
                 object.set_id(id);
             }
             "name" => {
@@ -1185,33 +1186,33 @@ impl<R: Read> ElementReader<Object> for TmxReader<R> {
                 object.set_object_type(value);
             }
             "x" => {
-                let x = try!(read_num(value));
+                let x = try!(reader::read_num(value));
                 object.set_x(x);
             }
             "y" => {
-                let y = try!(read_num(value));
+                let y = try!(reader::read_num(value));
                 object.set_y(y);
             }
             "width" => {
-                let width = try!(read_num(value));
+                let width = try!(reader::read_num(value));
                 object.set_width(width);
             }
             "height" => {
-                let height = try!(read_num(value));
+                let height = try!(reader::read_num(value));
                 object.set_height(height);
             }
             "rotation" => {
-                let rotation = try!(read_num(value));
+                let rotation = try!(reader::read_num(value));
                 object.set_rotation(rotation);
             }
             "visible" => {
-                let visibility = try!(read_num::<u32>(value));
+                let visibility = try!(reader::read_num::<u32>(value));
                 if visibility == 0 {
                     object.set_visible(false);
                 }
             }
             "gid" => {
-                let gid = try!(read_num(value));
+                let gid = try!(reader::read_num(value));
                 object.set_gid(gid);
             }
             _ => {

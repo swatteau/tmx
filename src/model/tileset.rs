@@ -2,13 +2,14 @@ use std::io::Read;
 use std::str::FromStr;
 use std::path::Path;
 use std::fs::File;
-use xml::attribute::OwnedAttribute;
-use error::Error;
-use super::reader::{TmxReader, ElementReader, read_num};
-use model::map::{ObjectGroup};
 
-use model::property::*;
+use xml::attribute::OwnedAttribute;
+
+use error::Error;
 use model::image::Image;
+use model::map::ObjectGroup;
+use model::property::{Properties, PropertyCollection};
+use model::reader::{self, TmxReader, ElementReader};
 
 #[derive(Debug, Default)]
 pub struct Tileset {
@@ -261,7 +262,7 @@ impl FromStr for Corners {
     type Err = Error;
 
     fn from_str(s: &str) -> ::Result<Corners> {
-        let ids: Vec<u32> = try!(s.split(',').map(read_num).collect());
+        let ids: Vec<u32> = try!(s.split(',').map(reader::read_num).collect());
         if ids.len() == 4 {
             Ok(Corners(ids[0], ids[1], ids[2], ids[3]))
         } else {
@@ -361,31 +362,31 @@ impl<R: Read> ElementReader<Tileset> for TmxReader<R> {
                 tileset.set_name(value);
             }
             "firstgid" => {
-                let first_gid = try!(read_num(value));
+                let first_gid = try!(reader::read_num(value));
                 tileset.set_first_gid(first_gid);
             }
             "tilewidth" => {
-                let tile_width = try!(read_num(value));
+                let tile_width = try!(reader::read_num(value));
                 tileset.set_tile_width(tile_width);
             }
             "tileheight" => {
-                let tile_height = try!(read_num(value));
+                let tile_height = try!(reader::read_num(value));
                 tileset.set_tile_height(tile_height);
             }
             "spacing" => {
-                let spacing = try!(read_num(value));
+                let spacing = try!(reader::read_num(value));
                 tileset.set_spacing(spacing);
             }
             "margin" => {
-                let margin = try!(read_num(value));
+                let margin = try!(reader::read_num(value));
                 tileset.set_margin(margin);
             }
             "tilecount" => {
-                let tile_count = try!(read_num(value));
+                let tile_count = try!(reader::read_num(value));
                 tileset.set_tile_count(tile_count);
             }
             "columns" => {
-                let columns = try!(read_num(value));
+                let columns = try!(reader::read_num(value));
                 tileset.set_columns(columns);
             }
             _ => {
@@ -427,11 +428,11 @@ impl<R: Read> ElementReader<TileOffset> for TmxReader<R> {
     fn read_attributes(&mut self, tile_offset: &mut TileOffset, name: &str, value: &str) -> ::Result<()> {
         match name {
             "x" => {
-                let x = try!(read_num(value));
+                let x = try!(reader::read_num(value));
                 tile_offset.set_x(x);
             }
             "y" => {
-                let y = try!(read_num(value));
+                let y = try!(reader::read_num(value));
                 tile_offset.set_y(y);
             }
             _ => {
@@ -474,7 +475,7 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
     fn read_attributes(&mut self, tile: &mut Tile, name: &str, value: &str) -> ::Result<()> {
         match name {
             "id" => {
-                let id = try!(read_num(value));
+                let id = try!(reader::read_num(value));
                 tile.set_id(id);
             }
             "terrain" => {
@@ -482,7 +483,7 @@ impl<R: Read> ElementReader<Tile> for TmxReader<R> {
                 tile.set_corners(corners);
             }
             "probability" => {
-                let probability = try!(read_num(value));
+                let probability = try!(reader::read_num(value));
                 if probability < 0.0 || probability > 1.0 {
                     return Err(Error::BadProbability(probability));
                 }
@@ -556,11 +557,11 @@ impl<R: Read> ElementReader<Frame> for TmxReader<R> {
     fn read_attributes(&mut self, frame: &mut Frame, name: &str, value: &str) -> ::Result<()> {
         match name {
             "duration" => {
-                let duration = try!(read_num(value));
+                let duration = try!(reader::read_num(value));
                 frame.set_duration(duration);
             }
             "tileid" => {
-                let tile_id = try!(read_num(value));
+                let tile_id = try!(reader::read_num(value));
                 frame.set_tile_id(tile_id);
             }
             _ => {

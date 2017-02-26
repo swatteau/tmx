@@ -1,7 +1,8 @@
 use std::io::Read;
 use std::str::FromStr;
+
 use error::Error;
-use super::reader::{TmxReader, ElementReader};
+use model::reader::{TmxReader, ElementReader};
 
 #[derive(Debug, Default)]
 pub struct Property {

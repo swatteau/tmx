@@ -1,5 +1,6 @@
 use std::io::Read;
 use std::str::FromStr;
+
 use xml::reader::{EventReader, XmlEvent};
 use xml::attribute::OwnedAttribute;
 
