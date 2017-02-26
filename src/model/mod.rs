@@ -516,6 +516,7 @@ pub struct Layer {
     offset_x: i32,
     offset_y: i32,
     properties: PropertyCollection,
+    data: Option<Data>,
 }
 
 impl Default for Layer {
@@ -531,6 +532,7 @@ impl Default for Layer {
             offset_x: 0,
             offset_y: 0,
             properties: PropertyCollection::new(),
+            data: None,
         }
     }
 }
@@ -558,6 +560,10 @@ impl Layer {
 
     pub fn properties(&self) -> Properties {
         self.properties.iter()
+    }
+
+    pub fn data(&self) -> Option<&Data> {
+        self.data.as_ref()
     }
 
     pub fn x(&self) -> i32 {
@@ -600,6 +606,10 @@ impl Layer {
         self.properties = properties;
     }
 
+    fn set_data(&mut self, data: Data) {
+        self.data = Some(data);
+    }
+
     fn set_x(&mut self, x: i32) {
         self.x = x;
     }
@@ -618,6 +628,34 @@ impl Layer {
 }
 
 define_iterator_wrapper!(Layers, Layer);
+
+#[derive(Debug, Default)]
+pub struct Data {
+    tiles: Vec<DataTile>,
+}
+
+impl Data {
+    pub fn tiles(&self) -> DataTiles {
+        DataTiles(self.tiles.iter())
+    }
+
+    fn add_tile(&mut self, tile: DataTile) {
+        self.tiles.push(tile);
+    }
+}
+
+define_iterator_wrapper!(DataTiles, DataTile);
+
+#[derive(Debug, Default)]
+pub struct DataTile {
+    gid: i32,
+}
+
+impl DataTile {
+    fn set_gid(&mut self, gid: i32) {
+        self.gid = gid;
+    }
+}
 
 #[derive(Debug)]
 pub struct ImageLayer {

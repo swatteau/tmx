@@ -128,7 +128,7 @@ fn after_reading_xml_with_tilesets_expect_map_to_be_iterable_over_tilesets() {
 #[test]
 fn after_reading_xml_with_layers_expect_map_to_be_iterable_over_layers() {
     let map = get_map_with_layers();
-    assert_eq!(5, map.layers().count());
+    assert_eq!(6, map.layers().count());
 
     let mut layers = map.layers();
     let layer1 = layers.next().unwrap();
@@ -156,6 +156,10 @@ fn after_reading_xml_with_layers_expect_map_to_be_iterable_over_layers() {
 
     let layer5 = layers.next().unwrap();
     assert_eq!(1, layer5.properties().count());
+
+    let layer6 = layers.next().unwrap();
+    let data = layer6.data().unwrap();
+    assert_eq!(3, data.tiles().count());
 }
 
 #[test]
@@ -492,6 +496,13 @@ fn get_map_with_layers() -> Map {
             <properties>
                 <property name="some_name" value="some_value"/>
             </properties>
+        </layer>
+        <layer>
+            <data>
+                <tile gid="1"/>
+                <tile gid="2"/>
+                <tile gid="3"/>
+            </data>
         </layer>
     </map>"#).unwrap()
 }

@@ -98,11 +98,11 @@
 
 - [ ] encoding
 - [ ] compression
-- [ ] tile
+- [x] tile
 
 ## tile
 
-- [ ] gid
+- [x] gid
 
 ## objectgroup
 
