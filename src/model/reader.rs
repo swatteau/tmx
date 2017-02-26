@@ -27,6 +27,9 @@ macro_rules! implement_handler {
                             break;
                         }
                     }
+                    XmlEvent::Characters(ref content) => {
+                        try!(<Self as ElementReader<$elem_type>>::read_content(self, &mut elem, &content));
+                    }
                     XmlEvent::EndDocument { .. } => {
                         break;
                     }
@@ -237,12 +240,17 @@ impl<R: Read> TmxReader<R> {
 
 trait ElementReader<T> {
     #[allow(unused_variables)]
-    fn read_attributes(&mut self, map: &mut T, name: &str, value: &str) -> ::Result<()> {
+    fn read_attributes(&mut self, elem: &mut T, name: &str, value: &str) -> ::Result<()> {
         Ok(())
     }
 
     #[allow(unused_variables)]
-    fn read_children(&mut self, map: &mut T, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()> {
+    fn read_children(&mut self, elem: &mut T, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()> {
+        Ok(())
+    }
+
+    #[allow(unused_variables)]
+    fn read_content(&mut self, elem: &mut T, content: &str) -> ::Result<()> {
         Ok(())
     }
 }
@@ -679,11 +687,31 @@ impl<R: Read> ElementReader<PropertyCollection> for TmxReader<R> {
 }
 
 impl<R: Read> ElementReader<Data> for TmxReader<R> {
+    fn read_attributes(&mut self, data: &mut Data, name: &str, value: &str) -> ::Result<()> {
+        match name {
+            "encoding" => {
+                data.set_encoding(value);
+            }
+            "compression" => {
+                data.set_compression(value);
+            }
+            _ => {
+                return Err(Error::UnknownAttribute(name.to_string()));
+            }
+        };
+        Ok(())
+    }
+
     fn read_children(&mut self, data: &mut Data, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         if name == "tile" {
             let tile = try!(self.on_data_tile(attributes));
             data.add_tile(tile);
         }
+        Ok(())
+    }
+
+    fn read_content(&mut self, data: &mut Data, content: &str) -> ::Result<()> {
+        data.set_raw_content(content);
         Ok(())
     }
 }

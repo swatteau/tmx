@@ -128,7 +128,7 @@ fn after_reading_xml_with_tilesets_expect_map_to_be_iterable_over_tilesets() {
 #[test]
 fn after_reading_xml_with_layers_expect_map_to_be_iterable_over_layers() {
     let map = get_map_with_layers();
-    assert_eq!(6, map.layers().count());
+    assert_eq!(7, map.layers().count());
 
     let mut layers = map.layers();
     let layer1 = layers.next().unwrap();
@@ -160,6 +160,15 @@ fn after_reading_xml_with_layers_expect_map_to_be_iterable_over_layers() {
     let layer6 = layers.next().unwrap();
     let data = layer6.data().unwrap();
     assert_eq!(3, data.tiles().count());
+    assert_eq!(None, data.encoding());
+    assert_eq!(None, data.compression());
+    assert_eq!(None, data.raw_content());
+
+    let layer7 = layers.next().unwrap();
+    let data = layer7.data().unwrap();
+    assert_eq!(Some("base64"), data.encoding());
+    assert_eq!(Some("gzip"), data.compression());
+    assert_eq!(Some("SOME_ENCODED_AND_COMPRESSED_DATA"), data.raw_content());
 }
 
 #[test]
@@ -503,6 +512,9 @@ fn get_map_with_layers() -> Map {
                 <tile gid="2"/>
                 <tile gid="3"/>
             </data>
+        </layer>
+        <layer>
+            <data encoding="base64" compression="gzip">SOME_ENCODED_AND_COMPRESSED_DATA</data>
         </layer>
     </map>"#).unwrap()
 }

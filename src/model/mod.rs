@@ -631,12 +631,39 @@ define_iterator_wrapper!(Layers, Layer);
 
 #[derive(Debug, Default)]
 pub struct Data {
+    encoding: Option<String>,
+    compression: Option<String>,
+    raw: Option<String>,
     tiles: Vec<DataTile>,
 }
 
 impl Data {
+    pub fn encoding(&self) -> Option<&str> {
+        self.encoding.as_ref().map(String::as_str)
+    }
+
+    pub fn compression(&self) -> Option<&str> {
+        self.compression.as_ref().map(String::as_str)
+    }
+
+    pub fn raw_content(&self) -> Option<&str> {
+        self.raw.as_ref().map(String::as_str)
+    }
+
     pub fn tiles(&self) -> DataTiles {
         DataTiles(self.tiles.iter())
+    }
+
+    fn set_encoding<S: Into<String>>(&mut self, encoding: S) {
+        self.encoding = Some(encoding.into());
+    }
+
+    fn set_compression<S: Into<String>>(&mut self, compression: S) {
+        self.compression = Some(compression.into());
+    }
+
+    fn set_raw_content<S: Into<String>>(&mut self, content: S) {
+        self.raw = Some(content.into());
     }
 
     fn add_tile(&mut self, tile: DataTile) {

@@ -92,12 +92,12 @@
 - [x] offsetx
 - [x] offsety
 - [x] properties
-- [ ] data
+- [x] data
 
 ## data
 
-- [ ] encoding
-- [ ] compression
+- [x] encoding
+- [x] compression
 - [x] tile
 
 ## tile
