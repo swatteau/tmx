@@ -19,11 +19,8 @@ mod tileset;
 mod data;
 mod reader;
 
-pub use self::map::*;
-pub use self::tileset::*;
-pub use self::data::*;
-pub use self::property::*;
-pub use self::image::*;
+pub use self::map::Map;
+pub use self::tileset::Tileset;
 
 #[cfg(test)]
 mod tests;

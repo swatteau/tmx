@@ -5,7 +5,7 @@ use std::fs::File;
 use xml::attribute::OwnedAttribute;
 use error::Error;
 use super::reader::{TmxReader, ElementReader, read_num};
-use super::{ObjectGroup};
+use model::map::{ObjectGroup};
 
 use model::property::*;
 use model::image::Image;

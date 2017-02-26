@@ -1,8 +1,10 @@
-use super::*;
 use std::str::FromStr;
 
 use color::Color;
 use error::Error;
+use model::map::*;
+use model::property::*;
+use model::tileset::*;
 
 #[test]
 fn after_reading_valid_xml_expect_map_to_have_version() {

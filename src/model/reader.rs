@@ -4,7 +4,11 @@ use xml::reader::{EventReader, XmlEvent};
 use xml::attribute::OwnedAttribute;
 
 use error::Error;
-use super::*;
+use model::map::{ImageLayer, Layer, Map, Object, ObjectGroup, Polygon, Polyline};
+use model::data::{Data, DataTile};
+use model::property::{PropertyCollection, Property};
+use model::image::Image;
+use model::tileset::{Animation, Terrain, TerrainCollection, Tile, TileOffset, Tileset, Frame};
 
 macro_rules! implement_handler {
     ($handler: ident, $tag: expr, $elem_type: ty) => {
