@@ -277,10 +277,10 @@ fn after_reading_xml_with_objects_expect_object_groups_to_be_iterable_over_objec
     assert_eq!(1, object.id());
     assert_eq!("obj", object.name());
     assert_eq!("ty", object.object_type());
-    assert_eq!(1, object.x());
-    assert_eq!(2, object.y());
-    assert_eq!(3, object.width());
-    assert_eq!(4, object.height());
+    assert_eq!(1.0, object.x());
+    assert_eq!(2.0, object.y());
+    assert_eq!(3.0, object.width());
+    assert_eq!(4.0, object.height());
     assert_eq!(0.707, object.rotation());
     assert!(!object.is_visible());
     assert_eq!(Some(123), object.gid());

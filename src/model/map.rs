@@ -682,10 +682,10 @@ pub struct Object {
     id: u32,
     name: String,
     object_type: String,
-    x: i32,
-    y: i32,
-    width: u32,
-    height: u32,
+    x: f64,
+    y: f64,
+    width: f64,
+    height: f64,
     rotation: f32,
     visible: bool,
     gid: Option<u32>,
@@ -699,10 +699,10 @@ impl Default for Object {
             id: 0,
             name: String::new(),
             object_type: String::new(),
-            x: 0,
-            y: 0,
-            width: 0,
-            height: 0,
+            x: 0.0,
+            y: 0.0,
+            width: 0.0,
+            height: 0.0,
             rotation: 0.0,
             visible: true,
             gid: None,
@@ -737,35 +737,35 @@ impl Object {
         self.object_type = object_type.into();
     }
 
-    pub fn x(&self) -> i32 {
+    pub fn x(&self) -> f64 {
         self.x
     }
 
-    fn set_x(&mut self, x: i32) {
+    fn set_x(&mut self, x: f64) {
         self.x = x;
     }
 
-    pub fn y(&self) -> i32 {
+    pub fn y(&self) -> f64 {
         self.y
     }
 
-    fn set_y(&mut self, y: i32) {
+    fn set_y(&mut self, y: f64) {
         self.y = y;
     }
 
-    pub fn width(&self) -> u32 {
+    pub fn width(&self) -> f64 {
         self.width
     }
 
-    fn set_width(&mut self, width: u32) {
+    fn set_width(&mut self, width: f64) {
         self.width = width;
     }
 
-    pub fn height(&self) -> u32 {
+    pub fn height(&self) -> f64 {
         self.height
     }
 
-    fn set_height(&mut self, height: u32) {
+    fn set_height(&mut self, height: f64) {
         self.height = height;
     }
 
