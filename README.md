@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/swatteau/tmx.svg)](https://travis-ci.org/swatteau/tmx)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## About `tmx`
