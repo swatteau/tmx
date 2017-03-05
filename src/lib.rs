@@ -13,16 +13,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.use std::error;
 
-//! TMX reading crate.
+//! A simple crate for reading [Tiled](http://www.mapeditor.org/) files.
 //!
-//! This is a crate for reading TMX files.
+//! # Getting Started
+//!
+//! Reading a `.tmx` (map) file:
 //!
 //! ```
-//! use std::str::FromStr;
-//! use tmx::*;
+//! extern crate tmx;
 //!
-//! let xml = "<map></<map>";
-//! let map = Map::from_str(&xml);
+//! fn main() {
+//!     match tmx::Map::open("some_file.tmx") {
+//!         Ok(map) => println!("Got a map!"),
+//!         Err(e) => println!("Got an error: {}", e)
+//!     };
+//! }
+//! ```
+//!
+//! Reading a `.tsx` (tileset) file:
+//!
+//! ```
+//! extern crate tmx;
+//!
+//! fn main() {
+//!     match tmx::Tileset::open("some_file.tsx") {
+//!         Ok(tileset) => println!("Got a tileset!"),
+//!         Err(e) => println!("Got an error: {}", e)
+//!     };
+//! }
+//! ```
+//!
+//! Reading data directly from a string:
+//!
+//! ```
+//! extern crate tmx;
+//!
+//! use std::str::FromStr;
+//!
+//! let empty_map = tmx::Map::from_str(r#"<map version="1.0"/>"#);
 //! ```
 
 extern crate xml;
