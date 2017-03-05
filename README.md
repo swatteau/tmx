@@ -1,12 +1,21 @@
-# TMX reading library for Rust
+[![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
-This is a library for reading [Tiled](http://www.mapeditor.org/) XML files (TMX).
+## About `tmx`
 
-WARNING: this is work in progress and not ready for production use.
+`tmx` is a simple Rust crate for reading [Tiled](http://www.mapeditor.org/) XML files.
 
-## Status
+## Getting Started
 
-See [TODO](./TODO.md).
+```rust
+extern crate tmx;
+
+fn main() {
+    match tmx::Map::open("some_file.tmx") {
+        Ok(map) => println!("Got a map!"),
+        Err(e) => println!("Got an error: {}", e)
+    };
+}
+```
 
 ## License
 
