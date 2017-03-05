@@ -51,10 +51,12 @@ impl Property {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PropertyType {
-    String,
-    Int,
-    Float,
     Bool,
+    Color,
+    File,
+    Float,
+    Int,
+    String,
 }
 
 impl Default for PropertyType {
@@ -85,10 +87,12 @@ impl FromStr for PropertyType {
 
     fn from_str(s: &str) -> ::Result<PropertyType> {
         match s {
-            "string" => Ok(PropertyType::String),
-            "int" => Ok(PropertyType::Int),
-            "float" => Ok(PropertyType::Float),
             "bool" => Ok(PropertyType::Bool),
+            "color" => Ok(PropertyType::Color),
+            "file" => Ok(PropertyType::File),
+            "float" => Ok(PropertyType::Float),
+            "int" => Ok(PropertyType::Int),
+            "string" => Ok(PropertyType::String),
             _ => Err(Error::BadPropertyType(s.to_string())),
         }
     }
