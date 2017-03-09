@@ -112,13 +112,10 @@ impl<R: Read> ElementReader<Image> for TmxReader<R> {
     }
 
     fn read_children(&mut self, image: &mut Image, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
-        match name {
-            "data" => {
-                let data = try!(self.on_data(attributes));
-                image.set_data(data);
-            }
-            _ => {}
-        };
+        if let "data" = name {
+            let data = try!(self.on_data(attributes));
+            image.set_data(data);
+        }
         Ok(())
     }
 }

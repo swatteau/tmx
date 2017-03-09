@@ -485,13 +485,10 @@ impl<R: Read> ElementReader<Terrain> for TmxReader<R> {
     }
 
     fn read_children(&mut self, terrain: &mut Terrain, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
-        match name {
-            "properties" => {
-                let properties = try!(self.on_properties(attributes));
-                terrain.set_properties(properties);
-            }
-            _ => {}
-        };
+        if let "properties" = name {
+            let properties = try!(self.on_properties(attributes));
+            terrain.set_properties(properties);
+        }
         Ok(())
     }
 }
@@ -567,13 +564,10 @@ impl<R: Read> ElementReader<TerrainCollection> for TmxReader<R> {
 
 impl<R: Read> ElementReader<Animation> for TmxReader<R> {
     fn read_children(&mut self, animation: &mut Animation, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
-        match name {
-            "frame" => {
-                let frame = try!(self.on_frame(attributes));
-                animation.set_frame(frame);
-            }
-            _ => {}
-        };
+        if let "frame" = name {
+            let frame = try!(self.on_frame(attributes));
+            animation.set_frame(frame);
+        }
         Ok(())
     }
 }
