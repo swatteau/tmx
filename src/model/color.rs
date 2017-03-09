@@ -34,7 +34,7 @@ impl FromStr for Color {
         } else {
             hex_rgb_to_rgb(s).and_then(|(r, g, b)| Some(Color(255, r, g, b)))
         };
-        color.ok_or(Error::InvalidColor(s.to_string()))
+        color.ok_or_else(|| Error::InvalidColor(s.to_string()))
     }
 }
 
