@@ -5,6 +5,7 @@ authors = ["Sébastien Watteau <swatteau@gmail.com>"]
 
 [dependencies]
 xml-rs = "~0.3.4"
+csv = "1"
 
 [dev-dependencies]
 assert_matches = "~1.0"

@@ -20,6 +20,8 @@ use xml::attribute::OwnedAttribute;
 use error::Error;
 use model::reader::{self, TmxReader, ElementReader};
 
+extern crate csv;
+
 define_iterator_wrapper!(DataTiles, DataTile);
 
 #[derive(Debug, Default)]
@@ -45,6 +47,37 @@ impl Data {
 
     fn set_compression<S: Into<String>>(&mut self, compression: S) {
         self.compression = Some(compression.into());
+    }
+
+    pub fn decoded_content(&self) -> Option<Vec<u32>> {
+        if let Some(ref encoding) = self.encoding{
+            match encoding.as_ref(){
+                "csv" => {
+                    if let Some(ref raw) = self.raw {
+                        let mut reader = csv::ReaderBuilder::new()
+                            .delimiter(b',')
+                            .from_reader(raw.as_bytes());
+
+                        let mut tiles = Vec::new();
+
+                        for r in reader.records() {
+                            if let Ok(result) = r {
+                                for g in result.iter() {
+                                    if let Ok(gid) = g.parse::<u32>() {
+                                        tiles.push(gid);
+                                    }
+                                }
+                            }
+                        }
+
+                        return Some(tiles)
+                    }
+                }
+                _ => return None,
+            }
+        }
+
+        return None;
     }
 
     pub fn raw_content(&self) -> Option<&str> {
