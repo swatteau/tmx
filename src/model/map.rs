@@ -853,6 +853,8 @@ impl<R: Read> ElementReader<Map> for TmxReader<R> {
                 let orientation = try!(Orientation::from_str(value));
                 map.set_orientation(orientation);
             }
+            "tiledversion" => {}
+            "infinite" => {}
             "renderorder" => {
                 let render_order = try!(RenderOrder::from_str(value));
                 map.set_render_order(render_order);
