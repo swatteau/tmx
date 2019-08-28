@@ -93,15 +93,15 @@ impl<R: Read> ElementReader<Image> for TmxReader<R> {
                 image.set_source(value);
             }
             "trans" => {
-                let color = try!(Color::from_str(value));
+                let color = Color::from_str(value)?;
                 image.set_trans(color);
             }
             "width" => {
-                let width = try!(reader::read_num(value));
+                let width = reader::read_num(value)?;
                 image.set_width(width);
             }
             "height" => {
-                let height = try!(reader::read_num(value));
+                let height = reader::read_num(value)?;
                 image.set_height(height);
             }
             _ => {
@@ -113,7 +113,7 @@ impl<R: Read> ElementReader<Image> for TmxReader<R> {
 
     fn read_children(&mut self, image: &mut Image, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         if let "data" = name {
-            let data = try!(self.on_data(attributes));
+            let data = self.on_data(attributes)?;
             image.set_data(data);
         }
         Ok(())

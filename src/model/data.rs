@@ -93,7 +93,7 @@ impl<R: Read> ElementReader<Data> for TmxReader<R> {
 
     fn read_children(&mut self, data: &mut Data, name: &str, attributes: &[OwnedAttribute]) -> ::Result<()>{
         if name == "tile" {
-            let tile = try!(self.on_data_tile(attributes));
+            let tile = self.on_data_tile(attributes)?;
             data.add_tile(tile);
         }
         Ok(())
@@ -109,7 +109,7 @@ impl<R: Read> ElementReader<DataTile> for TmxReader<R> {
     fn read_attributes(&mut self, tile: &mut DataTile, name: &str, value: &str) -> ::Result<()> {
         match name {
             "gid" => {
-                let gid = try!(reader::read_num(value));
+                let gid = reader::read_num(value)?;
                 tile.set_gid(gid);
             }
             _ => {

@@ -120,7 +120,7 @@ impl<R: Read> ElementReader<Property> for TmxReader<R> {
                 property.set_name(value);
             }
             "type" => {
-                property.set_property_type(try!(PropertyType::from_str(value)));
+                property.set_property_type(PropertyType::from_str(value)?);
             }
             "value" => {
                 property.set_value(value);

@@ -34,14 +34,14 @@ macro_rules! implement_handler {
 
             // Process attributes
             for attr in attributes {
-                try!(<Self as ElementReader<$elem_type>>::read_attributes(self, &mut elem, &attr.name.local_name, &attr.value));
+                <Self as ElementReader<$elem_type>>::read_attributes(self, &mut elem, &attr.name.local_name, &attr.value)?;
             }
 
             // Process children elements
             while let Ok(event) = self.reader.next() {
                 match event {
                     XmlEvent::StartElement { ref name, ref attributes, .. } => {
-                        try!(<Self as ElementReader<$elem_type>>::read_children(self, &mut elem, &name.local_name, attributes));
+                        <Self as ElementReader<$elem_type>>::read_children(self, &mut elem, &name.local_name, attributes)?;
                     }
                     XmlEvent::EndElement { ref name, .. } => {
                         if name.local_name == $tag {
@@ -49,7 +49,7 @@ macro_rules! implement_handler {
                         }
                     }
                     XmlEvent::Characters(ref content) => {
-                        try!(<Self as ElementReader<$elem_type>>::read_content(self, &mut elem, &content));
+                        <Self as ElementReader<$elem_type>>::read_content(self, &mut elem, &content)?;
                     }
                     XmlEvent::EndDocument { .. } => {
                         break;

@@ -82,8 +82,8 @@ impl FromStr for Point {
     fn from_str(s: &str) -> ::Result<Point> {
         let mut coords: Vec<_> = s.split(',').map(reader::read_num::<i32>).collect();
         if coords.len() == 2 {
-            let y = try!(coords.pop().unwrap());
-            let x = try!(coords.pop().unwrap());
+            let y = coords.pop().unwrap()?;
+            let x = coords.pop().unwrap()?;
             Ok(Point {x: x, y: y})
         } else {
             Err(Error::InvalidPoint(s.to_string()))
@@ -96,7 +96,7 @@ impl<R: Read> ElementReader<Polygon> for TmxReader<R> {
         match name {
             "points" => {
                 for result in value.split(' ').map(Point::from_str) {
-                    polygon.add_point(try!(result));
+                    polygon.add_point(result?);
                 }
             }
             _ => {
@@ -112,7 +112,7 @@ impl<R: Read> ElementReader<Polyline> for TmxReader<R> {
         match name {
             "points" => {
                 for result in value.split(' ').map(Point::from_str) {
-                    polyline.add_point(try!(result));
+                    polyline.add_point(result?);
                 }
             }
             _ => {
