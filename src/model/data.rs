@@ -70,6 +70,10 @@ pub struct DataTile {
 }
 
 impl DataTile {
+    pub fn gid(&self) -> i32 {
+        self.gid
+    }
+
     fn set_gid(&mut self, gid: i32) {
         self.gid = gid;
     }
