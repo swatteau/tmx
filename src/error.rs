@@ -84,26 +84,7 @@ impl fmt::Display for Error {
     }
 }
 
-impl error::Error for Error {
-    fn description(&self) -> &str {
-        match *self {
-            Error::BadXml => "Invalid XML input",
-            Error::BadAxis(..) => "Bad axis value",
-            Error::BadIndex(..) => "Bad index value",
-            Error::BadOrientation(..) => "Bad orientation value",
-            Error::BadPropertyType(..) => "Bad property type value",
-            Error::BadRenderOrder(..) => "Bad renderorder value",
-            Error::BadDrawOrder(..) => "Bad draworder value",
-            Error::BadProbability(..) => "Bad probability value",
-            Error::UnknownAttribute(..) => "Unknown attribute",
-            Error::InvalidColor(..) => "Invalid color",
-            Error::InvalidNumber(..) => "Invalid number",
-            Error::InvalidPoint(..) => "Invalid point",
-            Error::InvalidTerrain(..) => "Invalid terrain",
-            Error::Io(ref err) => err.description(),
-        }
-    }
-}
+impl error::Error for Error {}
 
 impl From<io::Error> for Error {
     fn from(err: io::Error) -> Error {
